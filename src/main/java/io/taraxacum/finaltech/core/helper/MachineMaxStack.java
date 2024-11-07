@@ -7,6 +7,7 @@ import io.taraxacum.finaltech.core.item.machine.AbstractMachine;
 import io.taraxacum.libs.slimefun.dto.BlockStorageHelper;
 import io.taraxacum.libs.slimefun.dto.BlockStorageLoreHelper;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -23,6 +24,7 @@ import java.util.Objects;
 /**
  * @author Final_ROOT
  */
+@SuppressWarnings("deprecation")
 public final class MachineMaxStack {
     public static final String KEY = "mms";
 
@@ -82,7 +84,7 @@ public final class MachineMaxStack {
                         }
                     }
                     MachineMaxStack.HELPER.setIcon(inventory.getItem(slot), String.valueOf(quantity));
-                    StorageCacheUtils.setData(location, MachineMaxStack.KEY, String.valueOf(quantity));
+                    BlockStorage.addBlockInfo(location, MachineMaxStack.KEY, String.valueOf(quantity));
                     return false;
                 };
             } else {

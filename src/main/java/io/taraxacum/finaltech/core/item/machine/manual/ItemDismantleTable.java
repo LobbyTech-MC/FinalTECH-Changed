@@ -19,7 +19,7 @@ import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import io.taraxacum.libs.slimefun.dto.RecipeTypeRegistry;
 import io.taraxacum.libs.slimefun.interfaces.ValidItem;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
@@ -65,7 +65,7 @@ public class ItemDismantleTable extends AbstractManualMachine implements RecipeI
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
         String count = JavaUtil.getFirstNotNull(StorageCacheUtils.getData(block.getLocation(), key), StringNumberUtil.ZERO);
         if (StringNumberUtil.compare(count, limit) < 0) {
-            StorageCacheUtils.setData(block.getLocation(), key, StringNumberUtil.add(count));
+            BlockStorage.addBlockInfo(block.getLocation(), key, StringNumberUtil.add(count));
         }
 
         BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
