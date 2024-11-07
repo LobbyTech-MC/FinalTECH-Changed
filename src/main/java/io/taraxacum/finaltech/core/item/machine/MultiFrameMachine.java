@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.dto.SimpleCargoDTO;
 import io.taraxacum.finaltech.core.helper.CargoFilter;
 import io.taraxacum.finaltech.core.helper.CargoLimit;
@@ -25,13 +26,11 @@ import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import io.taraxacum.libs.slimefun.dto.AdvancedCraft;
 import io.taraxacum.libs.slimefun.dto.MachineRecipeFactory;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -69,7 +68,7 @@ public class MultiFrameMachine extends AbstractMachine implements RecipeItem {
 
     @Override
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
-        BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
+        BlockMenu blockMenu = BlockStorage.getInventory(block);
         Inventory inventory = blockMenu.toInventory();
 
         int point = 0;

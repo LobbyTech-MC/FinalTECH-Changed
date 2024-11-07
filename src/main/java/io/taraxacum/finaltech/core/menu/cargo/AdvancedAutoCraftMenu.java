@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.taraxacum.common.util.StringNumberUtil;
 import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.helper.Icon;
 import io.taraxacum.finaltech.core.helper.SlotSearchSize;
 import io.taraxacum.finaltech.core.item.machine.AbstractMachine;
@@ -26,15 +27,13 @@ import io.taraxacum.libs.slimefun.dto.MachineRecipeFactory;
 import io.taraxacum.libs.slimefun.dto.RecipeTypeRegistry;
 import io.taraxacum.libs.slimefun.util.SfItemUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -303,7 +302,7 @@ public class AdvancedAutoCraftMenu extends AbstractMachineMenu {
     }
 
     private void setParseFailedMenu(@Nonnull Inventory inventory, @Nonnull Location location) {
-        BlockMenu blockMenu = StorageCacheUtils.getMenu(location);
+        BlockMenu blockMenu = BlockStorage.getInventory(location);
         LocationRecipeRegistry.getInstance().setRecipe(location, null);
         for (int slot : ITEM_INPUT_SLOT) {
             inventory.setItem(slot, PARSE_FAILED_ICON);
@@ -314,7 +313,7 @@ public class AdvancedAutoCraftMenu extends AbstractMachineMenu {
     }
 
     private void setParseSuccessMenu(@Nonnull Inventory inventory, @Nonnull Location location, @Nonnull AdvancedMachineRecipe advancedMachineRecipe) {
-        BlockMenu blockMenu = StorageCacheUtils.getMenu(location);
+        BlockMenu blockMenu = BlockStorage.getInventory(location);
         LocationRecipeRegistry.getInstance().setRecipe(location, advancedMachineRecipe);
         int i;
         for (i = 0; i < ITEM_INPUT_SLOT.length - 1; i++) {

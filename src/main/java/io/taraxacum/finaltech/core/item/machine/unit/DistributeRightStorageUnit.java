@@ -13,13 +13,11 @@ import io.taraxacum.finaltech.util.RecipeUtil;
 import io.taraxacum.libs.plugin.dto.ItemAmountWrapper;
 import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
  
@@ -36,7 +34,7 @@ public class DistributeRightStorageUnit extends AbstractStorageUnit implements R
 
     @Override
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
-        BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
+        BlockMenu blockMenu = BlockStorage.getInventory(block);
         Inventory inventory = blockMenu.toInventory();
         int beginSlot = 0;
         int endSlot = 0;

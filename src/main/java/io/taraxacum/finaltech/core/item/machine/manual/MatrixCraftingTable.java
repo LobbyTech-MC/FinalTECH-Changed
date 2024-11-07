@@ -13,12 +13,10 @@ import io.taraxacum.finaltech.setup.FinalTechRecipeTypes;
 import io.taraxacum.finaltech.util.RecipeUtil;
 import io.taraxacum.libs.slimefun.dto.RecipeTypeRegistry;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -37,7 +35,7 @@ public class MatrixCraftingTable extends AbstractManualMachine implements Recipe
 
     @Override
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
-        BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
+        BlockMenu blockMenu = BlockStorage.getInventory(block);
         if (blockMenu.hasViewer()) {
             this.getMachineMenu().updateInventory(blockMenu.toInventory(), block.getLocation());
         }

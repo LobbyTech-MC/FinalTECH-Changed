@@ -26,7 +26,7 @@ import io.taraxacum.libs.plugin.util.StringItemUtil;
 import io.taraxacum.libs.slimefun.dto.LocationInfo;
 import io.taraxacum.libs.slimefun.util.EnergyUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -35,8 +35,6 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
@@ -74,7 +72,7 @@ public abstract class AbstractCubeElectricGenerator extends AbstractCubeMachine 
 
     @Override
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
-        BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
+        BlockMenu blockMenu = BlockStorage.getInventory(block);
         boolean drawParticle = blockMenu.hasViewer();
         JavaPlugin javaPlugin = this.getAddon().getJavaPlugin();
 
@@ -105,7 +103,7 @@ public abstract class AbstractCubeElectricGenerator extends AbstractCubeMachine 
             return 0;
         });
 
-        blockMenu = StorageCacheUtils.getMenu(block.getLocation());
+        blockMenu = BlockStorage.getInventory(block);
         if (blockMenu.hasViewer()) {
             this.updateMenu(blockMenu, StatusL2Menu.STATUS_SLOT, this,
                     String.valueOf(count),

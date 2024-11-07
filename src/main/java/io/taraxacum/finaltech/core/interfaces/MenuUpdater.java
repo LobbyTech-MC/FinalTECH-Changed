@@ -2,6 +2,7 @@ package io.taraxacum.finaltech.core.interfaces;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.util.ConfigUtil;
 import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;

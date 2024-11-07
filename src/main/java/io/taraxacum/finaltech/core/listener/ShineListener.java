@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile;
 import io.github.thebusybiscuit.slimefun4.api.researches.Research;
 import io.taraxacum.common.util.JavaUtil;
 import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.task.effect.VoidCurse;
 import io.taraxacum.finaltech.setup.FinalTechItemStacks;
 import io.taraxacum.finaltech.setup.FinalTechItems;

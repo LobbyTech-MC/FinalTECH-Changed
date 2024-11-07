@@ -8,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.taraxacum.common.util.ReflectionUtil;
 import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.enchantment.NullEnchantment;
 import io.taraxacum.finaltech.core.helper.Icon;
 import io.taraxacum.finaltech.core.networks.AlteredEnergyNet;
@@ -17,15 +18,13 @@ import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import io.taraxacum.libs.plugin.util.ParticleUtil;
 import io.taraxacum.libs.slimefun.util.SfItemUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -240,7 +239,7 @@ public class EnergyRegulatorDetailMenu extends ChestMenu {
 
                 this.replaceExistingItem(CONTENT[i], itemStack);
                 this.addMenuClickHandler(CONTENT[i], (p, slot, item, action) -> {
-                    BlockMenu blockMenu = StorageCacheUtils.getMenu(componentLocation);
+                    BlockMenu blockMenu = BlockStorage.getInventory(componentLocation);
                     if (blockMenu != null && blockMenu.canOpen(this.location.getBlock(), p)) {
                         blockMenu.open(p);
                     }

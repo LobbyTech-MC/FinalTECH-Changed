@@ -12,7 +12,7 @@ import io.taraxacum.libs.plugin.dto.CustomLogger;
 import io.taraxacum.libs.plugin.dto.LanguageManager;
 import io.taraxacum.libs.plugin.dto.ServerRunnableLockFactory;
 import io.taraxacum.libs.slimefun.dto.ItemValueTable;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.AdvancedPie;
 import org.bukkit.Bukkit;
@@ -307,6 +307,23 @@ public class FinalTechChanged extends JavaPlugin implements SlimefunAddon {
             this.forceSlimefunMultiThread = false;
         }
 
+        /* setup data loss bug fix */
+        this.dataLossFix = this.config.getOrDefault(false, "data-loss-fix", "enable");
+        this.dataLossFixCustom = this.config.getOrDefault(false, "data-loss-fix-custom", "enable");
+        if (this.config.containPath("data-loss-fix-custom", "config")) {
+            this.dataLossFixCustomAll = this.config.getOrDefault(false, "data-loss-fix-custom", "all");
+            if (this.dataLossFixCustomAll) {
+                this.logger.warning("You have enabled all items to be fixed for data loss bug!");
+            }
+            for (String id : this.config.getStringList("data-loss-fix-custom", "config")) {
+                List<String> keyList = this.config.getStringList("data-loss-fix-custom", "config", id);
+                Map<String, String> configMap = new HashMap<>(keyList.size());
+                for (String key : keyList) {
+                    configMap.put(key, this.config.getString("data-loss-fix-custom", "config", id, key));
+                }
+                this.dataLossFixCustomMap.put(id, configMap);
+            }
+        }
 
         /* read tweak for machine */
         this.antiAccelerateSlimefunIdSet = new HashSet<>(this.config.getStringList("tweak", "anti-accelerate", "item"));
@@ -363,6 +380,15 @@ public class FinalTechChanged extends JavaPlugin implements SlimefunAddon {
 //            new TemplateParser(this.template, false, false).registerMachine();
 //        }
 
+        /* fix data loss for others */
+        if (this.dataLossFixCustom) {
+            int dataLossFixCustomDelay = this.config.getOrDefault(1, "setups", "data-loss-fix-custom", "delay");
+            if (dataLossFixCustomDelay >= 0) {
+                this.getServer().getScheduler().runTaskLater(this, SetupUtil::dataLossFix, dataLossFixCustomDelay);
+            } else {
+                SetupUtil.dataLossFix();
+            }
+        }
 
         /* setup item value table */
         int itemValueTableDelay = this.config.getOrDefault(10, "setups", "item-value-table", "delay");
@@ -426,14 +452,13 @@ public class FinalTechChanged extends JavaPlugin implements SlimefunAddon {
         if (this.bukkitTask != null) {
             this.bukkitTask.cancel();
         }
-        //BlockStorage.saveChunks();
+        BlockStorage.saveChunks();
         try {
             FinalTechChanged.logger().info("Waiting all task to end.(" + FinalTechChanged.getLocationRunnableFactory().taskSize() + ")");
             FinalTechChanged.getLocationRunnableFactory().waitAllTask();
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
-        }
-        /*finally {
+        } finally {
             BlockStorage.saveChunks();
             try {
                 for (World world : Bukkit.getWorlds()) {
@@ -447,13 +472,11 @@ public class FinalTechChanged extends JavaPlugin implements SlimefunAddon {
                 e.printStackTrace();
             }
         }
-        */
         try {
             FinalTechChanged.getEntityRunnableFactory().waitAllTask();
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
-        }
-        /*finally {
+        } finally {
             BlockStorage.saveChunks();
             try {
                 for (World world : Bukkit.getWorlds()) {
@@ -467,7 +490,6 @@ public class FinalTechChanged extends JavaPlugin implements SlimefunAddon {
                 e.printStackTrace();
             }
         }
-        */
     }
 
     @Override

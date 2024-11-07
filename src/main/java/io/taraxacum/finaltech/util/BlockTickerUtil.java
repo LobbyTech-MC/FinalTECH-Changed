@@ -2,7 +2,6 @@ package io.taraxacum.finaltech.util;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineProcessHolder;
-import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.taraxacum.common.api.RunnableLockFactory;
 import io.taraxacum.finaltech.FinalTechChanged;
@@ -10,7 +9,7 @@ import io.taraxacum.libs.plugin.dto.ServerRunnableLockFactory;
 import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -18,8 +17,6 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -166,12 +163,12 @@ public class BlockTickerUtil {
                                     }
                                 }
                                 if (canBreak) {
-                                	Slimefun.getDatabaseManager().getBlockDataController().removeBlock(block.getLocation());
+                                    BlockStorage.clearBlockInfo(block);
                                     block.setType(Material.AIR);
                                     if (item instanceof MachineProcessHolder machineProcessHolder) {
                                         machineProcessHolder.getMachineProcessor().endOperation(block);
                                     }
-                                    if (dropSelf && item.getId().equals(StorageCacheUtils.getData(block.getLocation(), ConstantTableUtil.CONFIG_ID))) {
+                                    if (dropSelf && item.getId().equals(BlockStorage.getLocationInfo(block.getLocation(), ConstantTableUtil.CONFIG_ID))) {
                                         block.getLocation().getWorld().dropItem(block.getLocation(), ItemStackUtil.cloneItem(item.getItem(), 1));
                                     }
                                     for (Player player : playerList) {

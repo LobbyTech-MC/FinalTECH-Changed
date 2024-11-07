@@ -4,18 +4,17 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.item.machine.AbstractMachine;
 import io.taraxacum.finaltech.core.item.machine.manual.EquivalentExchangeTable;
 import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import io.taraxacum.libs.slimefun.dto.ItemValueTable;
 import io.taraxacum.libs.slimefun.util.SfItemUtil;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -96,6 +95,6 @@ public class EquivalentExchangeTableMenu extends AbstractManualMachineMenu {
         ItemStackUtil.setLore(iconItem, lore);
 
         iconItem = inventory.getItem(STATUS_SLOT);
-        ItemStackUtil.setLore(iconItem, FinalTechChanged.getLanguageManager().replaceStringList(FinalTechChanged.getLanguageStringList("items", this.getID(), "stored-value", "lore"), StorageCacheUtils.getData(location, "value")));
+        ItemStackUtil.setLore(iconItem, FinalTechChanged.getLanguageManager().replaceStringList(FinalTechChanged.getLanguageStringList("items", this.getID(), "stored-value", "lore"), BlockStorage.getLocationInfo(location, "value")));
     }
 }

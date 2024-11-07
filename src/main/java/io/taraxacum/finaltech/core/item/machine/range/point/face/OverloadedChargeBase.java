@@ -10,6 +10,7 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.taraxacum.common.util.JavaUtil;
 import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.interfaces.LocationMachine;
 import io.taraxacum.finaltech.core.interfaces.MenuUpdater;
 import io.taraxacum.finaltech.core.interfaces.RecipeItem;
@@ -22,14 +23,12 @@ import io.taraxacum.finaltech.util.RecipeUtil;
 import io.taraxacum.libs.slimefun.dto.LocationInfo;
 import io.taraxacum.libs.slimefun.util.EnergyUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.inventory.ItemStack;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
@@ -70,7 +69,7 @@ public class OverloadedChargeBase extends AbstractFaceMachine implements RecipeI
                 BlockTickerUtil.runTask(FinalTechChanged.getLocationRunnableFactory(), FinalTechChanged.isAsyncSlimefunItem(locationInfo.getId()), () -> OverloadedChargeBase.this.doCharge(block, locationInfo), location);
                 return 0;
             }
-            BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
+            BlockMenu blockMenu = BlockStorage.getInventory(block);
             if (blockMenu.hasViewer()) {
                 this.updateMenu(blockMenu, StatusMenu.STATUS_SLOT, this,
                         "0",
@@ -100,7 +99,7 @@ public class OverloadedChargeBase extends AbstractFaceMachine implements RecipeI
             }
         }
 
-        BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
+        BlockMenu blockMenu = BlockStorage.getInventory(block);
         if (blockMenu.hasViewer()) {
             this.updateMenu(blockMenu, StatusMenu.STATUS_SLOT, this,
                     String.valueOf(storedEnergy),

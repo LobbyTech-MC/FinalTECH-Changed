@@ -22,8 +22,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
-
 import javax.annotation.Nonnull;
  
 public abstract class AbstractMachineAccelerateCard extends UsableSlimefunItem {
@@ -46,11 +44,11 @@ public abstract class AbstractMachineAccelerateCard extends UsableSlimefunItem {
         }
 
         Location location = block.getLocation();
-        if (!StorageCacheUtils.hasBlock(location)) {
+        if (!BlockStorage.hasBlockInfo(location)) {
             return;
         }
 
-        if (StorageCacheUtils.getData(location, ConstantTableUtil.CONFIG_ID) == null) {
+        if (BlockStorage.getLocationInfo(location, ConstantTableUtil.CONFIG_ID) == null) {
             return;
         }
 
@@ -59,8 +57,8 @@ public abstract class AbstractMachineAccelerateCard extends UsableSlimefunItem {
             return;
         }
 
-        if (StorageCacheUtils.getMenu(block.getLocation()) != null) {
-            BlockMenu blockMenu = StorageCacheUtils.getMenu(location);
+        if (BlockStorage.hasInventory(block)) {
+            BlockMenu blockMenu = BlockStorage.getInventory(location);
             if (!blockMenu.canOpen(block, player)) {
                 player.sendRawMessage(FinalTechChanged.getLanguageString("message", "no-permission", "location"));
                 return;
@@ -72,7 +70,7 @@ public abstract class AbstractMachineAccelerateCard extends UsableSlimefunItem {
             return;
         }
 
-        SlimefunItem slimefunItem = SlimefunItem.getById(StorageCacheUtils.getData(location, ConstantTableUtil.CONFIG_ID));
+        SlimefunItem slimefunItem = SlimefunItem.getById(BlockStorage.getLocationInfo(location, ConstantTableUtil.CONFIG_ID));
         if (slimefunItem == null || FinalTechChanged.isAntiAccelerateSlimefunItem(slimefunItem.getId())) {
             return;
         }

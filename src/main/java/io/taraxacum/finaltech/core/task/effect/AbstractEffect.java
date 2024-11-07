@@ -1,6 +1,7 @@
 package io.taraxacum.finaltech.core.task.effect;
 
 import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.libs.plugin.task.TickerTask;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.Plugin;

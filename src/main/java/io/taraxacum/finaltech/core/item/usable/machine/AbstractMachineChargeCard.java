@@ -9,20 +9,19 @@ import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.item.usable.UsableSlimefunItem;
 import io.taraxacum.finaltech.util.ConstantTableUtil;
 import io.taraxacum.finaltech.util.PermissionUtil;
 import io.taraxacum.libs.plugin.util.ParticleUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
  
@@ -46,11 +45,11 @@ public abstract class AbstractMachineChargeCard extends UsableSlimefunItem {
         }
 
         Location location = block.getLocation();
-        if (!StorageCacheUtils.hasBlock(location)) {
+        if (!BlockStorage.hasBlockInfo(location)) {
             return;
         }
 
-        if (StorageCacheUtils.getData(location, ConstantTableUtil.CONFIG_ID) == null) {
+        if (BlockStorage.getLocationInfo(location, ConstantTableUtil.CONFIG_ID) == null) {
             return;
         }
 
@@ -64,7 +63,7 @@ public abstract class AbstractMachineChargeCard extends UsableSlimefunItem {
             player.sendRawMessage(FinalTechChanged.getLanguageString("message", "no-condition", "player"));
             return;
         }
-        SlimefunItem slimefunItem = SlimefunItem.getById(StorageCacheUtils.getData(location, ConstantTableUtil.CONFIG_ID));
+        SlimefunItem slimefunItem = SlimefunItem.getById(BlockStorage.getLocationInfo(location, ConstantTableUtil.CONFIG_ID));
 
         if (slimefunItem instanceof EnergyNetComponent energyNetComponent && energyNetComponent.getCapacity() > 0) {
             if (this.consume()) {

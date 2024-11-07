@@ -1,24 +1,5 @@
 package io.taraxacum.finaltech.core.item.machine.range.cube;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
-
-import javax.annotation.Nonnull;
-
-import org.bukkit.Location;
-import org.bukkit.Particle;
-import org.bukkit.block.Block;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
-
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -26,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.taraxacum.common.util.JavaUtil;
+import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.interfaces.MenuUpdater;
 import io.taraxacum.finaltech.core.interfaces.RecipeItem;
@@ -40,7 +22,17 @@ import io.taraxacum.libs.plugin.util.ParticleUtil;
 import io.taraxacum.libs.slimefun.dto.LocationInfo;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
+import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.block.Block;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import javax.annotation.Nonnull;
+import java.util.*;
+import java.util.function.Function;
  
 public class MatrixAccelerator extends AbstractCubeMachine implements RecipeItem, MenuUpdater {
     private final int range = ConfigUtil.getOrDefaultItemSetting(1, this, "range");
@@ -77,7 +69,7 @@ public class MatrixAccelerator extends AbstractCubeMachine implements RecipeItem
     @Override
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
         Location blockLocation = block.getLocation();
-        BlockMenu blockMenu = StorageCacheUtils.getMenu(blockLocation);
+        BlockMenu blockMenu = BlockStorage.getInventory(blockLocation);
         boolean hasViewer = blockMenu.hasViewer();
 
         int accelerate = 0;

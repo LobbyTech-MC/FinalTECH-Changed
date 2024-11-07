@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.interfaces.RecipeItem;
 import io.taraxacum.finaltech.core.item.machine.range.point.EquivalentConcept;
 import io.taraxacum.finaltech.util.RecipeUtil;
@@ -15,14 +16,12 @@ import io.taraxacum.libs.slimefun.interfaces.SimpleValidItem;
 import io.taraxacum.libs.slimefun.util.SfItemUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -45,19 +44,19 @@ public class Justifiability extends UnusableSlimefunItem implements RecipeItem, 
                 try {
                     if (FinalTechChanged.y) {
                         FinalTechChanged.getInstance().getServer().getScheduler().runTask(FinalTechChanged.getInstance(), () -> b.setType(Material.AIR));
-                        Slimefun.getDatabaseManager().getBlockDataController().removeBlock(b.getLocation());
+                        BlockStorage.clearBlockInfo(b.getLocation());
                         return ;
                     }
-                    if (StorageCacheUtils.getData(b.getLocation(), "life") != null) {
-                        int i = Integer.parseInt(StorageCacheUtils.getData(b.getLocation(), "life"));
+                    if (BlockStorage.getLocationInfo(b.getLocation(), "life") != null) {
+                        int i = Integer.parseInt(BlockStorage.getLocationInfo(b.getLocation(), "life"));
                         if (i == 0) {
                             FinalTechChanged.getInstance().getServer().getScheduler().runTask(FinalTechChanged.getInstance(), () -> b.setType(Material.AIR));
-                            Slimefun.getDatabaseManager().getBlockDataController().removeBlock(b.getLocation());
+                            BlockStorage.clearBlockInfo(b.getLocation());
                             return ;
                         }
                         i--;
-                        StorageCacheUtils.setData(b.getLocation(), "life", String.valueOf(i));
-                    } else StorageCacheUtils.setData(b.getLocation(), "life", "5");
+                        BlockStorage.addBlockInfo(b.getLocation(), "life", String.valueOf(i));
+                    } else BlockStorage.addBlockInfo(b.getLocation(), "life", "5");
                 } catch (Exception ignore) {
                 }
             }

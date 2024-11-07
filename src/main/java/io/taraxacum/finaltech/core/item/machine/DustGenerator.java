@@ -11,6 +11,7 @@ import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponen
 import io.taraxacum.common.util.MathUtil;
 import io.taraxacum.common.util.StringNumberUtil;
 import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.interfaces.MenuUpdater;
 import io.taraxacum.finaltech.core.interfaces.RecipeItem;
 import io.taraxacum.finaltech.core.menu.AbstractMachineMenu;
@@ -20,14 +21,12 @@ import io.taraxacum.finaltech.util.ConfigUtil;
 import io.taraxacum.finaltech.util.MachineUtil;
 import io.taraxacum.finaltech.util.RecipeUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 
@@ -52,7 +51,7 @@ public class DustGenerator extends AbstractMachine implements RecipeItem, MenuUp
         return new BlockPlaceHandler(false) {
             @Override
             public void onPlayerPlace(@Nonnull BlockPlaceEvent blockPlaceEvent) {
-                StorageCacheUtils.setData(blockPlaceEvent.getBlock().getLocation(), keyCount, StringNumberUtil.ZERO);
+                BlockStorage.addBlockInfo(blockPlaceEvent.getBlock().getLocation(), keyCount, StringNumberUtil.ZERO);
             }
         };
     }
@@ -71,7 +70,7 @@ public class DustGenerator extends AbstractMachine implements RecipeItem, MenuUp
 
     @Override
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
-        BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
+        BlockMenu blockMenu = BlockStorage.getInventory(block);
         Location location = block.getLocation();
 
         long count = Long.parseLong(config.getString(keyCount)) % Integer.MAX_VALUE;
@@ -96,7 +95,7 @@ public class DustGenerator extends AbstractMachine implements RecipeItem, MenuUp
         }
         int charge = (int) count;
 
-        StorageCacheUtils.setData(location, keyCount, String.valueOf(count));
+        BlockStorage.addBlockInfo(location, keyCount, String.valueOf(count));
         if (count > 0) {
             this.addCharge(location, charge);
         }

@@ -6,15 +6,13 @@ import io.taraxacum.finaltech.core.item.machine.AbstractMachine;
 import io.taraxacum.libs.plugin.dto.ItemAmountWrapper;
 import io.taraxacum.libs.plugin.dto.ItemWrapper;
 import io.taraxacum.libs.plugin.util.ItemStackUtil;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -58,7 +56,7 @@ public final class MachineUtil {
             @Override
             public void onPlayerBreak(@Nonnull BlockBreakEvent blockBreakEvent, @Nonnull ItemStack itemStack, @Nonnull List<ItemStack> list) {
                 Location location = blockBreakEvent.getBlock().getLocation();
-                BlockMenu blockMenu = StorageCacheUtils.getMenu(location);
+                BlockMenu blockMenu = BlockStorage.getInventory(location);
                 blockMenu.dropItems(location, abstractMachine.getInputSlot());
                 blockMenu.dropItems(location, abstractMachine.getOutputSlot());
             }
@@ -70,7 +68,7 @@ public final class MachineUtil {
             @Override
             public void onPlayerBreak(@Nonnull BlockBreakEvent blockBreakEvent, @Nonnull ItemStack itemStack, @Nonnull List<ItemStack> list) {
                 Location location = blockBreakEvent.getBlock().getLocation();
-                BlockMenu blockMenu = StorageCacheUtils.getMenu(location);
+                BlockMenu blockMenu = BlockStorage.getInventory(location);
                 blockMenu.dropItems(location, slot);
             }
         };
@@ -81,7 +79,7 @@ public final class MachineUtil {
             @Override
             public void onPlayerBreak(@Nonnull BlockBreakEvent blockBreakEvent, @Nonnull ItemStack itemStack, @Nonnull List<ItemStack> list) {
                 Location location = blockBreakEvent.getBlock().getLocation();
-                BlockMenu blockMenu = StorageCacheUtils.getMenu(location);
+                BlockMenu blockMenu = BlockStorage.getInventory(location);
                 blockMenu.dropItems(location, abstractMachine.getInputSlot());
                 blockMenu.dropItems(location, abstractMachine.getOutputSlot());
                 blockMenu.dropItems(location, slot);

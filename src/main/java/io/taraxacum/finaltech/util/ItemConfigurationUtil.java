@@ -3,8 +3,7 @@ package io.taraxacum.finaltech.util;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
-
+import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.helper.IgnorePermission;
 import io.taraxacum.finaltech.setup.FinalTechItems;
@@ -12,7 +11,6 @@ import io.taraxacum.libs.plugin.dto.ConfigFileManager;
 import io.taraxacum.libs.slimefun.dto.LocationInfo;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -141,7 +139,7 @@ public class ItemConfigurationUtil {
         return resultMap;
     }
     private static String getValue(Location l, String key){
-        return StorageCacheUtils.getData(l, key);
+        return BlockStorage.getLocationInfo(l, key);
     }
 
     public static boolean saveConfigToItem(@Nonnull ItemStack itemStack, @Nonnull Location location) {
@@ -200,8 +198,8 @@ public class ItemConfigurationUtil {
         configMap = ItemConfigurationUtil.filterByItem(itemId, configMap);
 
         for (Map.Entry<String, String> entry : configMap.entrySet()) {
-            if (StorageCacheUtils.getData(location, entry.getKey()) != null) {
-                StorageCacheUtils.setData(location, entry.getKey(), entry.getValue());
+            if (BlockStorage.getLocationInfo(location, entry.getKey()) != null) {
+                BlockStorage.addBlockInfo(location, entry.getKey(), entry.getValue());
             }
         }
 
@@ -221,7 +219,7 @@ public class ItemConfigurationUtil {
 
         for (Map.Entry<String, String> entry : configMap.entrySet()) {
             if (locationInfo.getConfig().contains(entry.getKey())) {
-                StorageCacheUtils.setData(locationInfo.getLocation(), entry.getKey(), entry.getValue());
+                BlockStorage.addBlockInfo(locationInfo.getLocation(), entry.getKey(), entry.getValue());
             }
         }
 

@@ -25,7 +25,7 @@ import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import io.taraxacum.libs.slimefun.dto.LocationInfo;
 import io.taraxacum.libs.slimefun.util.EnergyUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -33,8 +33,6 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
 import org.bukkit.inventory.ItemStack;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
@@ -88,7 +86,7 @@ public abstract class AbstractElectricityShootPile extends AbstractLineMachine i
                     }
                 }
 
-                BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
+                BlockMenu blockMenu = BlockStorage.getInventory(block);
                 if (blockMenu.hasViewer()) {
                     this.updateMenu(blockMenu, StatusMenu.STATUS_SLOT, this,
                             String.valueOf(count),

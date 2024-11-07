@@ -2,6 +2,7 @@ package io.taraxacum.finaltech.setup;
 
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.FinalTechChanged;
 import org.bukkit.NamespacedKey;
 
 import java.util.Locale;

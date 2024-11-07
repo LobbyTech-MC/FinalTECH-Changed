@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.taraxacum.common.util.JavaUtil;
 import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.interfaces.RecipeItem;
 import io.taraxacum.finaltech.core.item.machine.cargo.AbstractCargo;
 import io.taraxacum.finaltech.core.menu.AbstractMachineMenu;
@@ -19,7 +20,7 @@ import io.taraxacum.libs.plugin.dto.ItemWrapper;
 import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import io.taraxacum.libs.plugin.util.StringItemUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -31,8 +32,6 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -59,8 +58,8 @@ public class StorageInteractPort extends AbstractCargo implements RecipeItem {
     @Override
     protected void tick(Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
         Block targetBlock = block.getRelative(BlockFace.UP);
-        BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
-        if (StorageCacheUtils.getMenu(targetBlock.getLocation()) == null) {
+        BlockMenu blockMenu = BlockStorage.getInventory(block);
+        if (!BlockStorage.hasInventory(targetBlock)) {
             if (Bukkit.isPrimaryThread()) {
                 BlockState blockState = targetBlock.getState();
                 if (blockState instanceof InventoryHolder) {

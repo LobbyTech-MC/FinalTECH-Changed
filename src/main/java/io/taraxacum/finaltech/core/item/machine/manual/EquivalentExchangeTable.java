@@ -10,6 +10,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.taraxacum.common.util.JavaUtil;
 import io.taraxacum.common.util.StringNumberUtil;
 import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.interfaces.RecipeItem;
 import io.taraxacum.finaltech.core.menu.manual.AbstractManualMachineMenu;
 import io.taraxacum.finaltech.core.menu.manual.EquivalentExchangeTableMenu;
@@ -22,12 +23,10 @@ import io.taraxacum.libs.slimefun.dto.ItemValueTable;
 import io.taraxacum.libs.slimefun.interfaces.SimpleValidItem;
 import io.taraxacum.libs.slimefun.interfaces.ValidItem;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -53,8 +52,8 @@ public class EquivalentExchangeTable extends AbstractManualMachine implements Re
 
     @Override
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
-        BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
-        String value = JavaUtil.getFirstNotNull(StorageCacheUtils.getData(block.getLocation(), this.key), StringNumberUtil.ZERO);
+        BlockMenu blockMenu = BlockStorage.getInventory(block);
+        String value = JavaUtil.getFirstNotNull(BlockStorage.getLocationInfo(block.getLocation(), this.key), StringNumberUtil.ZERO);
         for (int slot : this.getInputSlot()) {
             ItemStack itemStack = blockMenu.getItemInSlot(slot);
             if (ItemStackUtil.isItemNull(itemStack)) {
@@ -81,7 +80,7 @@ public class EquivalentExchangeTable extends AbstractManualMachine implements Re
             }
         }
 
-        StorageCacheUtils.setData(block.getLocation(), this.key, value);
+        BlockStorage.addBlockInfo(block.getLocation(), this.key, value);
 
         if (blockMenu.hasViewer()) {
             this.getMachineMenu().updateInventory(blockMenu.toInventory(), block.getLocation());

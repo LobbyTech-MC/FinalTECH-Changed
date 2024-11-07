@@ -27,8 +27,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
-
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,11 +92,11 @@ public class ManualCraftMachineMenu extends AbstractManualMachineMenu {
         }
     }
     public static void add(Location l, String key, String value) {
-        StorageCacheUtils.setData(l, key, value);
+        BlockStorage.addBlockInfo(l, key, value);
     }
     
     public static String get(Location l, String key) {
-        return StorageCacheUtils.getData(l, key);
+        return BlockStorage.getLocationInfo(l, key);
     }
     @Override
     public void newInstance(@Nonnull BlockMenu blockMenu, @Nonnull Block block) {
@@ -135,7 +133,7 @@ public class ManualCraftMachineMenu extends AbstractManualMachineMenu {
 
                 javaPlugin.getServer().getScheduler().runTaskAsynchronously(javaPlugin, () -> ParticleUtil.drawCubeByBlock(javaPlugin, Particle.WAX_OFF, 0, block));
 
-                StorageCacheUtils.setData(l, KEY, StorageCacheUtils.getData(l, KEY_L[finalSlotP]));
+                BlockStorage.addBlockInfo(l, KEY, BlockStorage.getLocationInfo(l, KEY_L[finalSlotP]));
                 ManualCraftMachineMenu.this.updateInventory(inventory, l);
                 return false;
             });
@@ -163,7 +161,7 @@ public class ManualCraftMachineMenu extends AbstractManualMachineMenu {
 
             javaPlugin.getServer().getScheduler().runTaskAsynchronously(javaPlugin, () -> ParticleUtil.drawCubeByBlock(javaPlugin, Particle.WAX_OFF, 0, block));
 
-            int offset = Integer.parseInt(StorageCacheUtils.getData(block.getLocation(), KEY));
+            int offset = Integer.parseInt(BlockStorage.getLocationInfo(block.getLocation(), KEY));
             int length = MachineRecipeFactory.getInstance().getRecipe(this.getID()).size();
             offset = (offset + length - 1) % length;
             add(l, KEY, String.valueOf(offset));
@@ -179,7 +177,7 @@ public class ManualCraftMachineMenu extends AbstractManualMachineMenu {
 
             javaPlugin.getServer().getScheduler().runTaskAsynchronously(javaPlugin, () -> ParticleUtil.drawCubeByBlock(javaPlugin, Particle.WAX_OFF, 0, block));
 
-            int offset = Integer.parseInt(StorageCacheUtils.getData(block.getLocation(), KEY));
+            int offset = Integer.parseInt(BlockStorage.getLocationInfo(block.getLocation(), KEY));
             int length = MachineRecipeFactory.getInstance().getAdvancedRecipe(this.getID()).size();
             offset = (offset + 1) % length;
             add(l, KEY, String.valueOf(offset));

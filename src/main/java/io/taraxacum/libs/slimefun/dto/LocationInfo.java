@@ -3,10 +3,7 @@ package io.taraxacum.libs.slimefun.dto;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-
 import org.bukkit.Location;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,7 +28,7 @@ public class LocationInfo {
     @Nullable
     public static LocationInfo get(@Nonnull Location location) {
         Config config = BlockStorage.getLocationInfo(location);
-        String id = StorageCacheUtils.getData(location, "id");
+        String id = BlockStorage.getLocationInfo(location, "id");
         if (id != null) {
             SlimefunItem slimefunItem = SlimefunItem.getById(id);
             if (slimefunItem != null) {

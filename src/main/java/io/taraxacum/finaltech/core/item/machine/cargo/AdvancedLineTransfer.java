@@ -1,10 +1,28 @@
 package io.taraxacum.finaltech.core.item.machine.cargo;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import io.taraxacum.common.util.JavaUtil;
+import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.core.dto.SimpleCargoDTO;
+import io.taraxacum.finaltech.core.helper.*;
+import io.taraxacum.finaltech.core.interfaces.RecipeItem;
+import io.taraxacum.finaltech.core.menu.AbstractMachineMenu;
+import io.taraxacum.finaltech.core.menu.cargo.AdvancedLineTransferMenu;
+import io.taraxacum.finaltech.setup.FinalTechItemStacks;
+import io.taraxacum.finaltech.util.*;
+import io.taraxacum.libs.plugin.dto.InvWithSlots;
+import io.taraxacum.libs.plugin.dto.ServerRunnableLockFactory;
+import io.taraxacum.libs.plugin.util.ParticleUtil;
+import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
@@ -16,47 +34,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
-
-import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
-import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
-import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.taraxacum.common.util.JavaUtil;
-import io.taraxacum.finaltech.FinalTechChanged;
-import io.taraxacum.finaltech.core.dto.SimpleCargoDTO;
-import io.taraxacum.finaltech.core.helper.BlockSearchCycle;
-import io.taraxacum.finaltech.core.helper.BlockSearchMode;
-import io.taraxacum.finaltech.core.helper.BlockSearchOrder;
-import io.taraxacum.finaltech.core.helper.BlockSearchSelf;
-import io.taraxacum.finaltech.core.helper.CargoFilter;
-import io.taraxacum.finaltech.core.helper.CargoLimit;
-import io.taraxacum.finaltech.core.helper.CargoMode;
-import io.taraxacum.finaltech.core.helper.CargoNumber;
-import io.taraxacum.finaltech.core.helper.CargoNumberMode;
-import io.taraxacum.finaltech.core.helper.CargoOrder;
-import io.taraxacum.finaltech.core.helper.IgnorePermission;
-import io.taraxacum.finaltech.core.helper.RouteShow;
-import io.taraxacum.finaltech.core.helper.SlotSearchOrder;
-import io.taraxacum.finaltech.core.helper.SlotSearchSize;
-import io.taraxacum.finaltech.core.interfaces.RecipeItem;
-import io.taraxacum.finaltech.core.menu.AbstractMachineMenu;
-import io.taraxacum.finaltech.core.menu.cargo.AdvancedLineTransferMenu;
-import io.taraxacum.finaltech.setup.FinalTechItemStacks;
-import io.taraxacum.finaltech.util.CargoUtil;
-import io.taraxacum.finaltech.util.ConstantTableUtil;
-import io.taraxacum.finaltech.util.LocationUtil;
-import io.taraxacum.finaltech.util.MachineUtil;
-import io.taraxacum.finaltech.util.PermissionUtil;
-import io.taraxacum.finaltech.util.RecipeUtil;
-import io.taraxacum.libs.plugin.dto.InvWithSlots;
-import io.taraxacum.libs.plugin.dto.ServerRunnableLockFactory;
-import io.taraxacum.libs.plugin.util.ParticleUtil;
-import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Final_ROOT
@@ -79,7 +59,7 @@ public class AdvancedLineTransfer extends AbstractCargo implements RecipeItem {
                 Location location = block.getLocation();
 
                 IgnorePermission.HELPER.checkOrSetBlockStorage(location);
-                StorageCacheUtils.setData(location, ConstantTableUtil.CONFIG_UUID, blockPlaceEvent.getPlayer().getUniqueId().toString());
+                BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_UUID, blockPlaceEvent.getPlayer().getUniqueId().toString());
 
                 BlockSearchMode.LINE_HELPER.checkOrSetBlockStorage(location);
                 BlockSearchOrder.HELPER.checkOrSetBlockStorage(location);
@@ -115,7 +95,7 @@ public class AdvancedLineTransfer extends AbstractCargo implements RecipeItem {
 
     @Override
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
-        BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
+        BlockMenu blockMenu = BlockStorage.getInventory(block);
         Location location = block.getLocation();
         JavaPlugin javaPlugin = this.getAddon().getJavaPlugin();
         boolean primaryThread = javaPlugin.getServer().isPrimaryThread();
@@ -204,12 +184,12 @@ public class AdvancedLineTransfer extends AbstractCargo implements RecipeItem {
                     continue;
                 }
 
-                if (CargoMode.VALUE_INPUT_MAIN.equals(cargoMode) && StorageCacheUtils.getMenu(outputBlock.getLocation()) != null) {
+                if (CargoMode.VALUE_INPUT_MAIN.equals(cargoMode) && BlockStorage.hasInventory(outputBlock)) {
                     outputMap = null;
                 } else {
                     outputMap = CargoUtil.getInvWithSlots(outputBlock, outputSize, outputOrder);
                 }
-                if (CargoMode.VALUE_OUTPUT_MAIN.equals(cargoMode) && StorageCacheUtils.getMenu(inputBlock.getLocation()) != null) {
+                if (CargoMode.VALUE_OUTPUT_MAIN.equals(cargoMode) && BlockStorage.hasInventory(inputBlock)) {
                     inputMap = null;
                 } else {
                     inputMap = CargoUtil.getInvWithSlots(inputBlock, inputSize, inputOrder);
@@ -252,7 +232,7 @@ public class AdvancedLineTransfer extends AbstractCargo implements RecipeItem {
                 }
 
                 ServerRunnableLockFactory.getInstance(javaPlugin, Location.class).waitThenRun(() -> {
-                    if (!StorageCacheUtils.hasBlock(location)) {
+                    if (!BlockStorage.hasBlockInfo(location)) {
                         return;
                     }
 
@@ -355,18 +335,18 @@ public class AdvancedLineTransfer extends AbstractCargo implements RecipeItem {
                             continue;
                         }
 
-                        if (CargoMode.VALUE_OUTPUT_MAIN.equals(cargoMode) && StorageCacheUtils.getMenu(inputBlock.getLocation()) != null) {
+                        if (CargoMode.VALUE_OUTPUT_MAIN.equals(cargoMode) && BlockStorage.hasInventory(inputBlock)) {
                             inputMap = null;
-                        } else if (StorageCacheUtils.getMenu(inputBlock.getLocation()) != null) {
+                        } else if (BlockStorage.hasInventory(inputBlock)) {
                             inputMap = CargoUtil.getInvWithSlots(inputBlock, inputSize, inputOrder);
                         } else if (finalVanillaInventories.get(input) != null) {
                             inputMap = CargoUtil.calInvWithSlots(finalVanillaInventories.get(input), inputOrder);
                         } else {
                             continue;
                         }
-                        if (CargoMode.VALUE_INPUT_MAIN.equals(cargoMode) && StorageCacheUtils.getMenu(outputBlock.getLocation()) != null) {
+                        if (CargoMode.VALUE_INPUT_MAIN.equals(cargoMode) && BlockStorage.hasInventory(outputBlock)) {
                             outputMap = null;
-                        } else if (StorageCacheUtils.getMenu(outputBlock.getLocation()) != null) {
+                        } else if (BlockStorage.hasInventory(outputBlock)) {
                             outputMap = CargoUtil.getInvWithSlots(outputBlock, outputSize, outputOrder);
                         } else if (finalVanillaInventories.get(output) != null) {
                             outputMap = CargoUtil.calInvWithSlots(finalVanillaInventories.get(output), outputOrder);
@@ -413,7 +393,7 @@ public class AdvancedLineTransfer extends AbstractCargo implements RecipeItem {
             return list;
         }
         while (CargoUtil.hasInventory(block)) {
-            if (StorageCacheUtils.getMenu(block.getLocation()) != null && StorageCacheUtils.getMenu(block.getLocation()).getPreset().getID().equals(FinalTechItemStacks.LINE_TRANSFER.getItemId())) {
+            if (BlockStorage.hasInventory(block) && BlockStorage.getInventory(block).getPreset().getID().equals(FinalTechItemStacks.LINE_TRANSFER.getItemId())) {
                 if (BlockSearchMode.VALUE_PENETRATE.equals(blockSearchMode)) {
                     block = block.getRelative(blockFace);
                     continue;

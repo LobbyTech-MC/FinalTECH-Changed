@@ -8,7 +8,7 @@ import io.taraxacum.libs.plugin.dto.InvWithSlots;
 import io.taraxacum.libs.plugin.dto.ItemWrapper;
 import io.taraxacum.libs.plugin.dto.ServerRunnableLockFactory;
 import io.taraxacum.libs.plugin.util.ItemStackUtil;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import org.bukkit.Location;
@@ -17,8 +17,6 @@ import org.bukkit.block.BlockState;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -123,7 +121,7 @@ public class CargoUtil {
             InvWithSlots outputMap;
             // Just get inputMap.
             inputMap = CargoUtil.getInvWithSlots(cargoDTO.getInputBlock(), cargoDTO.getInputSize(), cargoDTO.getInputOrder());
-            if (StorageCacheUtils.getMenu(cargoDTO.getOutputBlock().getLocation()) != null) {
+            if (BlockStorage.hasInventory(cargoDTO.getOutputBlock())) {
                 outputMap = null;
             } else {
                 if (cargoDTO.getOutputBlock().getState() instanceof InventoryHolder) {
@@ -147,7 +145,7 @@ public class CargoUtil {
                 InvWithSlots outputMap;
                 // Just get inputMap.
                 inputMap = CargoUtil.getInvWithSlots(cargoDTO.getInputBlock(), cargoDTO.getInputSize(), cargoDTO.getInputOrder());
-                if (StorageCacheUtils.getMenu(cargoDTO.getOutputBlock().getLocation()) != null) {
+                if (BlockStorage.hasInventory(cargoDTO.getOutputBlock())) {
                     outputMap = null;
                 } else {
                     if (cargoDTO.getOutputBlock().getState() instanceof InventoryHolder) {
@@ -178,7 +176,7 @@ public class CargoUtil {
             InvWithSlots outputMap;
             // Just get outputMap.
             outputMap = CargoUtil.getInvWithSlots(cargoDTO.getOutputBlock(), cargoDTO.getOutputSize(), cargoDTO.getOutputOrder());
-            if (StorageCacheUtils.getMenu(cargoDTO.getInputBlock().getLocation()) != null) {
+            if (BlockStorage.hasInventory(cargoDTO.getInputBlock())) {
                 inputMap = null;
             } else {
                 if (cargoDTO.getInputBlock().getState() instanceof InventoryHolder) {
@@ -202,7 +200,7 @@ public class CargoUtil {
                 InvWithSlots outputMap;
                 // Just get outputMap.
                 outputMap = CargoUtil.getInvWithSlots(cargoDTO.getOutputBlock(), cargoDTO.getOutputSize(), cargoDTO.getOutputOrder());
-                if (StorageCacheUtils.getMenu(cargoDTO.getInputBlock().getLocation()) != null) {
+                if (BlockStorage.hasInventory(cargoDTO.getInputBlock())) {
                     inputMap = null;
                 } else {
                     if (cargoDTO.getInputBlock().getState() instanceof InventoryHolder) {
@@ -666,8 +664,8 @@ public class CargoUtil {
         Inventory inventory = null;
         int[] slots = null;
 
-        if (StorageCacheUtils.getMenu(block.getLocation()) != null) {
-            BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
+        if (BlockStorage.hasInventory(block)) {
+            BlockMenu blockMenu = BlockStorage.getInventory(block);
             inventory = blockMenu.toInventory();
             int[] insert;
             int[] withdraw;
@@ -798,7 +796,7 @@ public class CargoUtil {
     }
 
     public static boolean hasInventory(@Nonnull Block block) {
-        if (StorageCacheUtils.getMenu(block.getLocation()) != null) {
+        if (BlockStorage.hasInventory(block)) {
             return true;
         }
         return block.getState() instanceof InventoryHolder;
