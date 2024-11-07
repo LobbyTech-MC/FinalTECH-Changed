@@ -201,7 +201,7 @@ public class ItemConfigurationUtil {
 
         for (Map.Entry<String, String> entry : configMap.entrySet()) {
             if (StorageCacheUtils.getData(location, entry.getKey()) != null) {
-                StorageCacheUtils.setData(location, entry.getKey(), entry.getValue());
+                BlockStorage.addBlockInfo(location, entry.getKey(), entry.getValue());
             }
         }
 
@@ -221,7 +221,7 @@ public class ItemConfigurationUtil {
 
         for (Map.Entry<String, String> entry : configMap.entrySet()) {
             if (locationInfo.getConfig().contains(entry.getKey())) {
-                StorageCacheUtils.setData(locationInfo.getLocation(), entry.getKey(), entry.getValue());
+                BlockStorage.addBlockInfo(locationInfo.getLocation(), entry.getKey(), entry.getValue());
             }
         }
 

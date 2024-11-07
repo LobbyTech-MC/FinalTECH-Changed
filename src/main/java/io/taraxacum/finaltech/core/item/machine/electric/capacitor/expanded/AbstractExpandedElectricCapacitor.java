@@ -19,7 +19,7 @@ import io.taraxacum.finaltech.core.menu.unit.StatusMenu;
 import io.taraxacum.finaltech.util.RecipeUtil;
 import io.taraxacum.libs.slimefun.util.EnergyUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -59,7 +59,7 @@ public abstract class AbstractExpandedElectricCapacitor extends AbstractElectric
         return new BlockPlaceHandler(false) {
             @Override
             public void onPlayerPlace(@Nonnull BlockPlaceEvent blockPlaceEvent) {
-                StorageCacheUtils.setData(blockPlaceEvent.getBlock().getLocation(), AbstractExpandedElectricCapacitor.this.key, StringNumberUtil.ZERO);
+                BlockStorage.addBlockInfo(blockPlaceEvent.getBlock().getLocation(), AbstractExpandedElectricCapacitor.this.key, StringNumberUtil.ZERO);
             }
         };
     }
@@ -126,8 +126,8 @@ public abstract class AbstractExpandedElectricCapacitor extends AbstractElectric
             stack++;
         }
 
-        StorageCacheUtils.setData(location, this.key, String.valueOf(stack));
-        //StorageCacheUtils.setData(location, ConstantTableUtil.CONFIG_CHARGE, String.valueOf(lastEnergy));
+        BlockStorage.addBlockInfo(location, this.key, String.valueOf(stack));
+        //BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_CHARGE, String.valueOf(lastEnergy));
         this.setCharge(location, (int) (lastEnergy % Integer.MAX_VALUE));
     }
 }

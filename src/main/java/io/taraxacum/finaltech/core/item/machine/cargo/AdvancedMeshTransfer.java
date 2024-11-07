@@ -19,7 +19,7 @@ import io.taraxacum.libs.plugin.dto.InvWithSlots;
 import io.taraxacum.libs.plugin.dto.ServerRunnableLockFactory;
 import io.taraxacum.libs.plugin.util.ParticleUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -59,7 +59,7 @@ public class AdvancedMeshTransfer extends AbstractCargo implements RecipeItem {
                 Location location = block.getLocation();
 
                 IgnorePermission.HELPER.checkOrSetBlockStorage(location);
-                StorageCacheUtils.setData(location, ConstantTableUtil.CONFIG_UUID, blockPlaceEvent.getPlayer().getUniqueId().toString());
+                BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_UUID, blockPlaceEvent.getPlayer().getUniqueId().toString());
 
                 CargoFilter.HELPER.checkOrSetBlockStorage(location);
                 BlockSearchMode.MESH_INPUT_HELPER.checkOrSetBlockStorage(location);
@@ -77,7 +77,7 @@ public class AdvancedMeshTransfer extends AbstractCargo implements RecipeItem {
                 SlotSearchOrder.OUTPUT_HELPER.checkOrSetBlockStorage(location);
                 CargoLimit.OUTPUT_HELPER.checkOrSetBlockStorage(location);
 
-                StorageCacheUtils.setData(block.getLocation(), PositionInfo.KEY, "");
+                BlockStorage.addBlockInfo(block.getLocation(), PositionInfo.KEY, "");
             }
         };
     }

@@ -20,7 +20,7 @@ import io.taraxacum.finaltech.util.ConfigUtil;
 import io.taraxacum.finaltech.util.MachineUtil;
 import io.taraxacum.finaltech.util.RecipeUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -52,7 +52,7 @@ public class DustGenerator extends AbstractMachine implements RecipeItem, MenuUp
         return new BlockPlaceHandler(false) {
             @Override
             public void onPlayerPlace(@Nonnull BlockPlaceEvent blockPlaceEvent) {
-                StorageCacheUtils.setData(blockPlaceEvent.getBlock().getLocation(), keyCount, StringNumberUtil.ZERO);
+                BlockStorage.addBlockInfo(blockPlaceEvent.getBlock().getLocation(), keyCount, StringNumberUtil.ZERO);
             }
         };
     }
@@ -96,7 +96,7 @@ public class DustGenerator extends AbstractMachine implements RecipeItem, MenuUp
         }
         int charge = (int) count;
 
-        StorageCacheUtils.setData(location, keyCount, String.valueOf(count));
+        BlockStorage.addBlockInfo(location, keyCount, String.valueOf(count));
         if (count > 0) {
             this.addCharge(location, charge);
         }

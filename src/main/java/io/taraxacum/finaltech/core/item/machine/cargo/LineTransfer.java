@@ -20,7 +20,7 @@ import io.taraxacum.libs.plugin.dto.InvWithSlots;
 import io.taraxacum.libs.plugin.dto.ServerRunnableLockFactory;
 import io.taraxacum.libs.plugin.util.ParticleUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -60,7 +60,7 @@ public class LineTransfer extends AbstractCargo implements RecipeItem {
                 Location location = block.getLocation();
 
                 IgnorePermission.HELPER.checkOrSetBlockStorage(location);
-                StorageCacheUtils.setData(location, ConstantTableUtil.CONFIG_UUID, blockPlaceEvent.getPlayer().getUniqueId().toString());
+                BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_UUID, blockPlaceEvent.getPlayer().getUniqueId().toString());
 
                 BlockSearchMode.LINE_HELPER.checkOrSetBlockStorage(location);
                 BlockSearchOrder.HELPER.checkOrSetBlockStorage(location);

@@ -15,6 +15,7 @@ import io.taraxacum.libs.slimefun.interfaces.SimpleValidItem;
 import io.taraxacum.libs.slimefun.util.SfItemUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -56,8 +57,8 @@ public class Justifiability extends UnusableSlimefunItem implements RecipeItem, 
                             return ;
                         }
                         i--;
-                        StorageCacheUtils.setData(b.getLocation(), "life", String.valueOf(i));
-                    } else StorageCacheUtils.setData(b.getLocation(), "life", "5");
+                        BlockStorage.addBlockInfo(b.getLocation(), "life", String.valueOf(i));
+                    } else BlockStorage.addBlockInfo(b.getLocation(), "life", "5");
                 } catch (Exception ignore) {
                 }
             }

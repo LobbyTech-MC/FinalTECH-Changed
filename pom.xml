@@ -89,6 +89,13 @@
         </dependency>
 
         <dependency>
+            <groupId>me.matl114</groupId>
+            <artifactId>LogiTech</artifactId>
+            <version>1.0.3</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
             <version>3.0.0</version>

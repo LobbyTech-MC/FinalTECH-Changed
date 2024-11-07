@@ -19,7 +19,7 @@ import io.taraxacum.finaltech.util.MachineUtil;
 import io.taraxacum.finaltech.util.RecipeUtil;
 import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -72,8 +72,8 @@ public class MatrixReactor extends AbstractMachine implements RecipeItem, MenuUp
         ItemStack itemStack = blockMenu.getItemInSlot(MatrixReactorMenu.ITEM_INPUT_SLOT[0]);
 
         if (ItemStackUtil.isItemNull(itemStack)) {
-            StorageCacheUtils.setData(location, keyItem, null);
-            StorageCacheUtils.setData(location, keyCount, "0");
+            BlockStorage.addBlockInfo(location, keyItem, null);
+            BlockStorage.addBlockInfo(location, keyCount, "0");
             if (blockMenu.hasViewer()) {
                 this.updateMenu(blockMenu, MatrixReactorMenu.STATUS_SLOT, this,
                         "0",
@@ -81,8 +81,8 @@ public class MatrixReactor extends AbstractMachine implements RecipeItem, MenuUp
             }
             return;
         } else if (!this.allowedItem(itemStack)) {
-            StorageCacheUtils.setData(location, keyItem, null);
-            StorageCacheUtils.setData(location, keyCount, "0");
+            BlockStorage.addBlockInfo(location, keyItem, null);
+            BlockStorage.addBlockInfo(location, keyCount, "0");
             if (blockMenu.hasViewer()) {
                 this.updateMenu(blockMenu, MatrixReactorMenu.STATUS_SLOT, this,
                         "0",
@@ -136,7 +136,7 @@ public class MatrixReactor extends AbstractMachine implements RecipeItem, MenuUp
         if (!match) {
             int count = config.contains(keyCount) ? Integer.parseInt(config.getString(keyCount)) : 0;
             count = count > 0 ? count - 1 : 0;
-            StorageCacheUtils.setData(location, keyCount, String.valueOf(count));
+            BlockStorage.addBlockInfo(location, keyCount, String.valueOf(count));
         } else {
             orderedDustItemCount = amount;
             for (int slot : orderedDustItemSlots) {
@@ -161,7 +161,7 @@ public class MatrixReactor extends AbstractMachine implements RecipeItem, MenuUp
             }
 
             if (ItemStackUtil.isItemNull(stringItem) || !ItemStackUtil.isItemSimilar(itemStack, stringItem) || itemStack.getAmount() != stringItem.getAmount()) {
-                StorageCacheUtils.setData(location, keyItem, ItemStackUtil.itemStackToString(itemStack));
+                BlockStorage.addBlockInfo(location, keyItem, ItemStackUtil.itemStackToString(itemStack));
 
                 int count;
                 if (FinalTechItems.ITEM_PHONY.verifyItem(blockMenu.getItemInSlot(MatrixReactorMenu.ITEM_PHONY_INPUT_SLOT[0]))) {
@@ -172,7 +172,7 @@ public class MatrixReactor extends AbstractMachine implements RecipeItem, MenuUp
                     count = FinalTechChanged.getRandom().nextBoolean() ? 1 : 0;
                 }
 
-                StorageCacheUtils.setData(location, keyCount, String.valueOf(count));
+                BlockStorage.addBlockInfo(location, keyCount, String.valueOf(count));
             } else {
                 int count = config.contains(keyCount) ? Integer.parseInt(config.getString(keyCount)) : 0;
                 if (FinalTechItems.ITEM_PHONY.verifyItem(blockMenu.getItemInSlot(MatrixReactorMenu.ITEM_PHONY_INPUT_SLOT[0])) && blockMenu.getItemInSlot(MatrixReactorMenu.ITEM_PHONY_INPUT_SLOT[0]).getAmount() >= amount + count && amount + count <= ConstantTableUtil.ITEM_MAX_STACK) {
@@ -189,8 +189,8 @@ public class MatrixReactor extends AbstractMachine implements RecipeItem, MenuUp
                         ItemStack outputItem = ItemStackUtil.cloneItem(itemStack);
                         outputItem.setAmount(1);
                         blockMenu.replaceExistingItem(this.getOutputSlot()[0], outputItem);
-                        StorageCacheUtils.setData(location, keyItem, null);
-                        StorageCacheUtils.setData(location, keyCount, "0");
+                        BlockStorage.addBlockInfo(location, keyItem, null);
+                        BlockStorage.addBlockInfo(location, keyCount, "0");
                         if (blockMenu.hasViewer()) {
                             this.updateMenu(blockMenu, MatrixReactorMenu.STATUS_SLOT, this,
                                     "0",
@@ -199,8 +199,8 @@ public class MatrixReactor extends AbstractMachine implements RecipeItem, MenuUp
                         return;
                     } else if (existedItem.getAmount() < existedItem.getMaxStackSize() && ItemStackUtil.isItemSimilar(existedItem, itemStack)) {
                         existedItem.setAmount(existedItem.getAmount() + 1);
-                        StorageCacheUtils.setData(location, keyItem, null);
-                        StorageCacheUtils.setData(location, keyCount, "0");
+                        BlockStorage.addBlockInfo(location, keyItem, null);
+                        BlockStorage.addBlockInfo(location, keyCount, "0");
                         if (blockMenu.hasViewer()) {
                             this.updateMenu(blockMenu, MatrixReactorMenu.STATUS_SLOT, this,
                                     "0",
@@ -212,7 +212,7 @@ public class MatrixReactor extends AbstractMachine implements RecipeItem, MenuUp
                 }
 
                 count = Math.max(count, 0);
-                StorageCacheUtils.setData(location, keyCount, String.valueOf(count));
+                BlockStorage.addBlockInfo(location, keyCount, String.valueOf(count));
             }
         }
 

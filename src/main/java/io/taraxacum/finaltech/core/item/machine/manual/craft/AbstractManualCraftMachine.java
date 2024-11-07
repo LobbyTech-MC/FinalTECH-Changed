@@ -15,7 +15,7 @@ import io.taraxacum.finaltech.core.menu.manual.ManualCraftMachineMenu;
 import io.taraxacum.finaltech.util.ConfigUtil;
 import io.taraxacum.libs.slimefun.dto.MachineRecipeFactory;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -57,7 +57,7 @@ public abstract class AbstractManualCraftMachine extends AbstractManualMachine i
             @Override
             public void onPlayerPlace(@Nonnull BlockPlaceEvent blockPlaceEvent) {
                 // TODO remove this
-                StorageCacheUtils.setData(blockPlaceEvent.getBlock().getLocation(), ManualCraftMachineMenu.KEY, "0");
+                BlockStorage.addBlockInfo(blockPlaceEvent.getBlock().getLocation(), ManualCraftMachineMenu.KEY, "0");
             }
         };
     }

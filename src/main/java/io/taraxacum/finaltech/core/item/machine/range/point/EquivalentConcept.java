@@ -126,10 +126,10 @@ public class EquivalentConcept extends AbstractPointMachine implements RecipeIte
                 if (sleepStr != null) {
                     double sleep = Double.parseDouble(sleepStr) - 1;
                     if (sleep > 0) {
-                        StorageCacheUtils.setData(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP, String.valueOf(sleep));
+                        BlockStorage.addBlockInfo(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP, String.valueOf(sleep));
                         return;
                     } else {
-                        StorageCacheUtils.setData(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP, String.valueOf(0));
+                        BlockStorage.addBlockInfo(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP, String.valueOf(0));
 
                     }
                 }
@@ -138,14 +138,14 @@ public class EquivalentConcept extends AbstractPointMachine implements RecipeIte
             double life = (StorageCacheUtils.getData(block.getLocation(), KEY_LIFE) != null) ? Double.parseDouble(StorageCacheUtils.getData(l, KEY_LIFE)) : 0;
             if (life < 1) {
                 Location location = block.getLocation();
-                StorageCacheUtils.setData(location, KEY_LIFE, "0");
-                StorageCacheUtils.setData(location, KEY_RANGE, "0");
-                StorageCacheUtils.setData(l, ConstantTableUtil.CONFIG_SLEEP, "0");
+                BlockStorage.addBlockInfo(location, KEY_LIFE, "0");
+                BlockStorage.addBlockInfo(location, KEY_RANGE, "0");
+                BlockStorage.addBlockInfo(l, ConstantTableUtil.CONFIG_SLEEP, "0");
                 Slimefun.getDatabaseManager().getBlockDataController().removeBlock(location);
                 JavaPlugin javaPlugin = this.getAddon().getJavaPlugin();
                 javaPlugin.getServer().getScheduler().runTaskLaterAsynchronously(javaPlugin, () -> {
                     if (!location.getBlock().getType().isAir() && StorageCacheUtils.getData(location, ConstantTableUtil.CONFIG_ID) == null) {
-                        StorageCacheUtils.setData(location, ConstantTableUtil.CONFIG_ID, FinalTechItemStacks.JUSTIFIABILITY.getItemId());
+                        BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_ID, FinalTechItemStacks.JUSTIFIABILITY.getItemId());
                     }
                 }, Slimefun.getTickerTask().getTickRate() + 1);
                 return;
@@ -160,9 +160,9 @@ public class EquivalentConcept extends AbstractPointMachine implements RecipeIte
                         Block targetBlock = location.getBlock();
                         if (!StorageCacheUtils.hasBlock(location)) {
                             if (targetBlock.getType() == Material.AIR) {
-                                StorageCacheUtils.setData(location, ConstantTableUtil.CONFIG_ID, EquivalentConcept.this.getId());
-                                StorageCacheUtils.setData(location, KEY_LIFE, String.valueOf(finalLife * attenuationRate));
-                                StorageCacheUtils.setData(location, KEY_RANGE, String.valueOf(range + 1));
+                                BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_ID, EquivalentConcept.this.getId());
+                                BlockStorage.addBlockInfo(location, KEY_LIFE, String.valueOf(finalLife * attenuationRate));
+                                BlockStorage.addBlockInfo(location, KEY_RANGE, String.valueOf(range + 1));
                                 BlockTickerUtil.setSleep(BlockStorage.getLocationInfo(location), String.valueOf(EquivalentConcept.this.life - finalLife));
                                 JavaPlugin javaPlugin = EquivalentConcept.this.getAddon().getJavaPlugin();
                                 javaPlugin.getServer().getScheduler().runTask(javaPlugin, () -> targetBlock.setType(EquivalentConcept.this.getItem().getType()));
@@ -173,7 +173,7 @@ public class EquivalentConcept extends AbstractPointMachine implements RecipeIte
                 });
             }
 
-            StorageCacheUtils.setData(block.getLocation(), KEY_LIFE, String.valueOf(0));
+            BlockStorage.addBlockInfo(block.getLocation(), KEY_LIFE, String.valueOf(0));
         } catch (Exception e) {
             FinalTechChanged.getInstance().getLogger().warning("[FINALTECH] 物品 等概念体 出现了异常, 但不要担心这是正常情况");
         }
