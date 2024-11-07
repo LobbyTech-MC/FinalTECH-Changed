@@ -10,7 +10,6 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
 import io.taraxacum.common.util.JavaUtil;
 import io.taraxacum.finaltech.FinalTechChanged;
-import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.dto.CargoDTO;
 import io.taraxacum.finaltech.core.dto.SimpleCargoDTO;
 import io.taraxacum.finaltech.core.helper.*;
@@ -23,7 +22,7 @@ import io.taraxacum.libs.plugin.dto.InvWithSlots;
 import io.taraxacum.libs.plugin.dto.ServerRunnableLockFactory;
 import io.taraxacum.libs.plugin.util.ParticleUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -36,6 +35,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class PointTransfer extends AbstractCargo implements RecipeItem {
                 Location location = block.getLocation();
 
                 IgnorePermission.HELPER.checkOrSetBlockStorage(location);
-                BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_UUID, blockPlaceEvent.getPlayer().getUniqueId().toString());
+                StorageCacheUtils.setData(location, ConstantTableUtil.CONFIG_UUID, blockPlaceEvent.getPlayer().getUniqueId().toString());
 
                 CargoFilter.HELPER.checkOrSetBlockStorage(location);
                 CargoMode.HELPER.checkOrSetBlockStorage(location);
@@ -92,7 +93,7 @@ public class PointTransfer extends AbstractCargo implements RecipeItem {
 
     @Override
     public void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
-        BlockMenu blockMenu = BlockStorage.getInventory(block);
+        BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
         Location location = block.getLocation();
         JavaPlugin javaPlugin = this.getAddon().getJavaPlugin();
         boolean primaryThread = javaPlugin.getServer().isPrimaryThread();
@@ -149,7 +150,7 @@ public class PointTransfer extends AbstractCargo implements RecipeItem {
                 Inventory outputInventory = CargoUtil.getVanillaInventory(outputBlock);
 
                 ServerRunnableLockFactory.getInstance(javaPlugin, Location.class).waitThenRun(() -> {
-                    if (!BlockStorage.hasBlockInfo(location)) {
+                    if (!StorageCacheUtils.hasBlock(location)) {
                         return;
                     }
 
@@ -166,7 +167,7 @@ public class PointTransfer extends AbstractCargo implements RecipeItem {
                     String cargoMode = CargoMode.HELPER.getOrDefaultValue(config);
 
                     InvWithSlots inputMap;
-                    if (BlockStorage.hasInventory(inputBlock)) {
+                    if (StorageCacheUtils.getMenu(inputBlock.getLocation()) != null) {
                         if (CargoMode.VALUE_OUTPUT_MAIN.equals(cargoMode)) {
                             inputMap = null;
                         } else {
@@ -179,7 +180,7 @@ public class PointTransfer extends AbstractCargo implements RecipeItem {
                     }
 
                     InvWithSlots outputMap;
-                    if (BlockStorage.hasInventory(outputBlock)) {
+                    if (StorageCacheUtils.getMenu(outputBlock.getLocation()) != null) {
                         if (CargoMode.VALUE_INPUT_MAIN.equals(cargoMode)) {
                             outputMap = null;
                         } else {
@@ -215,14 +216,14 @@ public class PointTransfer extends AbstractCargo implements RecipeItem {
             particleLocationList.add(LocationUtil.getCenterLocation(result));
             if (drawParticle && FinalTechChanged.getSlimefunTickCount() % this.particleInterval == 0) {
                 JavaPlugin javaPlugin = this.getAddon().getJavaPlugin();
-                javaPlugin.getServer().getScheduler().runTaskAsynchronously(javaPlugin, () -> ParticleUtil.drawLineByDistance(javaPlugin, Particle.CRIT_MAGIC, this.particleInterval * Slimefun.getTickerTask().getTickRate() * 50L / particleLocationList.size(), this.particleDistance, input ? JavaUtil.reserve(particleLocationList) : particleLocationList));
+                javaPlugin.getServer().getScheduler().runTaskAsynchronously(javaPlugin, () -> ParticleUtil.drawLineByDistance(javaPlugin, Particle.CRIT, this.particleInterval * Slimefun.getTickerTask().getTickRate() * 50L / particleLocationList.size(), this.particleDistance, input ? JavaUtil.reserve(particleLocationList) : particleLocationList));
             }
             return result;
         }
         Set<Location> locationSet = new HashSet<>();
         locationSet.add(begin.getLocation());
         while (true) {
-            if (BlockStorage.hasInventory(result) && !result.getType().equals(FinalTechItemStacks.POINT_TRANSFER.getType())) {
+            if (StorageCacheUtils.getMenu(result.getLocation()) != null && !result.getType().equals(FinalTechItemStacks.POINT_TRANSFER.getType())) {
                 particleLocationList.add(LocationUtil.getCenterLocation(result));
                 break;
             }
@@ -255,7 +256,7 @@ public class PointTransfer extends AbstractCargo implements RecipeItem {
         }
         if (drawParticle && FinalTechChanged.getSlimefunTickCount() % this.particleInterval == 0) {
             JavaPlugin javaPlugin = this.getAddon().getJavaPlugin();
-            javaPlugin.getServer().getScheduler().runTaskAsynchronously(javaPlugin, () -> ParticleUtil.drawLineByDistance(javaPlugin, Particle.CRIT_MAGIC, this.particleInterval * Slimefun.getTickerTask().getTickRate() * 50L / particleLocationList.size(), this.particleDistance, input ? JavaUtil.reserve(particleLocationList) : particleLocationList));
+            javaPlugin.getServer().getScheduler().runTaskAsynchronously(javaPlugin, () -> ParticleUtil.drawLineByDistance(javaPlugin, Particle.CRIT, this.particleInterval * Slimefun.getTickerTask().getTickRate() * 50L / particleLocationList.size(), this.particleDistance, input ? JavaUtil.reserve(particleLocationList) : particleLocationList));
         }
         return result;
     }

@@ -8,7 +8,6 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.handlers.*;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.taraxacum.finaltech.FinalTechChanged;
-import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.interfaces.RecipeItem;
 import io.taraxacum.finaltech.core.menu.AbstractMachineMenu;
 import io.taraxacum.finaltech.setup.FinalTechItemStacks;
@@ -19,6 +18,7 @@ import io.taraxacum.libs.slimefun.interfaces.SimpleValidItem;
 import io.taraxacum.libs.slimefun.util.SfItemUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -30,6 +30,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -111,56 +113,56 @@ public class EquivalentConcept extends AbstractPointMachine implements RecipeIte
         return null;
     }
 
-    @Override
+	@Override
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
         try  {
             if (FinalTechChanged.y) {
                 FinalTechChanged.getInstance().getServer().getScheduler().runTask(FinalTechChanged.getInstance(), () -> block.setType(Material.AIR));
-                BlockStorage.clearBlockInfo(block.getLocation());
+                Slimefun.getDatabaseManager().getBlockDataController().removeBlock(block.getLocation());
                 return ;
             }
-            if (BlockStorage.getLocationInfo(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP) != null) {
-                String sleepStr = BlockStorage.getLocationInfo(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP);
+            if (StorageCacheUtils.getData(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP) != null) {
+                String sleepStr = StorageCacheUtils.getData(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP);
                 if (sleepStr != null) {
                     double sleep = Double.parseDouble(sleepStr) - 1;
                     if (sleep > 0) {
-                        BlockStorage.addBlockInfo(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP, String.valueOf(sleep));
+                        StorageCacheUtils.setData(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP, String.valueOf(sleep));
                         return;
                     } else {
-                        BlockStorage.addBlockInfo(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP, String.valueOf(0));
+                        StorageCacheUtils.setData(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP, String.valueOf(0));
 
                     }
                 }
             }
             Location l = block.getLocation();
-            double life = (BlockStorage.getLocationInfo(block.getLocation(), KEY_LIFE) != null) ? Double.parseDouble(BlockStorage.getLocationInfo(l, KEY_LIFE)) : 0;
+            double life = (StorageCacheUtils.getData(block.getLocation(), KEY_LIFE) != null) ? Double.parseDouble(StorageCacheUtils.getData(l, KEY_LIFE)) : 0;
             if (life < 1) {
                 Location location = block.getLocation();
-                BlockStorage.addBlockInfo(location, KEY_LIFE, "0");
-                BlockStorage.addBlockInfo(location, KEY_RANGE, "0");
-                BlockStorage.addBlockInfo(l, ConstantTableUtil.CONFIG_SLEEP, "0");
-                BlockStorage.clearBlockInfo(location);
+                StorageCacheUtils.setData(location, KEY_LIFE, "0");
+                StorageCacheUtils.setData(location, KEY_RANGE, "0");
+                StorageCacheUtils.setData(l, ConstantTableUtil.CONFIG_SLEEP, "0");
+                Slimefun.getDatabaseManager().getBlockDataController().removeBlock(location);
                 JavaPlugin javaPlugin = this.getAddon().getJavaPlugin();
                 javaPlugin.getServer().getScheduler().runTaskLaterAsynchronously(javaPlugin, () -> {
-                    if (!location.getBlock().getType().isAir() && BlockStorage.getLocationInfo(location, ConstantTableUtil.CONFIG_ID) == null) {
-                        BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_ID, FinalTechItemStacks.JUSTIFIABILITY.getItemId(), true);
+                    if (!location.getBlock().getType().isAir() && StorageCacheUtils.getData(location, ConstantTableUtil.CONFIG_ID) == null) {
+                        StorageCacheUtils.setData(location, ConstantTableUtil.CONFIG_ID, FinalTechItemStacks.JUSTIFIABILITY.getItemId());
                     }
                 }, Slimefun.getTickerTask().getTickRate() + 1);
                 return;
             }
 
-            final int range = (BlockStorage.getLocationInfo(block.getLocation(), KEY_RANGE) != null) ? Integer.parseInt(BlockStorage.getLocationInfo(l, KEY_RANGE)) : this.range;
+            final int range = (StorageCacheUtils.getData(block.getLocation(), KEY_RANGE) != null) ? Integer.parseInt(StorageCacheUtils.getData(l, KEY_RANGE)) : this.range;
 
             while (life > 1) {
                 final double finalLife = life--;
                 this.pointFunction(block, range, location -> {
                     FinalTechChanged.getLocationRunnableFactory().waitThenRun(() -> {
                         Block targetBlock = location.getBlock();
-                        if (!BlockStorage.hasBlockInfo(location)) {
+                        if (!StorageCacheUtils.hasBlock(location)) {
                             if (targetBlock.getType() == Material.AIR) {
-                                BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_ID, EquivalentConcept.this.getId(), true);
-                                BlockStorage.addBlockInfo(location, KEY_LIFE, String.valueOf(finalLife * attenuationRate));
-                                BlockStorage.addBlockInfo(location, KEY_RANGE, String.valueOf(range + 1));
+                                StorageCacheUtils.setData(location, ConstantTableUtil.CONFIG_ID, EquivalentConcept.this.getId());
+                                StorageCacheUtils.setData(location, KEY_LIFE, String.valueOf(finalLife * attenuationRate));
+                                StorageCacheUtils.setData(location, KEY_RANGE, String.valueOf(range + 1));
                                 BlockTickerUtil.setSleep(BlockStorage.getLocationInfo(location), String.valueOf(EquivalentConcept.this.life - finalLife));
                                 JavaPlugin javaPlugin = EquivalentConcept.this.getAddon().getJavaPlugin();
                                 javaPlugin.getServer().getScheduler().runTask(javaPlugin, () -> targetBlock.setType(EquivalentConcept.this.getItem().getType()));
@@ -171,7 +173,7 @@ public class EquivalentConcept extends AbstractPointMachine implements RecipeIte
                 });
             }
 
-            BlockStorage.addBlockInfo(block, KEY_LIFE, String.valueOf(0));
+            StorageCacheUtils.setData(block.getLocation(), KEY_LIFE, String.valueOf(0));
         } catch (Exception e) {
             FinalTechChanged.getInstance().getLogger().warning("[FINALTECH] 物品 等概念体 出现了异常, 但不要担心这是正常情况");
         }

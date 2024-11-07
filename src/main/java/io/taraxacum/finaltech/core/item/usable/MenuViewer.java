@@ -7,11 +7,10 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.taraxacum.finaltech.FinalTechChanged;
-import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.interfaces.RecipeItem;
 import io.taraxacum.finaltech.util.RecipeUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
@@ -19,6 +18,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 
@@ -48,7 +49,7 @@ public class MenuViewer extends UsableSlimefunItem implements RecipeItem {
         Player player = playerRightClickEvent.getPlayer();
         if (!playerRightClickEvent.getClickedBlock().isEmpty()) {
             Location location = playerRightClickEvent.getClickedBlock().get().getLocation();
-            BlockMenu blockMenu = BlockStorage.getInventory(location);
+            BlockMenu blockMenu = StorageCacheUtils.getMenu(location);
             if (blockMenu != null) {
                 BlockMenuPreset preset = blockMenu.getPreset();
                 ItemStack itemInOffHand = player.getInventory().getItemInOffHand();

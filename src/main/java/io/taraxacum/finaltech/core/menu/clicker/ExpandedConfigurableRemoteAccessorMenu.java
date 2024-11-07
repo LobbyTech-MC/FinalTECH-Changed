@@ -6,7 +6,7 @@ import io.taraxacum.finaltech.core.item.machine.clicker.AbstractClickerMachine;
 import io.taraxacum.finaltech.util.LocationUtil;
 import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import io.taraxacum.libs.plugin.util.ParticleUtil;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -18,6 +18,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
  
@@ -72,8 +74,8 @@ public class ExpandedConfigurableRemoteAccessorMenu extends AbstractClickerMenu 
                         targetBlock = targetBlock.getRelative(blockFace);
                     }
 
-                    if (BlockStorage.hasInventory(targetBlock)) {
-                        BlockMenu targetBlockMenu = BlockStorage.getInventory(targetBlock);
+                    if (StorageCacheUtils.getMenu(targetBlock.getLocation()) != null) {
+                        BlockMenu targetBlockMenu = StorageCacheUtils.getMenu(targetBlock.getLocation());
                         if (targetBlockMenu.canOpen(targetBlock, player)) {
                             JavaPlugin javaPlugin = this.getSlimefunItem().getAddon().getJavaPlugin();
                             Block finalTargetBlock = targetBlock;
@@ -85,8 +87,8 @@ public class ExpandedConfigurableRemoteAccessorMenu extends AbstractClickerMenu 
                 } else if (digit == 0) {
                     for (int i = 0; i < this.range; i++) {
                         targetBlock = targetBlock.getRelative(blockFace);
-                        if (BlockStorage.hasInventory(targetBlock)) {
-                            BlockMenu targetBlockMenu = BlockStorage.getInventory(targetBlock);
+                        if (StorageCacheUtils.getMenu(targetBlock.getLocation()) != null) {
+                            BlockMenu targetBlockMenu = StorageCacheUtils.getMenu(targetBlock.getLocation());
                             if (targetBlockMenu.canOpen(targetBlock, player)) {
                                 JavaPlugin javaPlugin = this.getSlimefunItem().getAddon().getJavaPlugin();
                                 Block finalTargetBlock = targetBlock;

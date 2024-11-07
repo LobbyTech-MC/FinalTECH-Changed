@@ -9,7 +9,6 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.taraxacum.common.util.JavaUtil;
 import io.taraxacum.common.util.StringNumberUtil;
 import io.taraxacum.finaltech.FinalTechChanged;
-import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.interfaces.RecipeItem;
 import io.taraxacum.finaltech.core.menu.machine.ItemDismantleTableMenu;
 import io.taraxacum.finaltech.core.menu.manual.AbstractManualMachineMenu;
@@ -20,10 +19,12 @@ import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import io.taraxacum.libs.slimefun.dto.RecipeTypeRegistry;
 import io.taraxacum.libs.slimefun.interfaces.ValidItem;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
+
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
@@ -62,12 +63,12 @@ public class ItemDismantleTable extends AbstractManualMachine implements RecipeI
 
     @Override
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
-        String count = JavaUtil.getFirstNotNull(BlockStorage.getLocationInfo(block.getLocation(), key), StringNumberUtil.ZERO);
+        String count = JavaUtil.getFirstNotNull(StorageCacheUtils.getData(block.getLocation(), key), StringNumberUtil.ZERO);
         if (StringNumberUtil.compare(count, limit) < 0) {
-            BlockStorage.addBlockInfo(block.getLocation(), key, StringNumberUtil.add(count));
+            StorageCacheUtils.setData(block.getLocation(), key, StringNumberUtil.add(count));
         }
 
-        BlockMenu blockMenu = BlockStorage.getInventory(block);
+        BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
         if (blockMenu != null && blockMenu.hasViewer()) {
             this.getMachineMenu().updateInventory(blockMenu.toInventory(), block.getLocation());
         }

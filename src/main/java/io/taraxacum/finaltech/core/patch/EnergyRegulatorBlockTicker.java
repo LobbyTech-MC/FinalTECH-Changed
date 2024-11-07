@@ -4,16 +4,17 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNet;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.taraxacum.finaltech.FinalTechChanged;
-import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.interfaces.MenuUpdater;
 import io.taraxacum.finaltech.core.menu.unit.StatusMenu;
 import io.taraxacum.finaltech.core.networks.AlteredEnergyNet;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import java.lang.reflect.Field;
 
@@ -77,9 +78,10 @@ public class EnergyRegulatorBlockTicker extends BlockTicker implements MenuUpdat
     public void tick(Block block, SlimefunItem slimefunItem, Config config) {
         Location location = block.getLocation();
         EnergyNet energyNetwork = AlteredEnergyNet.getNetworkFromLocationOrCreate(location);
+        SlimefunBlockData blockData = StorageCacheUtils.getBlock(location);
         if (energyNetwork instanceof AlteredEnergyNet alteredEnergyNet) {
             AlteredEnergyNet.Summary summary = alteredEnergyNet.tick(block, slimefunItem, config);
-            BlockMenu blockMenu = BlockStorage.getInventory(location);
+            BlockMenu blockMenu = blockData.getBlockMenu();
             if (blockMenu != null && blockMenu.hasViewer()) {
                 this.updateMenu(blockMenu, StatusMenu.STATUS_SLOT, slimefunItem,
                         String.valueOf(summary.getConsumerAmount()),
@@ -96,7 +98,7 @@ public class EnergyRegulatorBlockTicker extends BlockTicker implements MenuUpdat
             }
         } else {
             energyNetwork.markDirty(location);
-            energyNetwork.tick(block);
+            energyNetwork.tick(block, blockData);
         }
     }
 }

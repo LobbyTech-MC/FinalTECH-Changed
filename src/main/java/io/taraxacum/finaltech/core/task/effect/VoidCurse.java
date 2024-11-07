@@ -1,7 +1,6 @@
 package io.taraxacum.finaltech.core.task.effect;
 
 import io.taraxacum.finaltech.FinalTechChanged;
-import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.util.LocationUtil;
 import io.taraxacum.libs.plugin.task.StartTask;
 import org.bukkit.Location;

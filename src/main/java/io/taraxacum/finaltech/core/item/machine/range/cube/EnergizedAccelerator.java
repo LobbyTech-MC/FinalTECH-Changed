@@ -1,5 +1,25 @@
 package io.taraxacum.finaltech.core.item.machine.range.cube;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
+
+import javax.annotation.Nonnull;
+
+import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
+
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -9,30 +29,22 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.taraxacum.finaltech.FinalTechChanged;
-import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.interfaces.LocationMachine;
 import io.taraxacum.finaltech.core.interfaces.MenuUpdater;
 import io.taraxacum.finaltech.core.interfaces.RecipeItem;
 import io.taraxacum.finaltech.core.menu.AbstractMachineMenu;
 import io.taraxacum.finaltech.core.menu.unit.StatusMenu;
-import io.taraxacum.finaltech.util.*;
+import io.taraxacum.finaltech.util.BlockTickerUtil;
+import io.taraxacum.finaltech.util.ConfigUtil;
+import io.taraxacum.finaltech.util.ConstantTableUtil;
+import io.taraxacum.finaltech.util.MachineUtil;
+import io.taraxacum.finaltech.util.RecipeUtil;
 import io.taraxacum.libs.plugin.util.ParticleUtil;
 import io.taraxacum.libs.slimefun.dto.LocationInfo;
 import io.taraxacum.libs.slimefun.util.EnergyUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
-import org.bukkit.Location;
-import org.bukkit.Particle;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import javax.annotation.Nonnull;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class EnergizedAccelerator extends AbstractCubeMachine implements EnergyNetComponent, RecipeItem, MenuUpdater, LocationMachine {
     private final Set<String> notAllowedId = new HashSet<>(ConfigUtil.getItemStringList(this, "not-allowed-id"));
@@ -66,7 +78,7 @@ public class EnergizedAccelerator extends AbstractCubeMachine implements EnergyN
     @Override
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
         Location blockLocation = block.getLocation();
-        BlockMenu blockMenu = BlockStorage.getInventory(blockLocation);
+        BlockMenu blockMenu = StorageCacheUtils.getMenu(blockLocation);
         boolean hasViewer = blockMenu.hasViewer();
 
         int machineEnergy = Integer.parseInt(EnergyUtil.getCharge(blockLocation));
@@ -120,7 +132,7 @@ public class EnergizedAccelerator extends AbstractCubeMachine implements EnergyN
                     Collections.shuffle(locationInfoList);
                     for (LocationInfo locationInfo : locationInfoList) {
                         BlockTicker blockTicker = locationInfo.getSlimefunItem().getBlockTicker();
-                        if (blockTicker != null && locationInfo.getId().equals(BlockStorage.getLocationInfo(locationInfo.getLocation(), ConstantTableUtil.CONFIG_ID))) {
+                        if (blockTicker != null && locationInfo.getId().equals(StorageCacheUtils.getData(locationInfo.getLocation(), ConstantTableUtil.CONFIG_ID))) {
                             if (blockTicker.isSynchronized()) {
                                 javaPlugin.getServer().getScheduler().runTask(javaPlugin, () -> blockTicker.tick(locationInfo.getLocation().getBlock(), locationInfo.getSlimefunItem(), locationInfo.getConfig()));
                             } else {

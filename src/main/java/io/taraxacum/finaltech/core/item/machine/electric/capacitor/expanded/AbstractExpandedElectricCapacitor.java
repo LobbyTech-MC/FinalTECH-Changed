@@ -19,13 +19,15 @@ import io.taraxacum.finaltech.core.menu.unit.StatusMenu;
 import io.taraxacum.finaltech.util.RecipeUtil;
 import io.taraxacum.libs.slimefun.util.EnergyUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
+
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 
@@ -57,7 +59,7 @@ public abstract class AbstractExpandedElectricCapacitor extends AbstractElectric
         return new BlockPlaceHandler(false) {
             @Override
             public void onPlayerPlace(@Nonnull BlockPlaceEvent blockPlaceEvent) {
-                BlockStorage.addBlockInfo(blockPlaceEvent.getBlock().getLocation(), AbstractExpandedElectricCapacitor.this.key, StringNumberUtil.ZERO);
+                StorageCacheUtils.setData(blockPlaceEvent.getBlock().getLocation(), AbstractExpandedElectricCapacitor.this.key, StringNumberUtil.ZERO);
             }
         };
     }
@@ -79,7 +81,7 @@ public abstract class AbstractExpandedElectricCapacitor extends AbstractElectric
 
         this.setEnergy(block.getLocation(), allEnergy);
 
-        BlockMenu blockMenu = BlockStorage.getInventory(block);
+        BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
         if (blockMenu.hasViewer()) {
             this.updateMenu(blockMenu, StatusMenu.STATUS_SLOT, this, String.valueOf(energy), energyStackStr);
         }
@@ -124,8 +126,8 @@ public abstract class AbstractExpandedElectricCapacitor extends AbstractElectric
             stack++;
         }
 
-        BlockStorage.addBlockInfo(location, this.key, String.valueOf(stack));
-        //BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_CHARGE, String.valueOf(lastEnergy));
+        StorageCacheUtils.setData(location, this.key, String.valueOf(stack));
+        //StorageCacheUtils.setData(location, ConstantTableUtil.CONFIG_CHARGE, String.valueOf(lastEnergy));
         this.setCharge(location, (int) (lastEnergy % Integer.MAX_VALUE));
     }
 }

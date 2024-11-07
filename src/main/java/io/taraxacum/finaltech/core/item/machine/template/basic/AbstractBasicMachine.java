@@ -18,10 +18,12 @@ import io.taraxacum.libs.slimefun.dto.AdvancedCraft;
 import io.taraxacum.libs.slimefun.dto.MachineRecipeFactory;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
+
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -65,7 +67,7 @@ public abstract class AbstractBasicMachine extends AbstractMachine implements Re
 
     @Override
     protected final void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
-        BlockMenu blockMenu = BlockStorage.getInventory(block);
+        BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
         int offset = config.contains(this.offsetKey) ? Integer.parseInt(config.getString(offsetKey)) : 0;
         int recipeLock = config.contains(MachineRecipeLock.KEY) ? Integer.parseInt(config.getString(MachineRecipeLock.KEY)) : -2;
         MachineUtil.stockSlots(blockMenu.toInventory(), this.getInputSlot());
@@ -98,14 +100,14 @@ public abstract class AbstractBasicMachine extends AbstractMachine implements Re
                     if (blockMenu.hasViewer()) {
                         MachineRecipeLock.HELPER.setIcon(item, String.valueOf(craft.getOffset()), this);
                     }
-                    BlockStorage.addBlockInfo(blockMenu.getLocation(), MachineRecipeLock.KEY, String.valueOf(craft.getOffset()));
+                    StorageCacheUtils.setData(blockMenu.getLocation(), MachineRecipeLock.KEY, String.valueOf(craft.getOffset()));
                 } else if (recipeLock == Integer.parseInt(MachineRecipeLock.VALUE_LOCK_OFF)) {
-                    BlockStorage.addBlockInfo(blockMenu.getLocation(), this.offsetKey, String.valueOf(craft.getOffset()));
+                    StorageCacheUtils.setData(blockMenu.getLocation(), this.offsetKey, String.valueOf(craft.getOffset()));
                 }
                 return craft.calMachineRecipe(this.getMachineRecipes().get(offset).getTicks());
             }
         }
-        BlockStorage.addBlockInfo(blockMenu.getLocation(), this.offsetKey, null);
+        StorageCacheUtils.setData(blockMenu.getLocation(), this.offsetKey, null);
         return null;
     }
 }
