@@ -8,7 +8,6 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.inventory.InvUtils;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.taraxacum.finaltech.FinalTechChanged;
-import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.menu.AbstractMachineMenu;
 import io.taraxacum.finaltech.core.menu.machine.ItemSerializationConstructorMenu;
 import io.taraxacum.finaltech.core.operation.ItemCopyCardOperation;
@@ -17,13 +16,15 @@ import io.taraxacum.finaltech.setup.FinalTechItems;
 import io.taraxacum.finaltech.util.*;
 import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class MatrixItemSerializationConstructor extends AbstractOperationMachine
             @Override
             public void onPlayerBreak(@Nonnull BlockBreakEvent blockBreakEvent, @Nonnull ItemStack item, @Nonnull List<ItemStack> drops) {
                 Location location = blockBreakEvent.getBlock().getLocation();
-                BlockMenu blockMenu = BlockStorage.getInventory(location);
+                BlockMenu blockMenu = StorageCacheUtils.getMenu(location);
                 blockMenu.dropItems(location, MatrixItemSerializationConstructor.this.getInputSlot());
                 blockMenu.dropItems(location, MatrixItemSerializationConstructor.this.getOutputSlot());
 
@@ -67,7 +68,7 @@ public class MatrixItemSerializationConstructor extends AbstractOperationMachine
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
         Location location = block.getLocation();
         this.locationList.add(location);
-        BlockMenu blockMenu = BlockStorage.getInventory(block);
+        BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
 
         if (FinalTechChanged.getTps() < 19.5 && this.lastLocationList.size() > 1) {
             if (BlockTickerUtil.hasSleep(config)) {
@@ -118,15 +119,15 @@ public class MatrixItemSerializationConstructor extends AbstractOperationMachine
             blockMenu.pushItem(operation.getResult(), this.getOutputSlot());
             this.getMachineProcessor().endOperation(block);
             operation = null;
-            BlockStorage.addBlockInfo(location, this.blockStorageItemKey, null);
-            BlockStorage.addBlockInfo(location, this.blockStorageAmountKey, null);
+            StorageCacheUtils.setData(location, this.blockStorageItemKey, null);
+            StorageCacheUtils.setData(location, this.blockStorageAmountKey, null);
         }
 
         if (operation != null && operation.getType() == ItemSerializationConstructorOperation.COPY_CARD) {
             if (!config.contains(this.blockStorageItemKey)) {
-                BlockStorage.addBlockInfo(location, this.blockStorageItemKey, ItemStackUtil.itemStackToString(((ItemCopyCardOperation) operation).getMatchItem()));
+                StorageCacheUtils.setData(location, this.blockStorageItemKey, ItemStackUtil.itemStackToString(((ItemCopyCardOperation) operation).getMatchItem()));
             }
-            BlockStorage.addBlockInfo(location, this.blockStorageAmountKey, String.valueOf((int) ((ItemCopyCardOperation) operation).getCount()));
+            StorageCacheUtils.setData(location, this.blockStorageAmountKey, String.valueOf((int) ((ItemCopyCardOperation) operation).getCount()));
         }
 
         if (blockMenu.hasViewer()) {

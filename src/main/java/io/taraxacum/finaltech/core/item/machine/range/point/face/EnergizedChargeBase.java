@@ -21,11 +21,13 @@ import io.taraxacum.finaltech.util.RecipeUtil;
 import io.taraxacum.libs.slimefun.dto.LocationInfo;
 import io.taraxacum.libs.slimefun.util.EnergyUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.inventory.ItemStack;
+
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
@@ -65,7 +67,7 @@ public class EnergizedChargeBase extends AbstractFaceMachine implements RecipeIt
                 BlockTickerUtil.runTask(FinalTechChanged.getLocationRunnableFactory(), FinalTechChanged.isAsyncSlimefunItem(locationInfo.getId()), () -> EnergizedChargeBase.this.doCharge(block, locationInfo), location);
                 return 0;
             }
-            BlockMenu blockMenu = BlockStorage.getInventory(block);
+            BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
             if (blockMenu.hasViewer()) {
                 this.updateMenu(blockMenu, StatusMenu.STATUS_SLOT, this,
                         "0",
@@ -94,7 +96,7 @@ public class EnergizedChargeBase extends AbstractFaceMachine implements RecipeIt
             }
         }
 
-        BlockMenu blockMenu = BlockStorage.getInventory(block);
+        BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
         if (blockMenu.hasViewer()) {
             this.updateMenu(blockMenu, StatusMenu.STATUS_SLOT, this,
                     String.valueOf(storedEnergy),

@@ -8,7 +8,6 @@ import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponen
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.taraxacum.common.util.StringNumberUtil;
 import io.taraxacum.finaltech.FinalTechChanged;
-import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.interfaces.MenuUpdater;
 import io.taraxacum.finaltech.core.interfaces.RecipeItem;
 import io.taraxacum.finaltech.core.menu.AbstractMachineMenu;
@@ -20,12 +19,14 @@ import io.taraxacum.finaltech.util.ConstantTableUtil;
 import io.taraxacum.finaltech.util.RecipeUtil;
 import io.taraxacum.libs.slimefun.util.EnergyUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 
@@ -48,12 +49,12 @@ public class VariableWireCapacitor extends AbstractElectricMachine implements Re
         String charge = EnergyUtil.getCharge(location);
         if (StringNumberUtil.ZERO.equals(charge)) {
             JavaPlugin javaPlugin = this.getAddon().getJavaPlugin();
-            Runnable runnable = () -> {
-                BlockStorage.deleteLocationInfoUnsafely(location, true);
-                BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_ID, FinalTechItemStacks.VARIABLE_WIRE_RESISTANCE.getItemId(), true);
+			Runnable runnable = () -> {
+				Slimefun.getDatabaseManager().getBlockDataController().removeBlock(location);
+                StorageCacheUtils.setData(location, ConstantTableUtil.CONFIG_ID, FinalTechItemStacks.VARIABLE_WIRE_RESISTANCE.getItemId());
                 Slimefun.getNetworkManager().updateAllNetworks(location);
                 javaPlugin.getServer().getScheduler().runTaskLater(javaPlugin, () -> {
-                    if (!location.getBlock().getType().isAir() && FinalTechItemStacks.VARIABLE_WIRE_RESISTANCE.getItemId().equals(BlockStorage.getLocationInfo(location, ConstantTableUtil.CONFIG_ID))) {
+                    if (!location.getBlock().getType().isAir() && FinalTechItemStacks.VARIABLE_WIRE_RESISTANCE.getItemId().equals(StorageCacheUtils.getData(location, ConstantTableUtil.CONFIG_ID))) {
                         block.setType(FinalTechItemStacks.VARIABLE_WIRE_RESISTANCE.getType());
                     }
                 }, 0);
@@ -61,7 +62,7 @@ public class VariableWireCapacitor extends AbstractElectricMachine implements Re
 
             javaPlugin.getServer().getScheduler().runTask(javaPlugin, () -> BlockTickerUtil.runTask(FinalTechChanged.getLocationRunnableFactory(), FinalTechChanged.isAsyncSlimefunItem(this.getId()), runnable, location));
         } else {
-            BlockMenu blockMenu = BlockStorage.getInventory(location);
+            BlockMenu blockMenu = StorageCacheUtils.getMenu(location);
             if (blockMenu.hasViewer()) {
                 this.updateMenu(blockMenu, StatusMenu.STATUS_SLOT, this, charge);
             }

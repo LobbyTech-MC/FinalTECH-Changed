@@ -3,7 +3,6 @@ package io.taraxacum.finaltech.core.menu.clicker;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.taraxacum.finaltech.FinalTechChanged;
-import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.helper.Icon;
 import io.taraxacum.finaltech.core.item.machine.clicker.AbstractClickerMachine;
 import io.taraxacum.finaltech.core.item.machine.clicker.AreaAccessor;
@@ -12,7 +11,7 @@ import io.taraxacum.libs.plugin.util.ParticleUtil;
 import io.taraxacum.libs.slimefun.dto.LocationInfo;
 import io.taraxacum.libs.slimefun.util.SfItemUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -22,6 +21,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -98,10 +99,6 @@ public class AreaAccessorMenu extends AbstractClickerMenu {
         if (world == null) {
             return;
         }
-        BlockStorage storage = BlockStorage.getStorage(world);
-        if (storage == null) {
-            return;
-        }
 
         Map<Integer, List<Location>> distanceLocationMap = new HashMap<>(range * 3);
         Location tempLocation = location.clone();
@@ -118,7 +115,7 @@ public class AreaAccessorMenu extends AbstractClickerMenu {
                 tempLocation.setY(y);
                 for (int z = minZ; z <= maxZ; z++) {
                     tempLocation.setZ(z);
-                    if (BlockStorage.hasBlockInfo(tempLocation) && storage.hasInventory(tempLocation)) {
+                    if (StorageCacheUtils.hasBlock(tempLocation) && StorageCacheUtils.getMenu(tempLocation) != null) {
                         int distance = Math.abs(tempLocation.getBlockX() - location.getBlockX()) + Math.abs(tempLocation.getBlockY() - location.getBlockY()) + Math.abs(tempLocation.getBlockZ() - location.getBlockZ());
                         List<Location> locationList = distanceLocationMap.computeIfAbsent(distance, d -> new ArrayList<>(d * d * 4 + 2));
                         locationList.add(tempLocation.clone());
@@ -144,7 +141,7 @@ public class AreaAccessorMenu extends AbstractClickerMenu {
             Location l = locationList.get((i + page * TEMP_CONTENT.length) % locationList.size());
             LocationInfo locationInfo = LocationInfo.get(l);
             if (locationInfo != null) {
-                BlockMenu blockMenu = BlockStorage.getInventory(l);
+                BlockMenu blockMenu = StorageCacheUtils.getMenu(l);
                 if (blockMenu != null) {
                     ItemStack icon = new CustomItemStack(locationInfo.getSlimefunItem().getItem(), locationInfo.getSlimefunItem().getItemName(), FinalTechChanged.getLanguageManager().replaceStringArray(FinalTechChanged.getLanguageStringArray("items", SfItemUtil.getIdFormatName(AreaAccessor.class), "temp-icon", "lore"),
                             String.valueOf(l.getBlockX() - location.getBlockX()),
@@ -153,7 +150,7 @@ public class AreaAccessorMenu extends AbstractClickerMenu {
                     chestMenu.addItem(TEMP_CONTENT[i], icon);
                     chestMenu.addMenuClickHandler(TEMP_CONTENT[i], (p, slot, item, action) -> {
                         // BlockMenu may be updated after the menu generated.
-                        if (BlockStorage.hasBlockInfo(l) && BlockStorage.hasInventory(l.getBlock()) && blockMenu.canOpen(l.getBlock(), player)) {
+                        if (StorageCacheUtils.hasBlock(l) && StorageCacheUtils.getMenu(l) != null && blockMenu.canOpen(l.getBlock(), player)) {
                             JavaPlugin javaPlugin = AreaAccessorMenu.this.getSlimefunItem().getAddon().getJavaPlugin();
                             javaPlugin.getServer().getScheduler().runTaskAsynchronously(javaPlugin, () -> ParticleUtil.drawCubeByBlock(javaPlugin, Particle.WAX_OFF, 0, blockMenu.getBlock()));
                             javaPlugin.getServer().getScheduler().runTaskAsynchronously(javaPlugin, () -> ParticleUtil.drawLineByDistance(javaPlugin, Particle.WAX_OFF, 0, 0.25, LocationUtil.getCenterLocation(location.getBlock()), LocationUtil.getCenterLocation(blockMenu.getBlock())));
