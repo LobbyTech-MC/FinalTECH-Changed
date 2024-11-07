@@ -59,7 +59,7 @@ public abstract class AbstractMachineMenu extends BlockMenuPreset {
     }
 
     public ChestMenu addCustomItem(int slot, ItemStack item) {
-		return addItem(slot, new CustomItemStack(item));
+		return item != null ? addItem(slot, new CustomItemStack(item)) : null;
 		
 	}
 

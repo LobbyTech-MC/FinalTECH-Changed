@@ -30,7 +30,7 @@ public final class FinalTechItemStacks {
     public static final SlimefunItemStack SPIROCHETE = ConfigUtil.getSlimefunItemStack(FinalTechChanged.getLanguageManager(), "_FINALTECH_SPIROCHETE", Material.STRING, "Spirochete");
     public static final SlimefunItemStack SHELL = ConfigUtil.getSlimefunItemStack(FinalTechChanged.getLanguageManager(), "_FINALTECH_SHELL", Material.NETHERITE_SCRAP, "Shell");
     public static final SlimefunItemStack PHONY = ConfigUtil.getSlimefunItemStack(FinalTechChanged.getLanguageManager(), "_FINALTECH_PHONY", Material.END_CRYSTAL, "Phony");
-    public static final SlimefunItemStack JUSTIFIABILITY = ConfigUtil.getSlimefunItemStack(FinalTechChanged.getLanguageManager(), "_FINALTECH_JUSTIFIABILITY", Material.IRON_NUGGET, "Justifiability");
+    public static final SlimefunItemStack JUSTIFIABILITY = ConfigUtil.getSlimefunItemStack(FinalTechChanged.getLanguageManager(), "_FINALTECH_JUSTIFIABILITY", Material.IRON_BLOCK, "Justifiability");
     public static final SlimefunItemStack EQUIVALENT_CONCEPT = ConfigUtil.getSlimefunItemStack(FinalTechChanged.getLanguageManager(), "_FINALTECH_EQUIVALENT_CONCEPT", Material.BLACK_CONCRETE, "Equivalent Concept");
 
     public static final SlimefunItemStack WATER_CARD = ConfigUtil.getSlimefunItemStack(FinalTechChanged.getLanguageManager(), "_FINALTECH_WATER_CARD", Material.PAPER, "Water Card");
