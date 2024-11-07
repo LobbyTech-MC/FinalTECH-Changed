@@ -72,30 +72,30 @@ public class AdvancedMeshTransferMenu extends AbstractMachineMenu {
     public void init() {
         super.init();
 
-        this.addItem(POSITION_NORTH_SLOT, PositionInfo.NORTH_ICON);
-        this.addItem(POSITION_EAST_SLOT, PositionInfo.EAST_ICON);
-        this.addItem(POSITION_SOUTH_SLOT, PositionInfo.SOUTH_ICON);
-        this.addItem(POSITION_WEST_SLOT, PositionInfo.WEST_ICON);
-        this.addItem(POSITION_UP_SLOT, PositionInfo.UP_ICON);
-        this.addItem(POSITION_DOWN_SLOT, PositionInfo.DOWN_ICON);
+        this.addCustomItem(POSITION_NORTH_SLOT, PositionInfo.NORTH_ICON);
+        this.addCustomItem(POSITION_EAST_SLOT, PositionInfo.EAST_ICON);
+        this.addCustomItem(POSITION_SOUTH_SLOT, PositionInfo.SOUTH_ICON);
+        this.addCustomItem(POSITION_WEST_SLOT, PositionInfo.WEST_ICON);
+        this.addCustomItem(POSITION_UP_SLOT, PositionInfo.UP_ICON);
+        this.addCustomItem(POSITION_DOWN_SLOT, PositionInfo.DOWN_ICON);
 
-        this.addItem(CARGO_FILTER_SLOT, CargoFilter.HELPER.defaultIcon());
-        this.addItem(INPUT_BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.MESH_INPUT_HELPER.defaultIcon());
-        this.addItem(OUTPUT_BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.MESH_OUTPUT_HELPER.defaultIcon());
+        this.addCustomItem(CARGO_FILTER_SLOT, CargoFilter.HELPER.defaultIcon());
+        this.addCustomItem(INPUT_BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.MESH_INPUT_HELPER.defaultIcon());
+        this.addCustomItem(OUTPUT_BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.MESH_OUTPUT_HELPER.defaultIcon());
 
-        this.addItem(INPUT_CARGO_NUMBER_SUB_SLOT, CargoNumber.CARGO_NUMBER_SUB_ICON);
-        this.addItem(INPUT_CARGO_NUMBER_MODE_SLOT, CargoNumber.CARGO_NUMBER_ICON);
-        this.addItem(INPUT_CARGO_NUMBER_ADD_SLOT, CargoNumber.CARGO_NUMBER_ADD_ICON);
-        this.addItem(INPUT_SLOT_SEARCH_SIZE_SLOT, SlotSearchSize.INPUT_HELPER.defaultIcon());
-        this.addItem(INPUT_SLOT_SEARCH_ORDER_SLOT, SlotSearchOrder.INPUT_HELPER.defaultIcon());
-        this.addItem(INPUT_CARGO_LIMIT_SLOT, CargoLimit.INPUT_HELPER.defaultIcon());
+        this.addCustomItem(INPUT_CARGO_NUMBER_SUB_SLOT, CargoNumber.CARGO_NUMBER_SUB_ICON);
+        this.addCustomItem(INPUT_CARGO_NUMBER_MODE_SLOT, CargoNumber.CARGO_NUMBER_ICON);
+        this.addCustomItem(INPUT_CARGO_NUMBER_ADD_SLOT, CargoNumber.CARGO_NUMBER_ADD_ICON);
+        this.addCustomItem(INPUT_SLOT_SEARCH_SIZE_SLOT, SlotSearchSize.INPUT_HELPER.defaultIcon());
+        this.addCustomItem(INPUT_SLOT_SEARCH_ORDER_SLOT, SlotSearchOrder.INPUT_HELPER.defaultIcon());
+        this.addCustomItem(INPUT_CARGO_LIMIT_SLOT, CargoLimit.INPUT_HELPER.defaultIcon());
 
-        this.addItem(OUTPUT_CARGO_NUMBER_SUB_SLOT, CargoNumber.CARGO_NUMBER_SUB_ICON);
-        this.addItem(OUTPUT_CARGO_NUMBER_MODE_SLOT, CargoNumber.CARGO_NUMBER_ICON);
-        this.addItem(OUTPUT_CARGO_NUMBER_ADD_SLOT, CargoNumber.CARGO_NUMBER_ADD_ICON);
-        this.addItem(OUTPUT_SLOT_SEARCH_SIZE_SLOT, SlotSearchSize.OUTPUT_HELPER.defaultIcon());
-        this.addItem(OUTPUT_SLOT_SEARCH_ORDER_SLOT, SlotSearchOrder.OUTPUT_HELPER.defaultIcon());
-        this.addItem(OUTPUT_CARGO_LIMIT_SLOT, CargoLimit.OUTPUT_HELPER.defaultIcon());
+        this.addCustomItem(OUTPUT_CARGO_NUMBER_SUB_SLOT, CargoNumber.CARGO_NUMBER_SUB_ICON);
+        this.addCustomItem(OUTPUT_CARGO_NUMBER_MODE_SLOT, CargoNumber.CARGO_NUMBER_ICON);
+        this.addCustomItem(OUTPUT_CARGO_NUMBER_ADD_SLOT, CargoNumber.CARGO_NUMBER_ADD_ICON);
+        this.addCustomItem(OUTPUT_SLOT_SEARCH_SIZE_SLOT, SlotSearchSize.OUTPUT_HELPER.defaultIcon());
+        this.addCustomItem(OUTPUT_SLOT_SEARCH_ORDER_SLOT, SlotSearchOrder.OUTPUT_HELPER.defaultIcon());
+        this.addCustomItem(OUTPUT_CARGO_LIMIT_SLOT, CargoLimit.OUTPUT_HELPER.defaultIcon());
     }
 
     @Override

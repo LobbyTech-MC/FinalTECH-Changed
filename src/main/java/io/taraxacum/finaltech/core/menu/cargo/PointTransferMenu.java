@@ -57,12 +57,12 @@ public class PointTransferMenu extends AbstractMachineMenu {
     public void init() {
         super.init();
 
-        this.addItem(CARGO_FILTER_SLOT, CargoFilter.HELPER.defaultIcon());
-        this.addItem(CARGO_MODE_SLOT, CargoMode.HELPER.defaultIcon());
+        this.addCustomItem(CARGO_FILTER_SLOT, CargoFilter.HELPER.defaultIcon());
+        this.addCustomItem(CARGO_MODE_SLOT, CargoMode.HELPER.defaultIcon());
 
-        this.addItem(INPUT_BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.POINT_INPUT_HELPER.defaultIcon());
+        this.addCustomItem(INPUT_BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.POINT_INPUT_HELPER.defaultIcon());
 
-        this.addItem(OUTPUT_BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.POINT_OUTPUT_HELPER.defaultIcon());
+        this.addCustomItem(OUTPUT_BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.POINT_OUTPUT_HELPER.defaultIcon());
     }
 
     @Override

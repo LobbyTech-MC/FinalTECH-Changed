@@ -60,7 +60,7 @@ public class ClickWorkMachineMenu extends AbstractClickerMenu {
     public void init() {
         super.init();
 
-        this.addItem(FORCE_CLOSE_SLOT, ForceClose.HELPER.defaultIcon());
+        this.addCustomItem(FORCE_CLOSE_SLOT, ForceClose.HELPER.defaultIcon());
     }
 
     @Override

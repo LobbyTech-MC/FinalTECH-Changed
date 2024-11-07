@@ -25,7 +25,7 @@ public abstract class AbstractLockMachineMenu extends AbstractLimitMachineMenu {
     @Override
     public void init() {
         super.init();
-        this.addItem(this.getRecipeLockSlot(), MachineRecipeLock.ICON);
+        this.addCustomItem(this.getRecipeLockSlot(), MachineRecipeLock.ICON);
         this.addMenuClickHandler(this.getRecipeLockSlot(), ChestMenuUtils.getEmptyClickHandler());
     }
 

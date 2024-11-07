@@ -71,18 +71,18 @@ public class LineTransferMenu extends AbstractMachineMenu {
         setSize(54);
 
         for (int slot : SPECIAL_BORDER) {
-            this.addItem(slot, Icon.SPECIAL_BORDER_ICON);
+            this.addCustomItem(slot, Icon.SPECIAL_BORDER_ICON);
             this.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
         }
 
-        this.addItem(BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.LINE_HELPER.defaultIcon());
-        this.addItem(BLOCK_SEARCH_ORDER_SLOT, BlockSearchOrder.HELPER.defaultIcon());
-        this.addItem(CARGO_ORDER_SLOT, CargoOrder.HELPER.defaultIcon());
-        this.addItem(BLOCK_SEARCH_CYCLE_SLOT, BlockSearchCycle.HELPER.defaultIcon());
-        this.addItem(BLOCK_SEARCH_SELF_SLOT, BlockSearchSelf.HELPER.defaultIcon());
+        this.addCustomItem(BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.LINE_HELPER.defaultIcon());
+        this.addCustomItem(BLOCK_SEARCH_ORDER_SLOT, BlockSearchOrder.HELPER.defaultIcon());
+        this.addCustomItem(CARGO_ORDER_SLOT, CargoOrder.HELPER.defaultIcon());
+        this.addCustomItem(BLOCK_SEARCH_CYCLE_SLOT, BlockSearchCycle.HELPER.defaultIcon());
+        this.addCustomItem(BLOCK_SEARCH_SELF_SLOT, BlockSearchSelf.HELPER.defaultIcon());
 
-        this.addItem(CARGO_MODE_SLOT, CargoMode.HELPER.defaultIcon());
-        this.addItem(CARGO_FILTER_SLOT, CargoFilter.HELPER.defaultIcon());
+        this.addCustomItem(CARGO_MODE_SLOT, CargoMode.HELPER.defaultIcon());
+        this.addCustomItem(CARGO_FILTER_SLOT, CargoFilter.HELPER.defaultIcon());
     }
 
     @Override

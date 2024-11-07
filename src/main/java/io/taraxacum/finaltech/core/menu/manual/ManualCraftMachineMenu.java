@@ -74,23 +74,23 @@ public class ManualCraftMachineMenu extends AbstractManualMachineMenu {
     public void init() {
         super.init();
 
-        this.addItem(STATUS_SLOT, STATUS_ICON);
+        this.addCustomItem(STATUS_SLOT, STATUS_ICON);
         for (int slot : STATUS_L_SLOT) {
-            this.addItem(slot, STATUS_ICON);
+            this.addCustomItem(slot, STATUS_ICON);
         }
         for (int slot : STATUS_R_SLOT) {
-            this.addItem(slot, STATUS_ICON);
+            this.addCustomItem(slot, STATUS_ICON);
         }
 
-        this.addItem(PREVIOUS_SLOT, new CustomItemStack(new SlimefunItemStack("_UI_PREVIOUS_INACTIVE", Material.BLACK_STAINED_GLASS_PANE, "&8\u21E6 Previous Page"), FinalTechChanged.getLanguageString("items", "ManualCraftMachine", "previous-icon", "name"), FinalTechChanged.getLanguageStringArray("items", "ManualCraftMachine", "previous-icon", "lore")));
-        this.addItem(NEXT_SLOT, new CustomItemStack(new SlimefunItemStack("_UI_NEXT_INACTIVE", Material.BLACK_STAINED_GLASS_PANE, "&8Next Page \u21E8"), FinalTechChanged.getLanguageString("items", "ManualCraftMachine", "next-icon", "name"), FinalTechChanged.getLanguageStringArray("items", "ManualCraftMachine", "next-icon", "lore")));
+        this.addCustomItem(PREVIOUS_SLOT, new CustomItemStack(new SlimefunItemStack("_UI_PREVIOUS_INACTIVE", Material.BLACK_STAINED_GLASS_PANE, "&8\u21E6 Previous Page"), FinalTechChanged.getLanguageString("items", "ManualCraftMachine", "previous-icon", "name"), FinalTechChanged.getLanguageStringArray("items", "ManualCraftMachine", "previous-icon", "lore")));
+        this.addCustomItem(NEXT_SLOT, new CustomItemStack(new SlimefunItemStack("_UI_NEXT_INACTIVE", Material.BLACK_STAINED_GLASS_PANE, "&8Next Page \u21E8"), FinalTechChanged.getLanguageString("items", "ManualCraftMachine", "next-icon", "name"), FinalTechChanged.getLanguageStringArray("items", "ManualCraftMachine", "next-icon", "lore")));
 
-        this.addItem(CRAFT_SLOT, CRAFT_ICON);
+        this.addCustomItem(CRAFT_SLOT, CRAFT_ICON);
         for (int slot : CRAFT_L_SLOT) {
-            this.addItem(slot, CRAFT_ICON);
+            this.addCustomItem(slot, CRAFT_ICON);
         }
         for (int slot : CRAFT_R_SLOT) {
-            this.addItem(slot, CRAFT_ICON);
+            this.addCustomItem(slot, CRAFT_ICON);
         }
     }
     public static void add(Location l, String key, String value) {

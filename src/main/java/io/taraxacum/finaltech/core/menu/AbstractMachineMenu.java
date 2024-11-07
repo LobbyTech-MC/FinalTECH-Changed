@@ -11,10 +11,12 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.taraxacum.finaltech.core.helper.Icon;
 import io.taraxacum.finaltech.core.item.machine.AbstractMachine;
+import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.inventory.DirtyChestMenu;
@@ -43,20 +45,25 @@ public abstract class AbstractMachineMenu extends BlockMenuPreset {
     @Override
     public void init() {
         for (int slot : this.getBorder()) {
-            this.addItem(slot, Icon.BORDER_ICON);
+            this.addCustomItem(slot, Icon.BORDER_ICON);
             this.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
         }
         for (int slot : this.getInputBorder()) {
-            this.addItem(slot, Icon.INPUT_BORDER_ICON);
+            this.addCustomItem(slot, Icon.INPUT_BORDER_ICON);
             this.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
         }
         for (int slot : this.getOutputBorder()) {
-            this.addItem(slot, Icon.OUTPUT_BORDER_ICON);
+            this.addCustomItem(slot, Icon.OUTPUT_BORDER_ICON);
             this.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
         }
     }
 
-    @Override
+    public ChestMenu addCustomItem(int slot, ItemStack item) {
+		return addItem(slot, new CustomItemStack(item));
+		
+	}
+
+	@Override
     public void newInstance(@Nonnull BlockMenu blockMenu, @Nonnull Block block) {
         super.newInstance(blockMenu, block);
 

@@ -2,6 +2,7 @@ package io.taraxacum.finaltech.core.menu.clicker;
 
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
+import io.taraxacum.common.api.CustomMenu;
 import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.helper.Icon;
 import io.taraxacum.finaltech.core.item.machine.clicker.AbstractClickerMachine;
@@ -131,10 +132,10 @@ public class AreaAccessorMenu extends AbstractClickerMenu {
             }
         }
 
-        ChestMenu chestMenu = new ChestMenu(" ");
+        CustomMenu chestMenu = new CustomMenu(" ");
         for (int i = 0; i < TEMP_CONTENT.length; i++) {
             if (i + page * TEMP_CONTENT.length >= locationList.size()) {
-                chestMenu.addItem(TEMP_CONTENT[i], Icon.BORDER_ICON);
+                chestMenu.addCustomItem(TEMP_CONTENT[i], Icon.BORDER_ICON);
                 chestMenu.addMenuClickHandler(TEMP_CONTENT[i], ChestMenuUtils.getEmptyClickHandler());
                 continue;
             }
@@ -147,7 +148,7 @@ public class AreaAccessorMenu extends AbstractClickerMenu {
                             String.valueOf(l.getBlockX() - location.getBlockX()),
                             String.valueOf(l.getBlockY() - location.getBlockY()),
                             String.valueOf(l.getBlockZ() - location.getBlockZ())));
-                    chestMenu.addItem(TEMP_CONTENT[i], icon);
+                    chestMenu.addCustomItem(TEMP_CONTENT[i], icon);
                     chestMenu.addMenuClickHandler(TEMP_CONTENT[i], (p, slot, item, action) -> {
                         // BlockMenu may be updated after the menu generated.
                         if (StorageCacheUtils.hasBlock(l) && StorageCacheUtils.getMenu(l) != null && blockMenu.canOpen(l.getBlock(), player)) {
@@ -167,22 +168,22 @@ public class AreaAccessorMenu extends AbstractClickerMenu {
                     continue;
                 }
             }
-            chestMenu.addItem(TEMP_CONTENT[i], Icon.ERROR_ICON);
+            chestMenu.addCustomItem(TEMP_CONTENT[i], Icon.ERROR_ICON);
             chestMenu.addMenuClickHandler(TEMP_CONTENT[i], ChestMenuUtils.getEmptyClickHandler());
         }
         for (int slot : TEMP_BORDER) {
-            chestMenu.addItem(slot, Icon.BORDER_ICON);
+            chestMenu.addCustomItem(slot, Icon.BORDER_ICON);
             chestMenu.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
         }
         for (int slot : TEMP_NEXT_PAGE) {
-            chestMenu.addItem(slot, Icon.NEXT_PAGE_ICON);
+            chestMenu.addCustomItem(slot, Icon.NEXT_PAGE_ICON);
             chestMenu.addMenuClickHandler(slot, (p, slot1, item, action) -> {
                 AreaAccessorMenu.this.generateMenu(player, location, range, Math.min(page + 1, locationList.size() / TEMP_CONTENT.length));
                 return false;
             });
         }
         for (int slot : TEMP_PREVIOUS_PAGE) {
-            chestMenu.addItem(slot, Icon.PREVIOUS_PAGE_ICON);
+            chestMenu.addCustomItem(slot, Icon.PREVIOUS_PAGE_ICON);
             chestMenu.addMenuClickHandler(slot, (p, slot1, item, action) -> {
                 AreaAccessorMenu.this.generateMenu(player, location, range, Math.max(page - 1, 0));
                 return false;

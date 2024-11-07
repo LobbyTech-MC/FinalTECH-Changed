@@ -53,7 +53,7 @@ public class AdvancedMachineMenu extends AbstractLockMachineMenu {
     @Override
     public void init() {
         super.init();
-        this.addItem(STATUS_SLOT, Icon.QUANTITY_MODULE_ICON);
+        this.addCustomItem(STATUS_SLOT, Icon.QUANTITY_MODULE_ICON);
         this.addMenuClickHandler(STATUS_SLOT, ChestMenuUtils.getEmptyClickHandler());
     }
 

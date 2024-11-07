@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNet;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
+import io.taraxacum.common.api.CustomMenu;
 import io.taraxacum.common.util.ReflectionUtil;
 import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.enchantment.NullEnchantment;
@@ -37,7 +38,7 @@ import java.util.stream.Collectors;
  * @author Final_ROOT
  * @since 2.4
  */
-public class EnergyRegulatorDetailMenu extends ChestMenu {
+public class EnergyRegulatorDetailMenu extends CustomMenu {
     private static final int[] CONTENT = new int[]{0, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 18, 19, 20, 21, 22, 23, 24, 27, 28, 29, 30, 31, 32, 33, 36, 37, 38, 39, 40, 41, 42, 45, 46, 47, 48, 49, 50, 51};
     private static final int[] PREVIOUS_PAGE = new int[]{7, 16, 25};
     private static final int[] NEXT_PAGE = new int[]{34, 43, 52};
@@ -66,12 +67,12 @@ public class EnergyRegulatorDetailMenu extends ChestMenu {
         this.page = 0;
 
         for (int slot : CONTENT) {
-            this.addItem(slot, Icon.BORDER_ICON);
+            this.addCustomItem(slot, Icon.BORDER_ICON);
             this.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
         }
 
         for (int slot : NEXT_PAGE) {
-            this.addItem(slot, Icon.NEXT_PAGE_ICON);
+            this.addCustomItem(slot, Icon.NEXT_PAGE_ICON);
             this.addMenuClickHandler(slot, (p, slot1, item, action) -> {
                 this.page++;
                 this.updateMenu();
@@ -79,7 +80,7 @@ public class EnergyRegulatorDetailMenu extends ChestMenu {
             });
         }
         for (int slot : PREVIOUS_PAGE) {
-            this.addItem(slot, Icon.PREVIOUS_PAGE_ICON);
+            this.addCustomItem(slot, Icon.PREVIOUS_PAGE_ICON);
             this.addMenuClickHandler(slot, (p, slot1, item, action) -> {
                 this.page--;
                 this.updateMenu();
@@ -90,7 +91,7 @@ public class EnergyRegulatorDetailMenu extends ChestMenu {
         for (int slot : CONSUMER_SLOT) {
             ItemStack icon = ItemStackUtil.cloneItem(Icon.CONSUMER_ICON);
             NullEnchantment.addAndHidden(icon);
-            this.addItem(slot, icon);
+            this.addCustomItem(slot, icon);
             this.addMenuClickHandler(slot, (p, slot1, item, action) -> {
                 if (this.types.contains(TYPE_CONSUMER)) {
                     this.types.remove(TYPE_CONSUMER);
@@ -114,7 +115,7 @@ public class EnergyRegulatorDetailMenu extends ChestMenu {
         for (int slot : GENERATOR_SLOT) {
             ItemStack icon = ItemStackUtil.cloneItem(Icon.GENERATOR_ICON);
             NullEnchantment.addAndHidden(icon);
-            this.addItem(slot, icon);
+            this.addCustomItem(slot, icon);
             this.addMenuClickHandler(slot, (p, slot1, item, action) -> {
                 if (this.types.contains(TYPE_GENERATOR)) {
                     this.types.remove(TYPE_GENERATOR);
@@ -138,7 +139,7 @@ public class EnergyRegulatorDetailMenu extends ChestMenu {
         for (int slot : CAPACITOR_SLOT) {
             ItemStack icon = ItemStackUtil.cloneItem(Icon.CAPACITOR_ICON);
             NullEnchantment.addAndHidden(icon);
-            this.addItem(slot, icon);
+            this.addCustomItem(slot, icon);
             this.addMenuClickHandler(slot, (p, slot1, item, action) -> {
                 if (this.types.contains(TYPE_CAPACITOR)) {
                     this.types.remove(TYPE_CAPACITOR);

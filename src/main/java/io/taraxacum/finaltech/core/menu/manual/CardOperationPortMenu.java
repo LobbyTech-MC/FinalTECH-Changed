@@ -694,7 +694,7 @@ public class CardOperationPortMenu extends AbstractManualMachineMenu {
     @Override
     public void init() {
         super.init();
-        this.addItem(CRAFT_SLOT, CRAFT_ICON);
+        this.addCustomItem(CRAFT_SLOT, CRAFT_ICON);
         this.addMenuClickHandler(CRAFT_SLOT, ChestMenuUtils.getEmptyClickHandler());
     }
 

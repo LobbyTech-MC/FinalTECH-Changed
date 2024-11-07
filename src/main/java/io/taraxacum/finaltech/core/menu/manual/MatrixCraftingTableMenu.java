@@ -68,7 +68,7 @@ public class MatrixCraftingTableMenu extends AbstractManualMachineMenu {
     @Override
     public void init() {
         super.init();
-        this.addItem(PARSE_SLOT, PARSE_ICON);
+        this.addCustomItem(PARSE_SLOT, PARSE_ICON);
         this.addMenuClickHandler(PARSE_SLOT, ChestMenuUtils.getEmptyClickHandler());
     }
 

@@ -62,16 +62,16 @@ public class MeshTransferMenu extends AbstractMachineMenu {
     public void init() {
         super.init();
 
-        this.addItem(POSITION_NORTH_SLOT, PositionInfo.NORTH_ICON);
-        this.addItem(POSITION_EAST_SLOT, PositionInfo.EAST_ICON);
-        this.addItem(POSITION_SOUTH_SLOT, PositionInfo.SOUTH_ICON);
-        this.addItem(POSITION_WEST_SLOT, PositionInfo.WEST_ICON);
-        this.addItem(POSITION_UP_SLOT, PositionInfo.UP_ICON);
-        this.addItem(POSITION_DOWN_SLOT, PositionInfo.DOWN_ICON);
+        this.addCustomItem(POSITION_NORTH_SLOT, PositionInfo.NORTH_ICON);
+        this.addCustomItem(POSITION_EAST_SLOT, PositionInfo.EAST_ICON);
+        this.addCustomItem(POSITION_SOUTH_SLOT, PositionInfo.SOUTH_ICON);
+        this.addCustomItem(POSITION_WEST_SLOT, PositionInfo.WEST_ICON);
+        this.addCustomItem(POSITION_UP_SLOT, PositionInfo.UP_ICON);
+        this.addCustomItem(POSITION_DOWN_SLOT, PositionInfo.DOWN_ICON);
 
-        this.addItem(CARGO_FILTER_SLOT, CargoFilter.HELPER.defaultIcon());
-        this.addItem(INPUT_BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.MESH_INPUT_HELPER.defaultIcon());
-        this.addItem(OUTPUT_BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.MESH_OUTPUT_HELPER.defaultIcon());
+        this.addCustomItem(CARGO_FILTER_SLOT, CargoFilter.HELPER.defaultIcon());
+        this.addCustomItem(INPUT_BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.MESH_INPUT_HELPER.defaultIcon());
+        this.addCustomItem(OUTPUT_BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.MESH_OUTPUT_HELPER.defaultIcon());
     }
 
     @Override

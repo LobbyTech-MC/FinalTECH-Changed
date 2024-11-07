@@ -5,6 +5,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
+import io.taraxacum.common.api.CustomMenu;
 import io.taraxacum.common.util.StringNumberUtil;
 import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.helper.Icon;
@@ -280,7 +281,7 @@ public class AdvancedAutoCraftFrameMenu extends AbstractMachineMenu {
         } else {
             blockMenu.replaceExistingItem(ITEM_INPUT_SLOT[i], this.parseExtendIcon);
             blockMenu.addMenuClickHandler(ITEM_INPUT_SLOT[i], (player, i1, itemStack, clickAction) -> {
-                ChestMenu chestMenu = new ChestMenu(ItemStackUtil.getItemName(advancedMachineRecipe.getOutput()[0].getItemStack()));
+            	CustomMenu chestMenu = new CustomMenu(ItemStackUtil.getItemName(advancedMachineRecipe.getOutput()[0].getItemStack()));
                 for (int slot = 0; slot < 54 && slot < advancedMachineRecipe.getInput().length; slot++) {
                     if (advancedMachineRecipe.getInput().length > slot) {
                         int amount = advancedMachineRecipe.getInput()[slot].getAmount();
@@ -288,9 +289,9 @@ public class AdvancedAutoCraftFrameMenu extends AbstractMachineMenu {
                         SfItemUtil.removeSlimefunId(icon);
                         icon.setAmount(Math.min(amount, 64));
                         ItemStackUtil.addLoreToLast(icon, FinalTechChanged.getLanguageManager().replaceString(FinalTechChanged.getLanguageString("items", this.getSlimefunItem().getId(), "parse-amount"), String.valueOf(amount)));
-                        chestMenu.addItem(slot, icon);
+                        chestMenu.addCustomItem(slot, icon);
                     } else {
-                        chestMenu.addItem(slot, Icon.BORDER_ICON);
+                        chestMenu.addCustomItem(slot, Icon.BORDER_ICON);
                     }
                     chestMenu.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
                 }

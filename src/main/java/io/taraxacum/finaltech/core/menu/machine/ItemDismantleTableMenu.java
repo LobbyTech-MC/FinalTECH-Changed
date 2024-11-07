@@ -65,7 +65,7 @@ public class ItemDismantleTableMenu extends AbstractManualMachineMenu {
     @Override
     public void init() {
         super.init();
-        this.addItem(STATUS_SLOT, Icon.STATUS_ICON);
+        this.addCustomItem(STATUS_SLOT, Icon.STATUS_ICON);
     }
 
     @Override

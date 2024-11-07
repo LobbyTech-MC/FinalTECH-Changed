@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.guide.GuideHistory;
 import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuide;
 import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuideMode;
+import io.taraxacum.common.api.CustomMenu;
 import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.helper.Icon;
 import io.taraxacum.finaltech.core.menu.common.SlimefunItemBigRecipeMenu;
@@ -148,7 +149,7 @@ public class RecipeItemGroup extends FlexItemGroup {
     @Override
     public void open(@Nonnull Player player, @Nonnull PlayerProfile playerProfile, @Nonnull SlimefunGuideMode slimefunGuideMode) {
         playerProfile.getGuideHistory().add(this, this.page);
-        ChestMenu chestMenu = this.generateMenu(player, playerProfile, slimefunGuideMode);
+        CustomMenu chestMenu = this.generateMenu(player, playerProfile, slimefunGuideMode);
         if (chestMenu != null) {
             chestMenu.open(player);
         } else {
@@ -158,7 +159,7 @@ public class RecipeItemGroup extends FlexItemGroup {
     }
 
     @Nullable
-    private ChestMenu generateMenu(@Nonnull Player player, @Nonnull PlayerProfile playerProfile, @Nonnull SlimefunGuideMode slimefunGuideMode) {
+    private CustomMenu generateMenu(@Nonnull Player player, @Nonnull PlayerProfile playerProfile, @Nonnull SlimefunGuideMode slimefunGuideMode) {
         SlimefunItem slimefunItem = SlimefunItem.getById(this.id);
         if (slimefunItem != null) {
             if (slimefunItem.getRecipe().length <= SMALL_LIMIT) {

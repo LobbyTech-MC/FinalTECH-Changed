@@ -68,13 +68,13 @@ public class EquivalentExchangeTableMenu extends AbstractManualMachineMenu {
     public void init() {
         super.init();
         for (int slot : PARSE_BORDER) {
-            this.addItem(slot, PARSE_BORDER_ICON);
+            this.addCustomItem(slot, PARSE_BORDER_ICON);
             this.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
         }
-        this.addItem(PARSE_STATUS_SLOT, PARSE_STATUS_ICON);
+        this.addCustomItem(PARSE_STATUS_SLOT, PARSE_STATUS_ICON);
         this.addMenuClickHandler(PARSE_STATUS_SLOT, ChestMenuUtils.getEmptyClickHandler());
 
-        this.addItem(STATUS_SLOT, CRAFT_ICON);
+        this.addCustomItem(STATUS_SLOT, CRAFT_ICON);
         this.addMenuClickHandler(STATUS_SLOT, ChestMenuUtils.getEmptyClickHandler());
     }
 

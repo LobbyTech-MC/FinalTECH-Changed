@@ -53,7 +53,7 @@ public class EtherMinerMenu extends AbstractMachineMenu {
     @Override
     public void init() {
         super.init();
-        this.addItem(STATUS_SLOT, Icon.STATUS_ICON);
+        this.addCustomItem(STATUS_SLOT, Icon.STATUS_ICON);
         this.addMenuClickHandler(STATUS_SLOT, ChestMenuUtils.getEmptyClickHandler());
     }
 

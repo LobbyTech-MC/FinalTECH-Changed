@@ -70,27 +70,27 @@ public class AdvancedLineTransferMenu extends AbstractMachineMenu {
         setSize(54);
 
         for (int slot : SPECIAL_BORDER) {
-            this.addItem(slot, Icon.SPECIAL_BORDER_ICON);
+            this.addCustomItem(slot, Icon.SPECIAL_BORDER_ICON);
             this.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
         }
 
-        this.addItem(BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.LINE_HELPER.defaultIcon());
-        this.addItem(BLOCK_SEARCH_ORDER_SLOT, BlockSearchOrder.HELPER.defaultIcon());
-        this.addItem(CARGO_ORDER_SLOT, CargoOrder.HELPER.defaultIcon());
-        this.addItem(BLOCK_SEARCH_CYCLE_SLOT, BlockSearchCycle.HELPER.defaultIcon());
-        this.addItem(BLOCK_SEARCH_SELF_SLOT, BlockSearchSelf.HELPER.defaultIcon());
+        this.addCustomItem(BLOCK_SEARCH_MODE_SLOT, BlockSearchMode.LINE_HELPER.defaultIcon());
+        this.addCustomItem(BLOCK_SEARCH_ORDER_SLOT, BlockSearchOrder.HELPER.defaultIcon());
+        this.addCustomItem(CARGO_ORDER_SLOT, CargoOrder.HELPER.defaultIcon());
+        this.addCustomItem(BLOCK_SEARCH_CYCLE_SLOT, BlockSearchCycle.HELPER.defaultIcon());
+        this.addCustomItem(BLOCK_SEARCH_SELF_SLOT, BlockSearchSelf.HELPER.defaultIcon());
 
-        this.addItem(CARGO_NUMBER_SUB_SLOT, CargoNumber.CARGO_NUMBER_SUB_ICON);
-        this.addItem(CARGO_NUMBER_SLOT, CargoNumber.CARGO_NUMBER_ICON);
-        this.addItem(CARGO_NUMBER_ADD_SLOT, CargoNumber.CARGO_NUMBER_ADD_ICON);
-        this.addItem(CARGO_MODE_SLOT, CargoMode.HELPER.defaultIcon());
-        this.addItem(CARGO_FILTER_SLOT, CargoFilter.HELPER.defaultIcon());
+        this.addCustomItem(CARGO_NUMBER_SUB_SLOT, CargoNumber.CARGO_NUMBER_SUB_ICON);
+        this.addCustomItem(CARGO_NUMBER_SLOT, CargoNumber.CARGO_NUMBER_ICON);
+        this.addCustomItem(CARGO_NUMBER_ADD_SLOT, CargoNumber.CARGO_NUMBER_ADD_ICON);
+        this.addCustomItem(CARGO_MODE_SLOT, CargoMode.HELPER.defaultIcon());
+        this.addCustomItem(CARGO_FILTER_SLOT, CargoFilter.HELPER.defaultIcon());
 
-        this.addItem(INPUT_SLOT_SEARCH_SIZE_SLOT, SlotSearchSize.INPUT_HELPER.defaultIcon());
-        this.addItem(INPUT_SLOT_SEARCH_ORDER_SLOT, SlotSearchOrder.INPUT_HELPER.defaultIcon());
-        this.addItem(CARGO_LIMIT_SLOT, CargoLimit.HELPER.defaultIcon());
-        this.addItem(OUTPUT_SLOT_SEARCH_SIZE_SLOT, SlotSearchSize.OUTPUT_HELPER.defaultIcon());
-        this.addItem(OUTPUT_SLOT_SEARCH_ORDER_SLOT, SlotSearchOrder.OUTPUT_HELPER.defaultIcon());
+        this.addCustomItem(INPUT_SLOT_SEARCH_SIZE_SLOT, SlotSearchSize.INPUT_HELPER.defaultIcon());
+        this.addCustomItem(INPUT_SLOT_SEARCH_ORDER_SLOT, SlotSearchOrder.INPUT_HELPER.defaultIcon());
+        this.addCustomItem(CARGO_LIMIT_SLOT, CargoLimit.HELPER.defaultIcon());
+        this.addCustomItem(OUTPUT_SLOT_SEARCH_SIZE_SLOT, SlotSearchSize.OUTPUT_HELPER.defaultIcon());
+        this.addCustomItem(OUTPUT_SLOT_SEARCH_ORDER_SLOT, SlotSearchOrder.OUTPUT_HELPER.defaultIcon());
     }
 
     @Override

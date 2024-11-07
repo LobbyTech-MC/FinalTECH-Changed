@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
+import io.taraxacum.common.api.CustomMenu;
 import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.interfaces.RecipeItem;
 import io.taraxacum.finaltech.util.RecipeUtil;
@@ -66,16 +67,16 @@ public class MenuViewer extends UsableSlimefunItem implements RecipeItem {
                         viewSlot[slot] += WITHDRAW_SLOT_VALUE;
                     }
                 }
-                ChestMenu chestMenu = new ChestMenu(preset.getTitle());
+                CustomMenu chestMenu = new CustomMenu(preset.getTitle());
                 for (int slot = 0; slot < viewSlot.length; slot++) {
                     if (viewSlot[slot] == INSERT_SLOT_VALUE) {
-                        chestMenu.addItem(slot, INPUT_ICON);
+                        chestMenu.addCustomItem(slot, INPUT_ICON);
                     } else if (viewSlot[slot] == WITHDRAW_SLOT_VALUE) {
-                        chestMenu.addItem(slot, OUTPUT_ICON);
+                        chestMenu.addCustomItem(slot, OUTPUT_ICON);
                     } else if (viewSlot[slot] == INSERT_AND_WITHDRAW_SLOT_VALUE) {
-                        chestMenu.addItem(slot, INPUT_AND_OUTPUT_ICON);
+                        chestMenu.addCustomItem(slot, INPUT_AND_OUTPUT_ICON);
                     } else {
-                        chestMenu.addItem(slot, VOID_ICON);
+                        chestMenu.addCustomItem(slot, VOID_ICON);
                     }
                     chestMenu.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
                 }

@@ -62,20 +62,20 @@ public class AdvancedLocationTransferMenu extends AbstractMachineMenu {
     public void init() {
         super.init();
 
-        this.addItem(CARGO_NUMBER_SUB_SLOT, CargoNumber.CARGO_NUMBER_SUB_ICON);
-        this.addItem(CARGO_NUMBER_SLOT, CargoNumber.CARGO_NUMBER_ICON);
-        this.addItem(CARGO_NUMBER_ADD_SLOT, CargoNumber.CARGO_NUMBER_ADD_ICON);
+        this.addCustomItem(CARGO_NUMBER_SUB_SLOT, CargoNumber.CARGO_NUMBER_SUB_ICON);
+        this.addCustomItem(CARGO_NUMBER_SLOT, CargoNumber.CARGO_NUMBER_ICON);
+        this.addCustomItem(CARGO_NUMBER_ADD_SLOT, CargoNumber.CARGO_NUMBER_ADD_ICON);
 
-        this.addItem(SLOT_SEARCH_SIZE_SLOT, SlotSearchSize.HELPER.defaultIcon());
-        this.addItem(SLOT_SEARCH_ORDER_SLOT, SlotSearchOrder.HELPER.defaultIcon());
-        this.addItem(CARGO_LIMIT_SLOT, CargoLimit.HELPER.defaultIcon());
+        this.addCustomItem(SLOT_SEARCH_SIZE_SLOT, SlotSearchSize.HELPER.defaultIcon());
+        this.addCustomItem(SLOT_SEARCH_ORDER_SLOT, SlotSearchOrder.HELPER.defaultIcon());
+        this.addCustomItem(CARGO_LIMIT_SLOT, CargoLimit.HELPER.defaultIcon());
 
-        this.addItem(CARGO_MODE_SLOT, CargoMode.HELPER.defaultIcon());
-        this.addItem(CARGO_ORDER_SLOT, CargoOrder.HELPER.defaultIcon());
+        this.addCustomItem(CARGO_MODE_SLOT, CargoMode.HELPER.defaultIcon());
+        this.addCustomItem(CARGO_ORDER_SLOT, CargoOrder.HELPER.defaultIcon());
 
-//        this.addItem(LINE1_SLOT, SlotSearchLine.L1_ICON);
-//        this.addItem(LINE2_SLOT, SlotSearchLine.L2_ICON);
-//        this.addItem(LINE3_SLOT, SlotSearchLine.L3_ICON);
+//        this.addCustomItem(LINE1_SLOT, SlotSearchLine.L1_ICON);
+//        this.addCustomItem(LINE2_SLOT, SlotSearchLine.L2_ICON);
+//        this.addCustomItem(LINE3_SLOT, SlotSearchLine.L3_ICON);
     }
 
     @Override

@@ -28,7 +28,7 @@ public abstract class AbstractLimitMachineMenu extends AbstractMachineMenu {
     @Override
     public void init() {
         super.init();
-        this.addItem(this.getMachineMaxStackSlot(), MachineMaxStack.ICON);
+        this.addCustomItem(this.getMachineMaxStackSlot(), MachineMaxStack.ICON);
         this.addMenuClickHandler(this.getMachineMaxStackSlot(), ChestMenuUtils.getEmptyClickHandler());
     }
 

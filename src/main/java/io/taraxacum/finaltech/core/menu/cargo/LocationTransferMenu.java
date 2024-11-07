@@ -57,12 +57,12 @@ public class LocationTransferMenu extends AbstractMachineMenu {
     public void init() {
         super.init();
 
-        this.addItem(CARGO_MODE_SLOT, CargoMode.HELPER.defaultIcon());
-        this.addItem(CARGO_ORDER_SLOT, CargoOrder.HELPER.defaultIcon());
+        this.addCustomItem(CARGO_MODE_SLOT, CargoMode.HELPER.defaultIcon());
+        this.addCustomItem(CARGO_ORDER_SLOT, CargoOrder.HELPER.defaultIcon());
 
-//        this.addItem(LINE1_SLOT, SlotSearchLine.L1_ICON);
-//        this.addItem(LINE2_SLOT, SlotSearchLine.L2_ICON);
-//        this.addItem(LINE3_SLOT, SlotSearchLine.L3_ICON);
+//        this.addCustomItem(LINE1_SLOT, SlotSearchLine.L1_ICON);
+//        this.addCustomItem(LINE2_SLOT, SlotSearchLine.L2_ICON);
+//        this.addCustomItem(LINE3_SLOT, SlotSearchLine.L3_ICON);
     }
 
     @Override

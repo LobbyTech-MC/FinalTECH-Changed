@@ -5,6 +5,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
+import io.taraxacum.common.api.CustomMenu;
 import io.taraxacum.common.util.StringNumberUtil;
 import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.helper.Icon;
@@ -162,35 +163,35 @@ public class AdvancedAutoCraftMenu extends AbstractMachineMenu {
     public void init() {
         super.init();
         for (int slot : ITEM_INPUT_SLOT) {
-            this.addItem(slot, PARSE_FAILED_ICON);
+            this.addCustomItem(slot, PARSE_FAILED_ICON);
             this.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
         }
-        this.addItem(PARSE_SLOT, PARSE_ICON);
+        this.addCustomItem(PARSE_SLOT, PARSE_ICON);
         this.addMenuClickHandler(PARSE_SLOT, ChestMenuUtils.getEmptyClickHandler());
 
         this.addMenuClickHandler(ITEM_OUTPUT_SLOT, ChestMenuUtils.getEmptyClickHandler());
 
-        this.addItem(INPUT_SEARCH_SLOT, SlotSearchSize.OUTPUT_HELPER.defaultIcon());
+        this.addCustomItem(INPUT_SEARCH_SLOT, SlotSearchSize.OUTPUT_HELPER.defaultIcon());
         this.addMenuClickHandler(INPUT_SEARCH_SLOT, ChestMenuUtils.getEmptyClickHandler());
 
-        this.addItem(OUTPUT_SEARCH_SLOT, SlotSearchSize.INPUT_HELPER.defaultIcon());
+        this.addCustomItem(OUTPUT_SEARCH_SLOT, SlotSearchSize.INPUT_HELPER.defaultIcon());
         this.addMenuClickHandler(OUTPUT_SEARCH_SLOT, ChestMenuUtils.getEmptyClickHandler());
 
-        this.addItem(WIKI_SLOT, WIKI_ICON);
+        this.addCustomItem(WIKI_SLOT, WIKI_ICON);
         this.addMenuClickHandler(WIKI_SLOT, ChestMenuUtils.getEmptyClickHandler());
 
-        this.addItem(STATUS_SLOT, Icon.QUANTITY_MODULE_ICON);
+        this.addCustomItem(STATUS_SLOT, Icon.QUANTITY_MODULE_ICON);
         this.addMenuClickHandler(STATUS_SLOT, ChestMenuUtils.getEmptyClickHandler());
 
         for (int slot : ITEM_INPUT_SLOT) {
-            this.addItem(slot, Icon.INPUT_BORDER_ICON);
+            this.addCustomItem(slot, Icon.INPUT_BORDER_ICON);
             this.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
         }
-        this.addItem(ITEM_OUTPUT_SLOT, Icon.BORDER_ICON);
+        this.addCustomItem(ITEM_OUTPUT_SLOT, Icon.BORDER_ICON);
         this.addMenuClickHandler(ITEM_OUTPUT_SLOT, ChestMenuUtils.getEmptyClickHandler());
     }
 
-    @Override
+	@Override
     public void newInstance(@Nonnull BlockMenu blockMenu, @Nonnull Block block) {
         super.newInstance(blockMenu, block);
         Inventory inventory = blockMenu.toInventory();
@@ -343,7 +344,7 @@ public class AdvancedAutoCraftMenu extends AbstractMachineMenu {
         } else {
             blockMenu.replaceExistingItem(ITEM_INPUT_SLOT[i], PARSE_EXTEND_ICON);
             blockMenu.addMenuClickHandler(ITEM_INPUT_SLOT[i], (player, i1, itemStack, clickAction) -> {
-                ChestMenu chestMenu = new ChestMenu(ItemStackUtil.getItemName(advancedMachineRecipe.getOutput()[0].getItemStack()));
+            	CustomMenu chestMenu = new CustomMenu(ItemStackUtil.getItemName(advancedMachineRecipe.getOutput()[0].getItemStack()));
                 for (int slot = 0; slot < 54 && slot < advancedMachineRecipe.getInput().length; slot++) {
                     if (advancedMachineRecipe.getInput().length > slot) {
                         int amount = advancedMachineRecipe.getInput()[slot].getAmount();
@@ -351,9 +352,9 @@ public class AdvancedAutoCraftMenu extends AbstractMachineMenu {
                         SfItemUtil.removeSlimefunId(icon);
                         icon.setAmount(Math.min(amount, 64));
                         ItemStackUtil.addLoreToLast(icon, FinalTechChanged.getLanguageManager().replaceString(FinalTechChanged.getLanguageString("items", SfItemUtil.getIdFormatName(AdvancedAutoCraft.class), "parse-amount"), String.valueOf(amount)));
-                        chestMenu.addItem(slot, icon);
+                        chestMenu.addCustomItem(slot, icon);
                     } else {
-                        chestMenu.addItem(slot, Icon.BORDER_ICON);
+                        chestMenu.addCustomItem(slot, Icon.BORDER_ICON);
                     }
                     chestMenu.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
                 }
