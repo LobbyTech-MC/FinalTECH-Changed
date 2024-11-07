@@ -19,7 +19,7 @@ import io.taraxacum.finaltech.util.ConstantTableUtil;
 import io.taraxacum.finaltech.util.RecipeUtil;
 import io.taraxacum.libs.slimefun.util.EnergyUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -51,7 +51,7 @@ public class VariableWireCapacitor extends AbstractElectricMachine implements Re
             JavaPlugin javaPlugin = this.getAddon().getJavaPlugin();
 			Runnable runnable = () -> {
 				Slimefun.getDatabaseManager().getBlockDataController().removeBlock(location);
-                BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_ID, FinalTechItemStacks.VARIABLE_WIRE_RESISTANCE.getItemId());
+                StorageCacheUtils.setData(location, ConstantTableUtil.CONFIG_ID, FinalTechItemStacks.VARIABLE_WIRE_RESISTANCE.getItemId());
                 Slimefun.getNetworkManager().updateAllNetworks(location);
                 javaPlugin.getServer().getScheduler().runTaskLater(javaPlugin, () -> {
                     if (!location.getBlock().getType().isAir() && FinalTechItemStacks.VARIABLE_WIRE_RESISTANCE.getItemId().equals(StorageCacheUtils.getData(location, ConstantTableUtil.CONFIG_ID))) {

@@ -18,7 +18,7 @@ import io.taraxacum.finaltech.setup.FinalTechItems;
 import io.taraxacum.finaltech.util.*;
 import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -135,15 +135,15 @@ public class ItemSerializationConstructor extends AbstractOperationMachine {
             blockMenu.pushItem(operation.getResult(), this.getOutputSlot());
             this.getMachineProcessor().endOperation(block);
             operation = null;
-            BlockStorage.addBlockInfo(location, this.blockStorageItemKey, null);
-            BlockStorage.addBlockInfo(location, this.blockStorageAmountKey, null);
+            StorageCacheUtils.setData(location, this.blockStorageItemKey, null);
+            StorageCacheUtils.setData(location, this.blockStorageAmountKey, null);
         }
 
         if (operation != null && operation.getType() == ItemSerializationConstructorOperation.COPY_CARD) {
             if (!config.contains(this.blockStorageItemKey)) {
-                BlockStorage.addBlockInfo(location, this.blockStorageItemKey, ItemStackUtil.itemStackToString(((ItemCopyCardOperation) operation).getMatchItem()));
+                StorageCacheUtils.setData(location, this.blockStorageItemKey, ItemStackUtil.itemStackToString(((ItemCopyCardOperation) operation).getMatchItem()));
             }
-            BlockStorage.addBlockInfo(location, this.blockStorageAmountKey, String.valueOf((int) ((ItemCopyCardOperation) operation).getCount()));
+            StorageCacheUtils.setData(location, this.blockStorageAmountKey, String.valueOf((int) ((ItemCopyCardOperation) operation).getCount()));
         }
 
         if (blockMenu.hasViewer()) {

@@ -10,7 +10,6 @@ import io.taraxacum.libs.slimefun.dto.BlockStorageHelper;
 import io.taraxacum.libs.slimefun.dto.BlockStorageLoreHelper;
 import io.taraxacum.libs.slimefun.dto.MachineRecipeFactory;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -65,7 +64,7 @@ public final class MachineRecipeLock {
                 HELPER.checkOrSetBlockStorage(location);
                 String value = clickAction.isRightClicked() ? VALUE_LOCK_OFF : VALUE_UNLOCK;
                 HELPER.setIcon(inventory.getItem(slot), value);
-                BlockStorage.addBlockInfo(location, KEY, value);
+                StorageCacheUtils.setData(location, KEY, value);
                 return false;
             };
         }

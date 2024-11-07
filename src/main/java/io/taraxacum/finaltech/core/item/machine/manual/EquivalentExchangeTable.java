@@ -22,7 +22,7 @@ import io.taraxacum.libs.slimefun.dto.ItemValueTable;
 import io.taraxacum.libs.slimefun.interfaces.SimpleValidItem;
 import io.taraxacum.libs.slimefun.interfaces.ValidItem;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
@@ -81,7 +81,7 @@ public class EquivalentExchangeTable extends AbstractManualMachine implements Re
             }
         }
 
-        BlockStorage.addBlockInfo(block.getLocation(), this.key, value);
+        StorageCacheUtils.setData(block.getLocation(), this.key, value);
 
         if (blockMenu.hasViewer()) {
             this.getMachineMenu().updateInventory(blockMenu.toInventory(), block.getLocation());

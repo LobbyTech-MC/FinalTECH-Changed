@@ -10,7 +10,6 @@ import io.taraxacum.libs.slimefun.dto.BlockStorageHelper;
 import io.taraxacum.libs.slimefun.dto.BlockStorageLoreHelper;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -208,7 +207,7 @@ public class PositionInfo {
             if (!BlockStorageLoreMaterialHelper.this.validValue(value)) {
                 value = BlockStorageLoreMaterialHelper.this.defaultValue();
                 keyValueStringHelper.putEntry(BlockStorageLoreMaterialHelper.this.getValueKey(), value);
-                BlockStorage.addBlockInfo(location, KEY, keyValueStringHelper.toString());
+                StorageCacheUtils.setData(location, KEY, keyValueStringHelper.toString());
             }
             ItemStack item = inventory.getItem(slot);
             item.setAmount(keyValueStringHelper.getKeyIndex(this.getValueKey()) > 0 ? keyValueStringHelper.getKeyIndex(this.getValueKey()) + 1 : 1);

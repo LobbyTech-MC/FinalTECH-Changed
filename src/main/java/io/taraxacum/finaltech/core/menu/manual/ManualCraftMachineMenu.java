@@ -94,7 +94,7 @@ public class ManualCraftMachineMenu extends AbstractManualMachineMenu {
         }
     }
     public static void add(Location l, String key, String value) {
-        BlockStorage.addBlockInfo(l, key, value);
+        StorageCacheUtils.setData(l, key, value);
     }
     
     public static String get(Location l, String key) {
@@ -135,7 +135,7 @@ public class ManualCraftMachineMenu extends AbstractManualMachineMenu {
 
                 javaPlugin.getServer().getScheduler().runTaskAsynchronously(javaPlugin, () -> ParticleUtil.drawCubeByBlock(javaPlugin, Particle.WAX_OFF, 0, block));
 
-                BlockStorage.addBlockInfo(l, KEY, StorageCacheUtils.getData(l, KEY_L[finalSlotP]));
+                StorageCacheUtils.setData(l, KEY, StorageCacheUtils.getData(l, KEY_L[finalSlotP]));
                 ManualCraftMachineMenu.this.updateInventory(inventory, l);
                 return false;
             });

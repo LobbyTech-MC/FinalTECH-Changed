@@ -2,7 +2,6 @@ package io.taraxacum.libs.slimefun.dto;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
 
 import org.bukkit.Location;
 
@@ -112,7 +111,7 @@ public abstract class BlockStorageHelper {
     }
 
     public void setOrClearValue(@Nonnull Location location, @Nullable String value) {
-        BlockStorage.addBlockInfo(location, this.getKey(), value);
+        StorageCacheUtils.setData(location, this.getKey(), value);
     }
 
     public void setOrClearValue(@Nonnull Config config, @Nullable String value) {
@@ -149,7 +148,7 @@ public abstract class BlockStorageHelper {
 
     public boolean checkOrSetBlockStorage(@Nonnull Location location) {
         if (StorageCacheUtils.getData(location, this.getKey()) == null) {
-            BlockStorage.addBlockInfo(location, this.getKey(), this.defaultValue());
+            StorageCacheUtils.setData(location, this.getKey(), this.defaultValue());
             return false;
         }
         return true;

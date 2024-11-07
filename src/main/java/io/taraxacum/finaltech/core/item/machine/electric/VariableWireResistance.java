@@ -19,7 +19,7 @@ import io.taraxacum.finaltech.util.ConstantTableUtil;
 import io.taraxacum.finaltech.util.RecipeUtil;
 import io.taraxacum.libs.slimefun.util.EnergyUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -52,8 +52,8 @@ public class VariableWireResistance extends AbstractElectricMachine implements R
             JavaPlugin javaPlugin = this.getAddon().getJavaPlugin();
             Runnable runnable = () -> {
             	Slimefun.getDatabaseManager().getBlockDataController().removeBlock(location);
-                BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_ID, FinalTechItemStacks.VARIABLE_WIRE_CAPACITOR.getItemId());
-                //BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_CHARGE, String.valueOf(this.getCapacity()));
+                StorageCacheUtils.setData(location, ConstantTableUtil.CONFIG_ID, FinalTechItemStacks.VARIABLE_WIRE_CAPACITOR.getItemId());
+                //StorageCacheUtils.setData(location, ConstantTableUtil.CONFIG_CHARGE, String.valueOf(this.getCapacity()));
                 ((EnergyNetComponent) FinalTechItemStacks.VARIABLE_WIRE_CAPACITOR).setCharge(location, this.getCapacity());
                 Slimefun.getNetworkManager().updateAllNetworks(location);
                 javaPlugin.getServer().getScheduler().runTaskLater(javaPlugin, () -> {
