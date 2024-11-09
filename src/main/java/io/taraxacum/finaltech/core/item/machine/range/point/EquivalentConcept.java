@@ -121,8 +121,8 @@ public class EquivalentConcept extends AbstractPointMachine implements RecipeIte
                 Slimefun.getDatabaseManager().getBlockDataController().removeBlock(block.getLocation());
                 return ;
             }
-            if (StorageCacheUtils.getData(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP) != null) {
-                String sleepStr = StorageCacheUtils.getData(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP);
+            if (BlockStorage.getLocationInfo(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP) != null) {
+                String sleepStr = BlockStorage.getLocationInfo(block.getLocation(), ConstantTableUtil.CONFIG_SLEEP);
                 if (sleepStr != null) {
                     double sleep = Double.parseDouble(sleepStr) - 1;
                     if (sleep > 0) {
@@ -135,7 +135,7 @@ public class EquivalentConcept extends AbstractPointMachine implements RecipeIte
                 }
             }
             Location l = block.getLocation();
-            double life = (StorageCacheUtils.getData(block.getLocation(), KEY_LIFE) != null) ? Double.parseDouble(StorageCacheUtils.getData(l, KEY_LIFE)) : 0;
+            double life = (BlockStorage.getLocationInfo(block.getLocation(), KEY_LIFE) != null) ? Double.parseDouble(BlockStorage.getLocationInfo(l, KEY_LIFE)) : 0;
             if (life < 1) {
                 Location location = block.getLocation();
                 BlockStorage.addBlockInfo(location, KEY_LIFE, "0");
@@ -144,14 +144,14 @@ public class EquivalentConcept extends AbstractPointMachine implements RecipeIte
                 Slimefun.getDatabaseManager().getBlockDataController().removeBlock(location);
                 JavaPlugin javaPlugin = this.getAddon().getJavaPlugin();
                 javaPlugin.getServer().getScheduler().runTaskLaterAsynchronously(javaPlugin, () -> {
-                    if (!location.getBlock().getType().isAir() && StorageCacheUtils.getData(location, ConstantTableUtil.CONFIG_ID) == null) {
+                    if (!location.getBlock().getType().isAir() && BlockStorage.getLocationInfo(location, ConstantTableUtil.CONFIG_ID) == null) {
                         BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_ID, FinalTechItemStacks.JUSTIFIABILITY.getItemId());
                     }
                 }, Slimefun.getTickerTask().getTickRate() + 1);
                 return;
             }
 
-            final int range = (StorageCacheUtils.getData(block.getLocation(), KEY_RANGE) != null) ? Integer.parseInt(StorageCacheUtils.getData(l, KEY_RANGE)) : this.range;
+            final int range = (BlockStorage.getLocationInfo(block.getLocation(), KEY_RANGE) != null) ? Integer.parseInt(BlockStorage.getLocationInfo(l, KEY_RANGE)) : this.range;
 
             while (life > 1) {
                 final double finalLife = life--;

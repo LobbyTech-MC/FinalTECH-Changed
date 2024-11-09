@@ -49,8 +49,8 @@ public class Justifiability extends UnusableSlimefunItem implements RecipeItem, 
                         Slimefun.getDatabaseManager().getBlockDataController().removeBlock(b.getLocation());
                         return ;
                     }
-                    if (StorageCacheUtils.getData(b.getLocation(), "life") != null) {
-                        int i = Integer.parseInt(StorageCacheUtils.getData(b.getLocation(), "life"));
+                    if (BlockStorage.getLocationInfo(b.getLocation(), "life") != null) {
+                        int i = Integer.parseInt(BlockStorage.getLocationInfo(b.getLocation(), "life"));
                         if (i == 0) {
                             FinalTechChanged.getInstance().getServer().getScheduler().runTask(FinalTechChanged.getInstance(), () -> b.setType(Material.AIR));
                             Slimefun.getDatabaseManager().getBlockDataController().removeBlock(b.getLocation());

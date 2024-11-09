@@ -98,7 +98,7 @@ public class ManualCraftMachineMenu extends AbstractManualMachineMenu {
     }
     
     public static String get(Location l, String key) {
-        return StorageCacheUtils.getData(l, key);
+        return BlockStorage.getLocationInfo(l, key);
     }
     @Override
     public void newInstance(@Nonnull BlockMenu blockMenu, @Nonnull Block block) {
@@ -135,7 +135,7 @@ public class ManualCraftMachineMenu extends AbstractManualMachineMenu {
 
                 javaPlugin.getServer().getScheduler().runTaskAsynchronously(javaPlugin, () -> ParticleUtil.drawCubeByBlock(javaPlugin, Particle.WAX_OFF, 0, block));
 
-                BlockStorage.addBlockInfo(l, KEY, StorageCacheUtils.getData(l, KEY_L[finalSlotP]));
+                BlockStorage.addBlockInfo(l, KEY, BlockStorage.getLocationInfo(l, KEY_L[finalSlotP]));
                 ManualCraftMachineMenu.this.updateInventory(inventory, l);
                 return false;
             });
@@ -163,7 +163,7 @@ public class ManualCraftMachineMenu extends AbstractManualMachineMenu {
 
             javaPlugin.getServer().getScheduler().runTaskAsynchronously(javaPlugin, () -> ParticleUtil.drawCubeByBlock(javaPlugin, Particle.WAX_OFF, 0, block));
 
-            int offset = Integer.parseInt(StorageCacheUtils.getData(block.getLocation(), KEY));
+            int offset = Integer.parseInt(BlockStorage.getLocationInfo(block.getLocation(), KEY));
             int length = MachineRecipeFactory.getInstance().getRecipe(this.getID()).size();
             offset = (offset + length - 1) % length;
             add(l, KEY, String.valueOf(offset));
@@ -179,7 +179,7 @@ public class ManualCraftMachineMenu extends AbstractManualMachineMenu {
 
             javaPlugin.getServer().getScheduler().runTaskAsynchronously(javaPlugin, () -> ParticleUtil.drawCubeByBlock(javaPlugin, Particle.WAX_OFF, 0, block));
 
-            int offset = Integer.parseInt(StorageCacheUtils.getData(block.getLocation(), KEY));
+            int offset = Integer.parseInt(BlockStorage.getLocationInfo(block.getLocation(), KEY));
             int length = MachineRecipeFactory.getInstance().getAdvancedRecipe(this.getID()).size();
             offset = (offset + 1) % length;
             add(l, KEY, String.valueOf(offset));

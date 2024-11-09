@@ -10,6 +10,7 @@ import io.taraxacum.libs.plugin.dto.ServerRunnableLockFactory;
 import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -171,7 +172,7 @@ public class BlockTickerUtil {
                                     if (item instanceof MachineProcessHolder machineProcessHolder) {
                                         machineProcessHolder.getMachineProcessor().endOperation(block);
                                     }
-                                    if (dropSelf && item.getId().equals(StorageCacheUtils.getData(block.getLocation(), ConstantTableUtil.CONFIG_ID))) {
+                                    if (dropSelf && item.getId().equals(BlockStorage.getLocationInfo(block.getLocation(), ConstantTableUtil.CONFIG_ID))) {
                                         block.getLocation().getWorld().dropItem(block.getLocation(), ItemStackUtil.cloneItem(item.getItem(), 1));
                                     }
                                     for (Player player : playerList) {

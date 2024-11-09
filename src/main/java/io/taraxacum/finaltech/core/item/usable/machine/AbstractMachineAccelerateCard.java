@@ -50,7 +50,7 @@ public abstract class AbstractMachineAccelerateCard extends UsableSlimefunItem {
             return;
         }
 
-        if (StorageCacheUtils.getData(location, ConstantTableUtil.CONFIG_ID) == null) {
+        if (BlockStorage.getLocationInfo(location, ConstantTableUtil.CONFIG_ID) == null) {
             return;
         }
 
@@ -72,7 +72,7 @@ public abstract class AbstractMachineAccelerateCard extends UsableSlimefunItem {
             return;
         }
 
-        SlimefunItem slimefunItem = SlimefunItem.getById(StorageCacheUtils.getData(location, ConstantTableUtil.CONFIG_ID));
+        SlimefunItem slimefunItem = SlimefunItem.getById(BlockStorage.getLocationInfo(location, ConstantTableUtil.CONFIG_ID));
         if (slimefunItem == null || FinalTechChanged.isAntiAccelerateSlimefunItem(slimefunItem.getId())) {
             return;
         }

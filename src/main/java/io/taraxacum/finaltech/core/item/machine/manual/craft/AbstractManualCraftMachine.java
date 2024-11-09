@@ -72,14 +72,14 @@ public abstract class AbstractManualCraftMachine extends AbstractManualMachine i
     @Override
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
         Location location = block.getLocation();
-        int charge = ((EnergyNetComponent) Objects.requireNonNull(SlimefunItem.getById(StorageCacheUtils.getData(location, "id")))).getCharge(location);
+        int charge = ((EnergyNetComponent) Objects.requireNonNull(SlimefunItem.getById(BlockStorage.getLocationInfo(location, "id")))).getCharge(location);
 
         int intCharge = charge + this.charge;
         if (intCharge > this.capacity / 2) {
             intCharge /= 2;
         }
 
-        ((EnergyNetComponent) Objects.requireNonNull(SlimefunItem.getById(StorageCacheUtils.getData(location, "id")))).setCharge(block.getLocation(), Math.min(intCharge, this.capacity));
+        ((EnergyNetComponent) Objects.requireNonNull(SlimefunItem.getById(BlockStorage.getLocationInfo(location, "id")))).setCharge(block.getLocation(), Math.min(intCharge, this.capacity));
 
         BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
         Inventory inv = blockMenu.toInventory();

@@ -54,7 +54,7 @@ public class VariableWireCapacitor extends AbstractElectricMachine implements Re
                 BlockStorage.addBlockInfo(location, ConstantTableUtil.CONFIG_ID, FinalTechItemStacks.VARIABLE_WIRE_RESISTANCE.getItemId());
                 Slimefun.getNetworkManager().updateAllNetworks(location);
                 javaPlugin.getServer().getScheduler().runTaskLater(javaPlugin, () -> {
-                    if (!location.getBlock().getType().isAir() && FinalTechItemStacks.VARIABLE_WIRE_RESISTANCE.getItemId().equals(StorageCacheUtils.getData(location, ConstantTableUtil.CONFIG_ID))) {
+                    if (!location.getBlock().getType().isAir() && FinalTechItemStacks.VARIABLE_WIRE_RESISTANCE.getItemId().equals(BlockStorage.getLocationInfo(location, ConstantTableUtil.CONFIG_ID))) {
                         block.setType(FinalTechItemStacks.VARIABLE_WIRE_RESISTANCE.getType());
                     }
                 }, 0);

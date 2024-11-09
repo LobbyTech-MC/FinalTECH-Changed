@@ -64,7 +64,7 @@
 ////        Map<Integer, List<LocationWithConfig>> configMap = new HashMap<>(this.range * 3);
 ////        this.function(block, this.range, location -> {
 ////            if (StorageCacheUtils.hasBlock(location)) {
-////                Config targetConfig = StorageCacheUtils.getData(location);
+////                Config targetConfig = BlockStorage.getLocationInfo(location);
 ////                if (targetConfig.contains(ConstantTableUtil.CONFIG_ID) && SlimefunItem.getById(targetConfig.getString(ConstantTableUtil.CONFIG_ID)) instanceof EnergyNetComponent) {
 ////                    int distance = Math.abs(location.getBlockX() - blockLocation.getBlockX()) + Math.abs(location.getBlockY() - blockLocation.getBlockY()) + Math.abs(location.getBlockZ() - blockLocation.getBlockZ());
 ////                    List<LocationWithConfig> configList = configMap.computeIfAbsent(distance, d -> new ArrayList<>(d * d * 4 + 2));
@@ -88,7 +88,7 @@
 ////        if (charge > 0) {
 ////            count = this.function(block, range, location -> {
 ////                if (StorageCacheUtils.hasBlock(location)) {
-////                    Config energyComponentConfig = StorageCacheUtils.getData(location);
+////                    Config energyComponentConfig = BlockStorage.getLocationInfo(location);
 ////                    if (energyComponentConfig.contains(ConstantTableUtil.CONFIG_ID)) {
 ////                        SlimefunItem item = SlimefunItem.getById(energyComponentConfig.getString(ConstantTableUtil.CONFIG_ID));
 ////                        if (item instanceof EnergyNetComponent && !EnergyNetComponentType.CAPACITOR.equals(((EnergyNetComponent) item).getEnergyComponentType())) {

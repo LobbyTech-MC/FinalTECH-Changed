@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 
 import org.bukkit.Location;
 import org.bukkit.inventory.Inventory;
@@ -141,7 +142,7 @@ public abstract class BlockStorageLoreHelper extends BlockStorageHelper {
      * update the icon{@link ItemStack} in the given slot place
      */
     public boolean checkAndUpdateIcon(@Nonnull Inventory inventory, @Nonnull Location location, int slot) {
-        String value = StorageCacheUtils.getData(location, this.getKey());
+        String value = BlockStorage.getLocationInfo(location, this.getKey());
         if (!this.validValue(value)) {
             value = this.defaultValue();
         }

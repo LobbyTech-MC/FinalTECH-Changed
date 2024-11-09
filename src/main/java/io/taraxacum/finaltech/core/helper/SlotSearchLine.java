@@ -93,7 +93,7 @@ public class SlotSearchLine {
         @Nonnull
         @Override
         public String getOrDefaultValue(@Nonnull Location location) {
-            String valueMap = StorageCacheUtils.getData(location, KEY);
+            String valueMap = BlockStorage.getLocationInfo(location, KEY);
             KeyValueStringHelper keyValueStringHelper = MAP_EXAMPLE.parseString(valueMap);
             String value = keyValueStringHelper.getValue(BlockStorageLoreMaterialHelper.this.getKey());
             if (!BlockStorageLoreMaterialHelper.this.validValue(value)) {
@@ -132,7 +132,7 @@ public class SlotSearchLine {
 
         @Override
         public boolean checkAndUpdateIcon(@Nonnull Inventory inventory, @Nonnull Location location, int slot) {
-            String valueMap = StorageCacheUtils.getData(location, this.getKey());
+            String valueMap = BlockStorage.getLocationInfo(location, this.getKey());
             if (valueMap == null) {
                 valueMap = "";
             }
@@ -152,7 +152,7 @@ public class SlotSearchLine {
         @Override
         public ChestMenu.MenuClickHandler getHandler(@Nonnull Inventory inventory, @Nonnull Location location, @Nonnull SlimefunItem slimefunItem, int slot) {
             return (p, slot1, item, action) -> {
-                String valueMap = StorageCacheUtils.getData(location, KEY);
+                String valueMap = BlockStorage.getLocationInfo(location, KEY);
                 KeyValueStringHelper keyValueStringHelper = MAP_EXAMPLE.parseString(valueMap);
                 String value = keyValueStringHelper.getValue(BlockStorageLoreMaterialHelper.this.getKey());
                 if (!action.isRightClicked()) {
@@ -171,7 +171,7 @@ public class SlotSearchLine {
         @Override
         public ChestMenu.MenuClickHandler getUpdateHandler(@Nonnull Inventory inventory, @Nonnull Location location, @Nonnull SlimefunItem slimefunItem, int slot) {
             return (p, slot1, item, action) -> {
-                String valueMap = StorageCacheUtils.getData(location, KEY);
+                String valueMap = BlockStorage.getLocationInfo(location, KEY);
                 KeyValueStringHelper keyValueStringHelper = MAP_EXAMPLE.parseString(valueMap);
                 String value = keyValueStringHelper.getValue(BlockStorageLoreMaterialHelper.this.getKey());
                 if (!BlockStorageLoreMaterialHelper.this.validValue(value)) {
@@ -188,7 +188,7 @@ public class SlotSearchLine {
         @Override
         public ChestMenu.MenuClickHandler getNextHandler(@Nonnull Inventory inventory, @Nonnull Location location, @Nonnull SlimefunItem slimefunItem, int slot) {
             return (p, slot1, item, action) -> {
-                String valueMap = StorageCacheUtils.getData(location, KEY);
+                String valueMap = BlockStorage.getLocationInfo(location, KEY);
                 KeyValueStringHelper keyValueStringHelper = MAP_EXAMPLE.parseString(valueMap);
                 String value = keyValueStringHelper.getValue(BlockStorageLoreMaterialHelper.this.getKey());
                 value = BlockStorageLoreMaterialHelper.this.clickNextValue(value, action);
@@ -203,7 +203,7 @@ public class SlotSearchLine {
         @Override
         public ChestMenu.MenuClickHandler getPreviousHandler(@Nonnull Inventory inventory, @Nonnull Location location, @Nonnull SlimefunItem slimefunItem, int slot) {
             return (p, slot1, item, action) -> {
-                String valueMap = StorageCacheUtils.getData(location, KEY);
+                String valueMap = BlockStorage.getLocationInfo(location, KEY);
                 KeyValueStringHelper keyValueStringHelper = MAP_EXAMPLE.parseString(valueMap);
                 String value = keyValueStringHelper.getValue(BlockStorageLoreMaterialHelper.this.getKey());
                 value = BlockStorageLoreMaterialHelper.this.clickPreviousValue(value, action);

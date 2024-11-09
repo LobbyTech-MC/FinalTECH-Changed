@@ -54,7 +54,7 @@ public class EquivalentExchangeTable extends AbstractManualMachine implements Re
     @Override
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
         BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
-        String value = JavaUtil.getFirstNotNull(StorageCacheUtils.getData(block.getLocation(), this.key), StringNumberUtil.ZERO);
+        String value = JavaUtil.getFirstNotNull(BlockStorage.getLocationInfo(block.getLocation(), this.key), StringNumberUtil.ZERO);
         for (int slot : this.getInputSlot()) {
             ItemStack itemStack = blockMenu.getItemInSlot(slot);
             if (ItemStackUtil.isItemNull(itemStack)) {

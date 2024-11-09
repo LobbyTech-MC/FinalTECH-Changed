@@ -20,7 +20,7 @@ import io.taraxacum.libs.slimefun.dto.LocationInfo;
 import io.taraxacum.libs.slimefun.util.EnergyUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -99,7 +99,7 @@ public class OverloadedAccelerator extends AbstractCubeMachine implements Recipe
                 for (LocationInfo locationInfo : locationInfoList) {
                     BlockTicker blockTicker = locationInfo.getSlimefunItem().getBlockTicker();
                     EnergyNetComponent energyNetComponent = (EnergyNetComponent) locationInfo.getSlimefunItem();
-                    if (blockTicker != null && locationInfo.getId().equals(StorageCacheUtils.getData(locationInfo.getLocation(), ConstantTableUtil.CONFIG_ID))) {
+                    if (blockTicker != null && locationInfo.getId().equals(BlockStorage.getLocationInfo(locationInfo.getLocation(), ConstantTableUtil.CONFIG_ID))) {
                         int capacity = energyNetComponent.getCapacity();
                         int energy = Integer.parseInt(EnergyUtil.getCharge(locationInfo.getLocation()));
                         if (energy >= capacity * 0.8) {

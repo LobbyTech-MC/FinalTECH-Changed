@@ -52,7 +52,7 @@ public abstract class AbstractMachineActivateCard extends UsableSlimefunItem {
             return;
         }
 
-        if (StorageCacheUtils.getData(location, ConstantTableUtil.CONFIG_ID) == null) {
+        if (BlockStorage.getLocationInfo(location, ConstantTableUtil.CONFIG_ID) == null) {
             return;
         }
 
@@ -74,7 +74,7 @@ public abstract class AbstractMachineActivateCard extends UsableSlimefunItem {
             return;
         }
 
-        SlimefunItem slimefunItem = SlimefunItem.getById(StorageCacheUtils.getData(location, ConstantTableUtil.CONFIG_ID));
+        SlimefunItem slimefunItem = SlimefunItem.getById(BlockStorage.getLocationInfo(location, ConstantTableUtil.CONFIG_ID));
         if (slimefunItem == null) {
             return;
         }

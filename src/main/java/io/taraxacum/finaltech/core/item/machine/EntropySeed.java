@@ -75,7 +75,7 @@ public class EntropySeed extends AbstractMachine implements RecipeItem {
         // TODO optimization
 
         Location location = block.getLocation();
-        if (StorageCacheUtils.getData(block.getLocation(), this.key) != null && this.value.equals(StorageCacheUtils.getData(block.getLocation(), this.key))) {
+        if (BlockStorage.getLocationInfo(block.getLocation(), this.key) != null && this.value.equals(BlockStorage.getLocationInfo(block.getLocation(), this.key))) {
             BlockStorage.addBlockInfo(location, this.key, null);
             SlimefunItem sfItem = SlimefunItem.getByItem(FinalTechItemStacks.EQUIVALENT_CONCEPT);
             if (sfItem != null) {

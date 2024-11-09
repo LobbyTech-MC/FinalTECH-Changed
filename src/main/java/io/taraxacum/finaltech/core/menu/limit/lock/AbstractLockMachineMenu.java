@@ -4,7 +4,7 @@ import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.taraxacum.finaltech.core.helper.MachineRecipeLock;
 import io.taraxacum.finaltech.core.item.machine.AbstractMachine;
 import io.taraxacum.finaltech.core.menu.limit.AbstractLimitMachineMenu;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -43,7 +43,7 @@ public abstract class AbstractLockMachineMenu extends AbstractLimitMachineMenu {
         super.updateInventory(inventory, location);
         MachineRecipeLock.HELPER.checkOrSetBlockStorage(location);
         ItemStack item = inventory.getItem(this.getRecipeLockSlot());
-        String recipeLock = StorageCacheUtils.getData(location, MachineRecipeLock.KEY);
+        String recipeLock = BlockStorage.getLocationInfo(location, MachineRecipeLock.KEY);
         MachineRecipeLock.HELPER.setIcon(item, recipeLock, this.getSlimefunItem());
     }
 

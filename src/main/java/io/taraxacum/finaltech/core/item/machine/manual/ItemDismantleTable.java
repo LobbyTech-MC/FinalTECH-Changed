@@ -63,7 +63,7 @@ public class ItemDismantleTable extends AbstractManualMachine implements RecipeI
 
     @Override
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
-        String count = JavaUtil.getFirstNotNull(StorageCacheUtils.getData(block.getLocation(), key), StringNumberUtil.ZERO);
+        String count = JavaUtil.getFirstNotNull(BlockStorage.getLocationInfo(block.getLocation(), key), StringNumberUtil.ZERO);
         if (StringNumberUtil.compare(count, limit) < 0) {
             BlockStorage.addBlockInfo(block.getLocation(), key, StringNumberUtil.add(count));
         }

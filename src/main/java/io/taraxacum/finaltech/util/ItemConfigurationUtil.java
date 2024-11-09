@@ -141,7 +141,7 @@ public class ItemConfigurationUtil {
         return resultMap;
     }
     private static String getValue(Location l, String key){
-        return StorageCacheUtils.getData(l, key);
+        return BlockStorage.getLocationInfo(l, key);
     }
 
     public static boolean saveConfigToItem(@Nonnull ItemStack itemStack, @Nonnull Location location) {
@@ -200,7 +200,7 @@ public class ItemConfigurationUtil {
         configMap = ItemConfigurationUtil.filterByItem(itemId, configMap);
 
         for (Map.Entry<String, String> entry : configMap.entrySet()) {
-            if (StorageCacheUtils.getData(location, entry.getKey()) != null) {
+            if (BlockStorage.getLocationInfo(location, entry.getKey()) != null) {
                 BlockStorage.addBlockInfo(location, entry.getKey(), entry.getValue());
             }
         }

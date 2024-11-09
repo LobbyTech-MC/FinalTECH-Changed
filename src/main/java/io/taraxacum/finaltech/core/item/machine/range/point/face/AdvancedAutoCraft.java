@@ -25,7 +25,7 @@ import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import io.taraxacum.libs.slimefun.dto.AdvancedCraft;
 import io.taraxacum.libs.slimefun.util.BlockStorageConfigUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -82,7 +82,7 @@ public class AdvancedAutoCraft extends AbstractFaceMachine implements RecipeItem
             return;
         }
 
-        String containerId = StorageCacheUtils.getData(containerBlock.getLocation(), ConstantTableUtil.CONFIG_ID);
+        String containerId = BlockStorage.getLocationInfo(containerBlock.getLocation(), ConstantTableUtil.CONFIG_ID);
         if (containerId != null) {
             Runnable runnable = () -> {
                 InvWithSlots inputMap = CargoUtil.getInvWithSlots(containerBlock, SlotSearchSize.INPUT_HELPER.getOrDefaultValue(containerBlock.getLocation()), SlotSearchOrder.VALUE_ASCENT);

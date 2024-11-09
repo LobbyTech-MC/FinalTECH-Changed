@@ -57,7 +57,7 @@ public class VariableWireResistance extends AbstractElectricMachine implements R
                 ((EnergyNetComponent) FinalTechItemStacks.VARIABLE_WIRE_CAPACITOR).setCharge(location, this.getCapacity());
                 Slimefun.getNetworkManager().updateAllNetworks(location);
                 javaPlugin.getServer().getScheduler().runTaskLater(javaPlugin, () -> {
-                    if (!location.getBlock().getType().isAir() && FinalTechItemStacks.VARIABLE_WIRE_CAPACITOR.getItemId().equals(StorageCacheUtils.getData(location, ConstantTableUtil.CONFIG_ID))) {
+                    if (!location.getBlock().getType().isAir() && FinalTechItemStacks.VARIABLE_WIRE_CAPACITOR.getItemId().equals(BlockStorage.getLocationInfo(location, ConstantTableUtil.CONFIG_ID))) {
                         block.setType(FinalTechItemStacks.VARIABLE_WIRE_CAPACITOR.getType());
                     }
                 }, 0);

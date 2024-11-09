@@ -102,7 +102,7 @@ public abstract class BlockStorageHelper {
 
     @Nonnull
     public String getOrDefaultValue(@Nonnull Location location) {
-        String value = StorageCacheUtils.getData(location, this.getKey());
+        String value = BlockStorage.getLocationInfo(location, this.getKey());
         return value == null ? this.defaultValue() : value;
     }
 
@@ -148,7 +148,7 @@ public abstract class BlockStorageHelper {
     }
 
     public boolean checkOrSetBlockStorage(@Nonnull Location location) {
-        if (StorageCacheUtils.getData(location, this.getKey()) == null) {
+        if (BlockStorage.getLocationInfo(location, this.getKey()) == null) {
             BlockStorage.addBlockInfo(location, this.getKey(), this.defaultValue());
             return false;
         }

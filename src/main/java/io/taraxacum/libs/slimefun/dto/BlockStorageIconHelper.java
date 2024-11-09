@@ -5,6 +5,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -103,7 +104,7 @@ public abstract class BlockStorageIconHelper extends BlockStorageHelper {
     }
 
     public boolean checkAndUpdateIcon(@Nonnull Inventory inventory, @Nonnull Location location, int slot) {
-        String value = StorageCacheUtils.getData(location, this.getKey());
+        String value = BlockStorage.getLocationInfo(location, this.getKey());
         if (!this.validValue(value)) {
             value = this.defaultValue();
         }
