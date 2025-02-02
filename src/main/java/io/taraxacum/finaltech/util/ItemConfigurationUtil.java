@@ -1,17 +1,14 @@
 package io.taraxacum.finaltech.util;
 
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import io.taraxacum.finaltech.FinalTechChanged;
-import io.taraxacum.finaltech.core.helper.IgnorePermission;
-import io.taraxacum.finaltech.setup.FinalTechItems;
-import io.taraxacum.libs.plugin.dto.ConfigFileManager;
-import io.taraxacum.libs.slimefun.dto.LocationInfo;
-import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
@@ -20,10 +17,16 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.lang.reflect.Type;
-import java.util.*;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import io.taraxacum.finaltech.FinalTechChanged;
+import io.taraxacum.finaltech.core.helper.IgnorePermission;
+import io.taraxacum.finaltech.setup.FinalTechItems;
+import io.taraxacum.libs.plugin.dto.ConfigFileManager;
+import io.taraxacum.libs.slimefun.dto.LocationInfo;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 
 public class ItemConfigurationUtil {
     private static final NamespacedKey KEY_CONFIG = new NamespacedKey(FinalTechChanged.getInstance(), "_FINALTECH_CONFIGURATION");
