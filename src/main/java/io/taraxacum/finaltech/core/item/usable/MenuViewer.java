@@ -10,7 +10,6 @@ import io.taraxacum.common.api.CustomMenu;
 import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.interfaces.RecipeItem;
 import io.taraxacum.finaltech.util.RecipeUtil;
-import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
 
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
@@ -71,13 +70,13 @@ public class MenuViewer extends UsableSlimefunItem implements RecipeItem {
                 CustomMenu chestMenu = new CustomMenu(preset.getTitle());
                 for (int slot = 0; slot < viewSlot.length; slot++) {
                     if (viewSlot[slot] == INSERT_SLOT_VALUE) {
-                        chestMenu.addItem(slot, ItemStackUtil.cleanItem(INPUT_ICON));
+                        chestMenu.addCustomItem(slot, INPUT_ICON);
                     } else if (viewSlot[slot] == WITHDRAW_SLOT_VALUE) {
-                        chestMenu.addItem(slot, ItemStackUtil.cleanItem(OUTPUT_ICON));
+                        chestMenu.addCustomItem(slot, OUTPUT_ICON);
                     } else if (viewSlot[slot] == INSERT_AND_WITHDRAW_SLOT_VALUE) {
-                        chestMenu.addItem(slot, ItemStackUtil.cleanItem(INPUT_AND_OUTPUT_ICON));
+                        chestMenu.addCustomItem(slot, INPUT_AND_OUTPUT_ICON);
                     } else {
-                        chestMenu.addItem(slot, ItemStackUtil.cleanItem(VOID_ICON));
+                        chestMenu.addCustomItem(slot, VOID_ICON);
                     }
                     chestMenu.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
                 }

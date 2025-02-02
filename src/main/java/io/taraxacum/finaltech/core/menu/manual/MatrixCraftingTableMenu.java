@@ -68,7 +68,7 @@ public class MatrixCraftingTableMenu extends AbstractManualMachineMenu {
     @Override
     public void init() {
         super.init();
-        this.addItem(PARSE_SLOT, ItemStackUtil.cleanItem(PARSE_ICON));
+        this.addCustomItem(PARSE_SLOT, PARSE_ICON);
         this.addMenuClickHandler(PARSE_SLOT, ChestMenuUtils.getEmptyClickHandler());
     }
 
@@ -137,7 +137,7 @@ public class MatrixCraftingTableMenu extends AbstractManualMachineMenu {
             ItemStackUtil.addLoresToLast(matchItem, FinalTechChanged.getLanguageManager().replaceStringArray(FinalTechChanged.getLanguageStringArray("items", SfItemUtil.getIdFormatName(MatrixCraftingTable.class), "show-icon", "lore"), String.valueOf(basicCraft.getMatchAmount())));
             inventory.setItem(PARSE_SLOT, matchItem);
         } else {
-            inventory.setItem(PARSE_SLOT, ItemStackUtil.cleanItem(PARSE_ICON));
+            inventory.setItem(PARSE_SLOT, PARSE_ICON);
         }
     }
 }

@@ -2,8 +2,6 @@ package io.taraxacum.finaltech.core.helper;
 
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.taraxacum.finaltech.FinalTechChanged;
-import io.taraxacum.finaltech.FinalTechChanged;
-import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import io.taraxacum.libs.slimefun.dto.BlockStorageHelper;
 import io.taraxacum.libs.slimefun.dto.BlockStorageIconHelper;
 import org.bukkit.Material;
@@ -25,10 +23,10 @@ public final class BlockSearchMode {
     public static final String VALUE_PENETRATE = "p";
     public static final String VALUE_INTERRUPT = "it";
 
-    public static final ItemStack ZERO_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.PURPLE_STAINED_GLASS, FinalTechChanged.getLanguageString("helper", "BLOCK_SEARCH_MODE", "zero", "name"), FinalTechChanged.getLanguageStringArray("helper", "BLOCK_SEARCH_MODE", "zero", "lore")));
-    public static final ItemStack INHERIT_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.PURPLE_STAINED_GLASS, FinalTechChanged.getLanguageString("helper", "BLOCK_SEARCH_MODE", "inherit", "name"), FinalTechChanged.getLanguageStringArray("helper", "BLOCK_SEARCH_MODE", "inherit", "lore")));
-    public static final ItemStack PENETRATE_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.PURPLE_STAINED_GLASS, FinalTechChanged.getLanguageString("helper", "BLOCK_SEARCH_MODE", "penetrate", "name"), FinalTechChanged.getLanguageStringArray("helper", "BLOCK_SEARCH_MODE", "penetrate", "lore")));
-    public static final ItemStack INTERRUPT_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.PURPLE_STAINED_GLASS, FinalTechChanged.getLanguageString("helper", "BLOCK_SEARCH_MODE", "interrupt", "name"), FinalTechChanged.getLanguageStringArray("helper", "BLOCK_SEARCH_MODE", "interrupt", "lore")));
+    public static final ItemStack ZERO_ICON = new CustomItemStack(Material.PURPLE_STAINED_GLASS, FinalTechChanged.getLanguageString("helper", "BLOCK_SEARCH_MODE", "zero", "name"), FinalTechChanged.getLanguageStringArray("helper", "BLOCK_SEARCH_MODE", "zero", "lore"));
+    public static final ItemStack INHERIT_ICON = new CustomItemStack(Material.PURPLE_STAINED_GLASS, FinalTechChanged.getLanguageString("helper", "BLOCK_SEARCH_MODE", "inherit", "name"), FinalTechChanged.getLanguageStringArray("helper", "BLOCK_SEARCH_MODE", "inherit", "lore"));
+    public static final ItemStack PENETRATE_ICON = new CustomItemStack(Material.PURPLE_STAINED_GLASS, FinalTechChanged.getLanguageString("helper", "BLOCK_SEARCH_MODE", "penetrate", "name"), FinalTechChanged.getLanguageStringArray("helper", "BLOCK_SEARCH_MODE", "penetrate", "lore"));
+    public static final ItemStack INTERRUPT_ICON = new CustomItemStack(Material.PURPLE_STAINED_GLASS, FinalTechChanged.getLanguageString("helper", "BLOCK_SEARCH_MODE", "interrupt", "name"), FinalTechChanged.getLanguageStringArray("helper", "BLOCK_SEARCH_MODE", "interrupt", "lore"));
 
     public static final BlockStorageIconHelper HELPER = BlockStorageIconHelper.newInstanceOrGet(BlockStorageHelper.ID_CARGO, KEY, new LinkedHashMap<>() {{
         this.put(VALUE_ZERO, ZERO_ICON);

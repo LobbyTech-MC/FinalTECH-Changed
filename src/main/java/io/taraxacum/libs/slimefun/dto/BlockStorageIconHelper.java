@@ -108,7 +108,7 @@ public abstract class BlockStorageIconHelper extends BlockStorageHelper {
         if (!this.validValue(value)) {
             value = this.defaultValue();
         }
-        inventory.setItem(slot, ItemStackUtil.cleanItem(this.getOrErrorIcon(value)));
+        inventory.setItem(slot, this.getOrErrorIcon(value));
         return true;
     }
 

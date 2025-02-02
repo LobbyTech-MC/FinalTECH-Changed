@@ -6,7 +6,6 @@ import io.taraxacum.common.util.JavaUtil;
 import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.libs.plugin.dto.KeyValueStringHelper;
 import io.taraxacum.libs.plugin.dto.KeyValueStringOrderHelper;
-import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import io.taraxacum.libs.slimefun.dto.BlockStorageHelper;
 import io.taraxacum.libs.slimefun.dto.BlockStorageLoreHelper;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
@@ -35,12 +34,12 @@ public class PositionInfo {
     public static final String VALUE_KEY_UP = "u";
     public static final String VALUE_KEY_DOWN = "d";
 
-    public static final ItemStack NORTH_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "POSITION_INFO", "north", "name"), FinalTechChanged.getLanguageStringArray("helper", "POSITION_INFO", "north", "lore")));
-    public static final ItemStack EAST_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "POSITION_INFO", "east", "name"), FinalTechChanged.getLanguageStringArray("helper", "POSITION_INFO", "east", "lore")));
-    public static final ItemStack SOUTH_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "POSITION_INFO", "south", "name"), FinalTechChanged.getLanguageStringArray("helper", "POSITION_INFO", "south", "lore")));
-    public static final ItemStack WEST_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "POSITION_INFO", "west", "name"), FinalTechChanged.getLanguageStringArray("helper", "POSITION_INFO", "west", "lore")));
-    public static final ItemStack UP_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "POSITION_INFO", "up", "name"), FinalTechChanged.getLanguageStringArray("helper", "POSITION_INFO", "up", "lore")));
-    public static final ItemStack DOWN_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "POSITION_INFO", "down", "name"), FinalTechChanged.getLanguageStringArray("helper", "POSITION_INFO", "down", "lore")));
+    public static final ItemStack NORTH_ICON = new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "POSITION_INFO", "north", "name"), FinalTechChanged.getLanguageStringArray("helper", "POSITION_INFO", "north", "lore"));
+    public static final ItemStack EAST_ICON = new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "POSITION_INFO", "east", "name"), FinalTechChanged.getLanguageStringArray("helper", "POSITION_INFO", "east", "lore"));
+    public static final ItemStack SOUTH_ICON = new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "POSITION_INFO", "south", "name"), FinalTechChanged.getLanguageStringArray("helper", "POSITION_INFO", "south", "lore"));
+    public static final ItemStack WEST_ICON = new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "POSITION_INFO", "west", "name"), FinalTechChanged.getLanguageStringArray("helper", "POSITION_INFO", "west", "lore"));
+    public static final ItemStack UP_ICON = new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "POSITION_INFO", "up", "name"), FinalTechChanged.getLanguageStringArray("helper", "POSITION_INFO", "up", "lore"));
+    public static final ItemStack DOWN_ICON = new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "POSITION_INFO", "down", "name"), FinalTechChanged.getLanguageStringArray("helper", "POSITION_INFO", "down", "lore"));
 
     public static final String VALUE_NULL = null;
     public static final String VALUE_INPUT = "i";
