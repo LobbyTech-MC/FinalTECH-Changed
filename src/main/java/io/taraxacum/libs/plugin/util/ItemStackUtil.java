@@ -26,6 +26,20 @@ import java.util.*;
 public final class ItemStackUtil {
     public static final ItemStack AIR = new ItemStack(Material.AIR);
     public static final ItemNameAdapter itemNameAdapter = ItemNameAdapter.get();
+    @Nonnull
+    public static ItemStack cleanItem(@Nullable ItemStack itemStack) {
+        if (itemStack == null) {
+            return AIR.clone();
+        }
+
+        ItemStack safeClone = new ItemStack(itemStack.getType());
+        safeClone.setAmount(itemStack.getAmount());
+        if (itemStack.hasItemMeta()) {
+            safeClone.setItemMeta(itemStack.getItemMeta());
+        }
+
+        return safeClone;
+    }
 
     /**
      * Clone an #{@link ItemStack}

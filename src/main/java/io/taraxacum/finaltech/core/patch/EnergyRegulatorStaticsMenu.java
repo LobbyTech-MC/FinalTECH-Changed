@@ -5,6 +5,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.taraxacum.finaltech.core.helper.Icon;
 import io.taraxacum.finaltech.core.menu.AbstractMachineMenu;
+import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -69,7 +70,7 @@ public class EnergyRegulatorStaticsMenu extends AbstractMachineMenu {
         super.init();
         this.addCustomItem(STATUS_SLOT, Icon.STATUS_ICON);
         this.addMenuClickHandler(STATUS_SLOT, ChestMenuUtils.getEmptyClickHandler());
-        this.addCustomItem(BUG_REPORT_SLOT, BUG_REPORT_ICON);
+        this.addItem(BUG_REPORT_SLOT, ItemStackUtil.cleanItem(BUG_REPORT_ICON));
         this.addMenuClickHandler(BUG_REPORT_SLOT, ChestMenuUtils.getEmptyClickHandler());
     }
 

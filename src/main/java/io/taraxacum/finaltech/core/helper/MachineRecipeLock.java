@@ -34,7 +34,7 @@ public final class MachineRecipeLock {
     public static final String VALUE_UNLOCK = "-1";
     public static final String VALUE_LOCK_OFF = "-2";
 
-    public static final ItemStack ICON = new CustomItemStack(Material.TRIPWIRE_HOOK, FinalTechChanged.getLanguageString("helper", "MACHINE_RECIPE_LOCK", "icon", "name"), FinalTechChanged.getLanguageStringArray("helper", "MACHINE_RECIPE_LOCK", "icon", "lore"));
+    public static final ItemStack ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.TRIPWIRE_HOOK, FinalTechChanged.getLanguageString("helper", "MACHINE_RECIPE_LOCK", "icon", "name"), FinalTechChanged.getLanguageStringArray("helper", "MACHINE_RECIPE_LOCK", "icon", "lore")));
 
     public static final BlockStorageLoreHelper HELPER = new BlockStorageLoreHelper(BlockStorageHelper.ID_CARGO, new LinkedHashMap<>(2) {{
         this.put("-2", FinalTechChanged.getLanguageStringList("helper", "MACHINE_RECIPE_LOCK", "unlock", "lore"));

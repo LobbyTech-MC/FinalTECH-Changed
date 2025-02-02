@@ -74,23 +74,23 @@ public class ManualCraftMachineMenu extends AbstractManualMachineMenu {
     public void init() {
         super.init();
 
-        this.addCustomItem(STATUS_SLOT, STATUS_ICON);
+        this.addItem(STATUS_SLOT, ItemStackUtil.cleanItem(STATUS_ICON));
         for (int slot : STATUS_L_SLOT) {
-            this.addCustomItem(slot, STATUS_ICON);
+            this.addItem(slot, ItemStackUtil.cleanItem(STATUS_ICON));
         }
         for (int slot : STATUS_R_SLOT) {
-            this.addCustomItem(slot, STATUS_ICON);
+            this.addItem(slot, ItemStackUtil.cleanItem(STATUS_ICON));
         }
 
         this.addCustomItem(PREVIOUS_SLOT, new CustomItemStack(new SlimefunItemStack("_UI_PREVIOUS_INACTIVE", Material.BLACK_STAINED_GLASS_PANE, "&8\u21E6 Previous Page"), FinalTechChanged.getLanguageString("items", "ManualCraftMachine", "previous-icon", "name"), FinalTechChanged.getLanguageStringArray("items", "ManualCraftMachine", "previous-icon", "lore")));
         this.addCustomItem(NEXT_SLOT, new CustomItemStack(new SlimefunItemStack("_UI_NEXT_INACTIVE", Material.BLACK_STAINED_GLASS_PANE, "&8Next Page \u21E8"), FinalTechChanged.getLanguageString("items", "ManualCraftMachine", "next-icon", "name"), FinalTechChanged.getLanguageStringArray("items", "ManualCraftMachine", "next-icon", "lore")));
 
-        this.addCustomItem(CRAFT_SLOT, CRAFT_ICON);
+        this.addItem(CRAFT_SLOT, ItemStackUtil.cleanItem(CRAFT_ICON));
         for (int slot : CRAFT_L_SLOT) {
-            this.addCustomItem(slot, CRAFT_ICON);
+            this.addItem(slot, ItemStackUtil.cleanItem(CRAFT_ICON));
         }
         for (int slot : CRAFT_R_SLOT) {
-            this.addCustomItem(slot, CRAFT_ICON);
+            this.addItem(slot, ItemStackUtil.cleanItem(CRAFT_ICON));
         }
     }
     public static void add(Location l, String key, String value) {
@@ -282,7 +282,7 @@ public class ManualCraftMachineMenu extends AbstractManualMachineMenu {
                     inventory.setItem(STATUS_R_SLOT[i], item);
                 } else {
                     add(location, KEY_R[i], null);
-                    inventory.setItem(STATUS_R_SLOT[i], STATUS_ICON);
+                    inventory.setItem(STATUS_R_SLOT[i], ItemStackUtil.cleanItem(STATUS_ICON));
                 }
             }
             int offsetL = offset - 1;
@@ -296,17 +296,17 @@ public class ManualCraftMachineMenu extends AbstractManualMachineMenu {
                     inventory.setItem(STATUS_L_SLOT[i], item);
                 } else {
                     add(location, KEY_L[i], null);
-                    inventory.setItem(STATUS_L_SLOT[i], STATUS_ICON);
+                    inventory.setItem(STATUS_L_SLOT[i], ItemStackUtil.cleanItem(STATUS_ICON));
                 }
             }
         } else {
             add(location, KEY, "0");
-            inventory.setItem(STATUS_SLOT, STATUS_ICON);
+            inventory.setItem(STATUS_SLOT, ItemStackUtil.cleanItem(STATUS_ICON));
             for (int slot : STATUS_R_SLOT) {
-                inventory.setItem(slot, STATUS_ICON);
+                inventory.setItem(slot, ItemStackUtil.cleanItem(STATUS_ICON));
             }
             for (int slot : STATUS_L_SLOT) {
-                inventory.setItem(slot, STATUS_ICON);
+                inventory.setItem(slot, ItemStackUtil.cleanItem(STATUS_ICON));
             }
         }
 

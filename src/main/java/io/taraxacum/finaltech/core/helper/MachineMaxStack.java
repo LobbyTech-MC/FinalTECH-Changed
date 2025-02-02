@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.core.item.machine.AbstractMachine;
+import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import io.taraxacum.libs.slimefun.dto.BlockStorageHelper;
 import io.taraxacum.libs.slimefun.dto.BlockStorageLoreHelper;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
@@ -28,7 +29,7 @@ import java.util.Objects;
 public final class MachineMaxStack {
     public static final String KEY = "mms";
 
-    public static final ItemStack ICON = new CustomItemStack(Material.CHEST, FinalTechChanged.getLanguageString("helper", "MACHINE_MAX_STACK", "icon", "name"));
+    public static final ItemStack ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.CHEST, FinalTechChanged.getLanguageString("helper", "MACHINE_MAX_STACK", "icon", "name")));
 
     public static final BlockStorageLoreHelper HELPER = new BlockStorageLoreHelper(BlockStorageHelper.ID_CARGO, new LinkedHashMap<>() {{
         this.put("0", FinalTechChanged.getLanguageStringList("helper", "MACHINE_MAX_STACK", "0", "lore"));

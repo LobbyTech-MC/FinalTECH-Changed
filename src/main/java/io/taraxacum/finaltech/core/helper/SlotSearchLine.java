@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.libs.plugin.dto.KeyValueStringHelper;
+import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import io.taraxacum.libs.slimefun.dto.BlockStorageHelper;
 import io.taraxacum.libs.slimefun.dto.BlockStorageLoreHelper;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
@@ -28,9 +29,9 @@ public class SlotSearchLine {
     public static final String VALUE_KEY_L2 = "l2";
     public static final String VALUE_KEY_L3 = "l3";
 
-    public static final ItemStack L1_ICON = new CustomItemStack(Material.GREEN_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "SLOT_SEARCH_LINE", "l1", "name"), FinalTechChanged.getLanguageStringArray("helper", "SLOT_SEARCH_LINE", "l1", "lore"));
-    public static final ItemStack L2_ICON = new CustomItemStack(Material.GREEN_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "SLOT_SEARCH_LINE", "l2", "name"), FinalTechChanged.getLanguageStringArray("helper", "SLOT_SEARCH_LINE", "l2", "lore"));
-    public static final ItemStack L3_ICON = new CustomItemStack(Material.GREEN_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "SLOT_SEARCH_LINE", "l3", "name"), FinalTechChanged.getLanguageStringArray("helper", "SLOT_SEARCH_LINE", "l3", "lore"));
+    public static final ItemStack L1_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.GREEN_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "SLOT_SEARCH_LINE", "l1", "name"), FinalTechChanged.getLanguageStringArray("helper", "SLOT_SEARCH_LINE", "l1", "lore")));
+    public static final ItemStack L2_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.GREEN_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "SLOT_SEARCH_LINE", "l2", "name"), FinalTechChanged.getLanguageStringArray("helper", "SLOT_SEARCH_LINE", "l2", "lore")));
+    public static final ItemStack L3_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.GREEN_STAINED_GLASS_PANE, FinalTechChanged.getLanguageString("helper", "SLOT_SEARCH_LINE", "l3", "name"), FinalTechChanged.getLanguageStringArray("helper", "SLOT_SEARCH_LINE", "l3", "lore")));
 
     public static final String VALUE_NULL = null;
     public static final String VALUE_POSITIVE = "p";

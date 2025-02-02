@@ -76,9 +76,9 @@ public class MatrixReactorMenu extends AbstractMachineMenu {
     public void init() {
         super.init();
 
-        this.addCustomItem(ORDERED_DUST_SLOT, ORDERED_DUST_ICON);
+        this.addItem(ORDERED_DUST_SLOT, ItemStackUtil.cleanItem(ORDERED_DUST_ICON));
         this.addMenuClickHandler(ORDERED_DUST_SLOT, ChestMenuUtils.getEmptyClickHandler());
-        this.addCustomItem(UNORDERED_DUST_SLOT, UNORDERED_DUST_ICON);
+        this.addItem(UNORDERED_DUST_SLOT, ItemStackUtil.cleanItem(UNORDERED_DUST_ICON));
         this.addMenuClickHandler(UNORDERED_DUST_SLOT, ChestMenuUtils.getEmptyClickHandler());
 
         this.addCustomItem(STATUS_SLOT, Icon.STATUS_ICON);

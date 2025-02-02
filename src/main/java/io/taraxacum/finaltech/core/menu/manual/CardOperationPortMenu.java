@@ -35,9 +35,9 @@ public class CardOperationPortMenu extends AbstractManualMachineMenu {
     private static final int[] INPUT_SLOT = new int[]{10, 16};
     private static final int[] OUTPUT_SLOT = new int[]{40};
     private static final int CRAFT_SLOT = 13;
-    private final ItemStack CRAFT_ICON = new CustomItemStack(Material.RED_STAINED_GLASS_PANE,
+    private final ItemStack CRAFT_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.RED_STAINED_GLASS_PANE,
             ConfigUtil.getStatusMenuName(FinalTechChanged.getLanguageManager(), this.getID()),
-            ConfigUtil.getStatusMenuLore(FinalTechChanged.getLanguageManager(), this.getID()));
+            ConfigUtil.getStatusMenuLore(FinalTechChanged.getLanguageManager(), this.getID())));
 
     {
         // entropy
@@ -694,7 +694,7 @@ public class CardOperationPortMenu extends AbstractManualMachineMenu {
     @Override
     public void init() {
         super.init();
-        this.addCustomItem(CRAFT_SLOT, CRAFT_ICON);
+        this.addItem(CRAFT_SLOT, ItemStackUtil.cleanItem(CRAFT_ICON));
         this.addMenuClickHandler(CRAFT_SLOT, ChestMenuUtils.getEmptyClickHandler());
     }
 

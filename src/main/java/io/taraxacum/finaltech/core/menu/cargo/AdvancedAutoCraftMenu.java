@@ -163,10 +163,10 @@ public class AdvancedAutoCraftMenu extends AbstractMachineMenu {
     public void init() {
         super.init();
         for (int slot : ITEM_INPUT_SLOT) {
-            this.addCustomItem(slot, PARSE_FAILED_ICON);
+            this.addItem(slot, ItemStackUtil.cleanItem(PARSE_FAILED_ICON));
             this.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
         }
-        this.addCustomItem(PARSE_SLOT, PARSE_ICON);
+        this.addItem(PARSE_SLOT, ItemStackUtil.cleanItem(PARSE_ICON));
         this.addMenuClickHandler(PARSE_SLOT, ChestMenuUtils.getEmptyClickHandler());
 
         this.addMenuClickHandler(ITEM_OUTPUT_SLOT, ChestMenuUtils.getEmptyClickHandler());
@@ -177,7 +177,7 @@ public class AdvancedAutoCraftMenu extends AbstractMachineMenu {
         this.addCustomItem(OUTPUT_SEARCH_SLOT, SlotSearchSize.INPUT_HELPER.defaultIcon());
         this.addMenuClickHandler(OUTPUT_SEARCH_SLOT, ChestMenuUtils.getEmptyClickHandler());
 
-        this.addCustomItem(WIKI_SLOT, WIKI_ICON);
+        this.addItem(WIKI_SLOT, ItemStackUtil.cleanItem(WIKI_ICON));
         this.addMenuClickHandler(WIKI_SLOT, ChestMenuUtils.getEmptyClickHandler());
 
         this.addCustomItem(STATUS_SLOT, Icon.QUANTITY_MODULE_ICON);
@@ -307,7 +307,7 @@ public class AdvancedAutoCraftMenu extends AbstractMachineMenu {
         BlockMenu blockMenu = StorageCacheUtils.getMenu(location);
         LocationRecipeRegistry.getInstance().setRecipe(location, null);
         for (int slot : ITEM_INPUT_SLOT) {
-            inventory.setItem(slot, PARSE_FAILED_ICON);
+            inventory.setItem(slot, ItemStackUtil.cleanItem(PARSE_FAILED_ICON));
             blockMenu.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
         }
         inventory.setItem(ITEM_OUTPUT_SLOT, Icon.BORDER_ICON);
@@ -327,12 +327,12 @@ public class AdvancedAutoCraftMenu extends AbstractMachineMenu {
                 ItemStackUtil.addLoreToLast(icon, FinalTechChanged.getLanguageManager().replaceString(FinalTechChanged.getLanguageString("items", SfItemUtil.getIdFormatName(AdvancedAutoCraft.class), "parse-amount"), String.valueOf(amount)));
                 inventory.setItem(ITEM_INPUT_SLOT[i], icon);
             } else {
-                inventory.setItem(ITEM_INPUT_SLOT[i], PARSE_SUCCESS_ICON);
+                inventory.setItem(ITEM_INPUT_SLOT[i], ItemStackUtil.cleanItem(PARSE_SUCCESS_ICON));
             }
             blockMenu.addMenuClickHandler(ITEM_INPUT_SLOT[i], ChestMenuUtils.getEmptyClickHandler());
         }
         if (advancedMachineRecipe.getInput().length < ITEM_INPUT_SLOT.length) {
-            blockMenu.replaceExistingItem(ITEM_INPUT_SLOT[i], PARSE_SUCCESS_ICON);
+            blockMenu.replaceExistingItem(ITEM_INPUT_SLOT[i], ItemStackUtil.cleanItem(PARSE_SUCCESS_ICON));
         } else if (advancedMachineRecipe.getInput().length == ITEM_INPUT_SLOT.length) {
             int amount = advancedMachineRecipe.getInput()[i].getAmount();
             ItemStack icon = ItemStackUtil.cloneItem(advancedMachineRecipe.getInput()[i].getItemStack());
@@ -342,7 +342,7 @@ public class AdvancedAutoCraftMenu extends AbstractMachineMenu {
             blockMenu.replaceExistingItem(ITEM_INPUT_SLOT[i], icon);
             blockMenu.addMenuClickHandler(ITEM_INPUT_SLOT[i], ChestMenuUtils.getEmptyClickHandler());
         } else {
-            blockMenu.replaceExistingItem(ITEM_INPUT_SLOT[i], PARSE_EXTEND_ICON);
+            blockMenu.replaceExistingItem(ITEM_INPUT_SLOT[i], ItemStackUtil.cleanItem(PARSE_EXTEND_ICON));
             blockMenu.addMenuClickHandler(ITEM_INPUT_SLOT[i], (player, i1, itemStack, clickAction) -> {
             	CustomMenu chestMenu = new CustomMenu(ItemStackUtil.getItemName(advancedMachineRecipe.getOutput()[0].getItemStack()));
                 for (int slot = 0; slot < 54 && slot < advancedMachineRecipe.getInput().length; slot++) {
@@ -352,7 +352,7 @@ public class AdvancedAutoCraftMenu extends AbstractMachineMenu {
                         SfItemUtil.removeSlimefunId(icon);
                         icon.setAmount(Math.min(amount, 64));
                         ItemStackUtil.addLoreToLast(icon, FinalTechChanged.getLanguageManager().replaceString(FinalTechChanged.getLanguageString("items", SfItemUtil.getIdFormatName(AdvancedAutoCraft.class), "parse-amount"), String.valueOf(amount)));
-                        chestMenu.addCustomItem(slot, icon);
+                        chestMenu.addItem(slot, ItemStackUtil.cleanItem(icon));
                     } else {
                         chestMenu.addCustomItem(slot, Icon.BORDER_ICON);
                     }

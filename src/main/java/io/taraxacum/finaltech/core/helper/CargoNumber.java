@@ -3,6 +3,7 @@ package io.taraxacum.finaltech.core.helper;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.taraxacum.finaltech.FinalTechChanged;
 import io.taraxacum.finaltech.util.ConstantTableUtil;
+import io.taraxacum.libs.plugin.util.ItemStackUtil;
 import io.taraxacum.libs.slimefun.dto.BlockStorageHelper;
 import io.taraxacum.libs.slimefun.dto.BlockStorageLoreHelper;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
@@ -21,9 +22,9 @@ public final class CargoNumber {
     public static final String KEY_INPUT = "cbi";
     public static final String KEY_OUTPUT = "cbo";
 
-    public static final ItemStack CARGO_NUMBER_ICON = new CustomItemStack(Material.TARGET, FinalTechChanged.getLanguageString("helper", "CARGO_NUMBER", "icon", "name"), FinalTechChanged.getLanguageStringArray("helper", "CARGO_NUMBER", "icon", "lore"));
-    public static final ItemStack CARGO_NUMBER_ADD_ICON = new CustomItemStack(Material.GREEN_CONCRETE, FinalTechChanged.getLanguageString("helper", "CARGO_NUMBER", "add-icon", "name"), FinalTechChanged.getLanguageStringArray("helper", "CARGO_NUMBER", "add-icon", "lore"));
-    public static final ItemStack CARGO_NUMBER_SUB_ICON = new CustomItemStack(Material.RED_CONCRETE, FinalTechChanged.getLanguageString("helper", "CARGO_NUMBER", "sub-icon", "name"), FinalTechChanged.getLanguageStringArray("helper", "CARGO_NUMBER", "sub-icon", "lore"));
+    public static final ItemStack CARGO_NUMBER_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.TARGET, FinalTechChanged.getLanguageString("helper", "CARGO_NUMBER", "icon", "name"), FinalTechChanged.getLanguageStringArray("helper", "CARGO_NUMBER", "icon", "lore")));
+    public static final ItemStack CARGO_NUMBER_ADD_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.GREEN_CONCRETE, FinalTechChanged.getLanguageString("helper", "CARGO_NUMBER", "add-icon", "name"), FinalTechChanged.getLanguageStringArray("helper", "CARGO_NUMBER", "add-icon", "lore")));
+    public static final ItemStack CARGO_NUMBER_SUB_ICON = ItemStackUtil.cleanItem(new CustomItemStack(Material.RED_CONCRETE, FinalTechChanged.getLanguageString("helper", "CARGO_NUMBER", "sub-icon", "name"), FinalTechChanged.getLanguageStringArray("helper", "CARGO_NUMBER", "sub-icon", "lore")));
 
     public static final BlockStorageLoreHelper HELPER = new BlockStorageLoreHelper(BlockStorageHelper.ID_CARGO, 0, new LinkedHashMap<>() {{
 //        this.put("0", FinalTechChanged.getLanguageManager().replaceStringList(FinalTechChanged.getLanguageStringList("helper", "CARGO_NUMBER", "icon", "lore0")));
