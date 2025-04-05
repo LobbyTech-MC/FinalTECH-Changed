@@ -55,6 +55,7 @@ import io.taraxacum.finaltech.core.item.unusable.module.EnergizedQuantityModule;
 import io.taraxacum.finaltech.core.item.unusable.module.OverloadedQuantityModule;
 import io.taraxacum.finaltech.core.item.unusable.module.QuantityModule;
 import io.taraxacum.finaltech.core.item.unusable.module.QuantityModuleMatrix;
+import io.taraxacum.finaltech.core.item.unusable.trophy.Balugaq;
 import io.taraxacum.finaltech.core.item.unusable.trophy.Meawerful;
 import io.taraxacum.finaltech.core.item.unusable.trophy.QYhB05;
 import io.taraxacum.finaltech.core.item.unusable.trophy.Shixinzia;
@@ -376,4 +377,5 @@ public final class FinalTechItems {
     public static final Meawerful TROPHY_MEAWERFUL = new Meawerful(FinalTechMenus.MENU_DISC, FinalTechItemStacks.TROPHY_MEAWERFUL, RecipeType.NULL, new ItemStack[0]);
     public static final Shixinzia TROPHY_SHIXINZIA = new Shixinzia(FinalTechMenus.MENU_DISC, FinalTechItemStacks.TROPHY_SHIXINZIA, RecipeType.NULL, new ItemStack[0]);
     public static final QYhB05 TROPHY_QY = new QYhB05(FinalTechMenus.MENU_DISC, FinalTechItemStacks.TROPHY_QYhB05, RecipeType.NULL, new ItemStack[0]);
+    public static final Balugaq TROPHY_BALUGAQ = new Balugaq(FinalTechMenus.MENU_DISC, FinalTechItemStacks.TROPHY_BALUGAQ, RecipeType.NULL, new ItemStack[0]);
 }

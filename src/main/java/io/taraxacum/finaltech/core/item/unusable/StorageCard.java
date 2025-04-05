@@ -27,6 +27,7 @@ import java.util.List;
 public class StorageCard extends UnusableSlimefunItem implements RecipeItem, ValidItem {
     private final String itemLoreWithoutColor = "⌫⌧⌧⌧⌧⌧⌧⌧⌧⌧⌧⌧⌧⌧⌧⌧⌧⌧⌧⌧⌧⌦";
     private final String itemLore = TextUtil.colorRandomString(this.itemLoreWithoutColor);
+    private final Material type = getItem().getType();
 
     public StorageCard(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
@@ -40,6 +41,10 @@ public class StorageCard extends UnusableSlimefunItem implements RecipeItem, Val
 
     @Override
     public boolean verifyItem(@Nonnull ItemStack itemStack) {
+        if (itemStack.getType() != type) {
+            return false;
+        }
+
         if (itemStack.hasItemMeta()) {
             return this.verifyItem(itemStack.getItemMeta());
         }

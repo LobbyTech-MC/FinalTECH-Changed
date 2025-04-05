@@ -489,7 +489,9 @@ public final class SetupUtil {
         FinalTechMenus.SUB_MENU_TROPHY.addTo(
                 FinalTechItems.TROPHY_MEAWERFUL,
                 FinalTechItems.TROPHY_SHIXINZIA,
-                FinalTechItems.TROPHY_QY);
+                FinalTechItems.TROPHY_QY,
+                FinalTechItems.TROPHY_BALUGAQ
+        );
     }
 
     private static void setupMenu() {
