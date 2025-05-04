@@ -50,6 +50,10 @@
   </build>
   <repositories>
     <repository>
+      <id>paper-repo</id>
+      <url>https://repo.papermc.io/repository/maven-public/</url>
+    </repository>
+    <repository>
       <id>spigot-repo</id>
       <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository>
@@ -60,8 +64,8 @@
   </repositories>
   <dependencies>
     <dependency>
-      <groupId>org.spigotmc</groupId>
-      <artifactId>spigot-api</artifactId>
+      <groupId>io.papermc.paper</groupId>
+      <artifactId>paper-api</artifactId>
       <version>1.21.1-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
@@ -71,10 +75,26 @@
       <version>2025.1</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>com.github.SlimefunGuguProject</groupId>
+      <artifactId>ColoredEnderChests</artifactId>
+      <version>c99f079</version>
+      <scope>system</scope>
+      <systemPath>${ColoredEnderChests-systemPath}</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.github.SlimefunGuguProject</groupId>
+      <artifactId>MiniBlocks</artifactId>
+      <version>UNOFFICIAL</version>
+      <scope>system</scope>
+      <systemPath>${MiniBlocks-systemPath}</systemPath>
+    </dependency>
   </dependencies>
   <properties>
     <maven.compiler.target>21</maven.compiler.target>
+    <ColoredEnderChests-systemPath>C:\Users\11877\Documents\GitHub\FinalTECH-Changed\libs\ColoredEnderChests.jar</ColoredEnderChests-systemPath>
     <maven.compiler.source>21</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <MiniBlocks-systemPath>C:\Users\11877\Documents\GitHub\FinalTECH-Changed\libs\MiniBlocks.jar</MiniBlocks-systemPath>
   </properties>
 </project>
