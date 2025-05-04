@@ -1,5 +1,14 @@
 package io.taraxacum.finaltech.core.item.machine.manual;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
+import org.bukkit.block.Block;
+import org.bukkit.inventory.ItemStack;
+
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
+
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -24,13 +33,6 @@ import io.taraxacum.libs.slimefun.interfaces.ValidItem;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
-import org.bukkit.block.Block;
-import org.bukkit.inventory.ItemStack;
-
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
-
-import javax.annotation.Nonnull;
-import java.util.List;
  
 public class EquivalentExchangeTable extends AbstractManualMachine implements RecipeItem {
     private final String key = "value";
@@ -93,13 +95,17 @@ public class EquivalentExchangeTable extends AbstractManualMachine implements Re
             return StringNumberUtil.ZERO;
         }
 
-        List<SlimefunItem> slimefunItemList = Slimefun.getRegistry().getAllSlimefunItems();
+        List<ItemGroup> slimefunItemGroupList = Slimefun.getRegistry().getAllItemGroups();
+        
         int searchedTime = 0;
         SlimefunItem searchedSlimefunItem = null;
         String searchedValue = null;
 
         for (int i = 0, retryTimes = value.length(); i < retryTimes; i++) {
+        	ItemGroup slimefunItemGroup = slimefunItemGroupList.get(FinalTechChanged.getRandom().nextInt(slimefunItemGroupList.size()));
+        	List<SlimefunItem> slimefunItemList = slimefunItemGroup.getItems();
             SlimefunItem slimefunItem = slimefunItemList.get(FinalTechChanged.getRandom().nextInt(slimefunItemList.size()));
+            
             String targetValue = ItemValueTable.getInstance().getOrCalItemOutputValue(slimefunItem);
 
             if (targetValue.equals(StringNumberUtil.VALUE_INFINITY) && ++searchedTime >= amount) {
