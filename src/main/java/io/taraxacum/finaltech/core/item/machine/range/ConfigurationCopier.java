@@ -82,7 +82,7 @@ public class ConfigurationCopier extends AbstractRangeMachine implements RecipeI
         ItemStack digitalItemStack = blockMenu.getItemInSlot(ConfigurationWorkerMenu.DIGITAL_SLOT);
         int digital = SlimefunItem.getByItem(digitalItemStack) instanceof DigitalItem digitalItem ? digitalItem.getDigit() : 0;
 
-        BlockData blockData = block.getState().getBlockData();
+        BlockData blockData = block.getState(false).getBlockData();
         if (blockData instanceof Directional directional) {
             Runnable runnable = () -> {
                 ItemStack outputItem = ItemStackUtil.cloneItem(itemConfigurator, 1);

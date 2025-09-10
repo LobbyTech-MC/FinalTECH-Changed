@@ -126,7 +126,7 @@ public class CargoUtil {
             if (StorageCacheUtils.getMenu(cargoDTO.getOutputBlock().getLocation()) != null) {
                 outputMap = null;
             } else {
-                if (cargoDTO.getOutputBlock().getState() instanceof InventoryHolder) {
+                if (cargoDTO.getOutputBlock().getState(false) instanceof InventoryHolder) {
                     // Output Inventory is vanilla container.
                     outputMap = CargoUtil.getInvWithSlots(cargoDTO.getOutputBlock(), cargoDTO.getOutputSize(), cargoDTO.getOutputOrder());
                     if (outputMap == null) {
@@ -150,7 +150,7 @@ public class CargoUtil {
                 if (StorageCacheUtils.getMenu(cargoDTO.getOutputBlock().getLocation()) != null) {
                     outputMap = null;
                 } else {
-                    if (cargoDTO.getOutputBlock().getState() instanceof InventoryHolder) {
+                    if (cargoDTO.getOutputBlock().getState(false) instanceof InventoryHolder) {
                         // Output Inventory is vanilla container.
                         outputMap = CargoUtil.getInvWithSlots(cargoDTO.getOutputBlock(), cargoDTO.getOutputSize(), cargoDTO.getOutputOrder());
                         if (outputMap == null) {
@@ -181,7 +181,7 @@ public class CargoUtil {
             if (StorageCacheUtils.getMenu(cargoDTO.getInputBlock().getLocation()) != null) {
                 inputMap = null;
             } else {
-                if (cargoDTO.getInputBlock().getState() instanceof InventoryHolder) {
+                if (cargoDTO.getInputBlock().getState(false) instanceof InventoryHolder) {
                     // Input Inventory is vanilla container.
                     inputMap = CargoUtil.getInvWithSlots(cargoDTO.getInputBlock(), cargoDTO.getInputSize(), cargoDTO.getInputOrder());
                     if (inputMap == null) {
@@ -205,7 +205,7 @@ public class CargoUtil {
                 if (StorageCacheUtils.getMenu(cargoDTO.getInputBlock().getLocation()) != null) {
                     inputMap = null;
                 } else {
-                    if (cargoDTO.getInputBlock().getState() instanceof InventoryHolder) {
+                    if (cargoDTO.getInputBlock().getState(false) instanceof InventoryHolder) {
                         // Input Inventory is vanilla container.
                         inputMap = CargoUtil.getInvWithSlots(cargoDTO.getInputBlock(), cargoDTO.getInputSize(), cargoDTO.getInputOrder());
                         if (inputMap == null) {
@@ -739,7 +739,8 @@ public class CargoUtil {
                     slots = new int[0];
             }
         } else {
-            BlockState blockState = block.getState();
+            //BlockState blockState = block.getState(); 卡服方法 paper优化 不需要加载箱子tile方块内所有物品(spark分析 ContainHelper.getAllItems)(导致卡服)
+        	BlockState blockState = block.getState(false);
             if (blockState instanceof InventoryHolder inventoryHolder) {
                 inventory = inventoryHolder.getInventory();
                 slots = new int[inventory.getSize()];
@@ -758,7 +759,8 @@ public class CargoUtil {
 
     @Nullable
     public static Inventory getVanillaInventory(@Nonnull Block block) {
-        if (block.getState() instanceof InventoryHolder inventoryHolder) {
+        //if (block.getState() instanceof InventoryHolder inventoryHolder) {  //同上，paper优化
+    	if (block.getState(false) instanceof InventoryHolder inventoryHolder) {
             return inventoryHolder.getInventory();
         }
         return null;
@@ -801,6 +803,6 @@ public class CargoUtil {
         if (StorageCacheUtils.getMenu(block.getLocation()) != null) {
             return true;
         }
-        return block.getState() instanceof InventoryHolder;
+        return block.getState(false) instanceof InventoryHolder;
     }
 }

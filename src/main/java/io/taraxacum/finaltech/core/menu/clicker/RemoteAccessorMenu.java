@@ -38,7 +38,7 @@ public class RemoteAccessorMenu extends AbstractClickerMenu {
         // TODO async
         blockMenu.close();
 
-        BlockData blockData = block.getState().getBlockData();
+        BlockData blockData = block.getState(false).getBlockData();
         if (blockData instanceof Directional directional) {
             BlockFace blockFace = directional.getFacing();
             Block targetBlock = block;

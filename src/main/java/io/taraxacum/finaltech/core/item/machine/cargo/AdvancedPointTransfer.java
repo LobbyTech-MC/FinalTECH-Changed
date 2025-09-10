@@ -106,7 +106,7 @@ public class AdvancedPointTransfer extends AbstractCargo implements RecipeItem {
         boolean drawParticle = blockMenu.hasViewer() || RouteShow.VALUE_TRUE.equals(RouteShow.HELPER.getOrDefaultValue(config));
 
         if (primaryThread) {
-            BlockData blockData = block.getState().getBlockData();
+            BlockData blockData = block.getState(false).getBlockData();
             if (!(blockData instanceof Directional)) {
                 return;
             }
@@ -140,7 +140,7 @@ public class AdvancedPointTransfer extends AbstractCargo implements RecipeItem {
             CargoUtil.doCargo(new CargoDTO(javaPlugin, inputBlock, inputSlotSearchSize, inputSlotSearchOrder, outputBlock, outputSlotSearchSize, outputSlotSearchOrder, cargoNumber, cargoLimit, cargoFilter, blockMenu.toInventory(), AdvancedPointTransferMenu.ITEM_MATCH), cargoMode);
         } else {
             javaPlugin.getServer().getScheduler().runTask(javaPlugin, () -> {
-                BlockData blockData = block.getState().getBlockData();
+                BlockData blockData = block.getState(false).getBlockData();
                 if (!(blockData instanceof Directional)) {
                     return;
                 }
@@ -245,7 +245,7 @@ public class AdvancedPointTransfer extends AbstractCargo implements RecipeItem {
                 }
                 locationSet.add(result.getLocation());
                 if (BlockSearchMode.VALUE_INHERIT.equals(searchMode)) {
-                    BlockData blockData = result.getState().getBlockData();
+                    BlockData blockData = result.getState(false).getBlockData();
                     if (blockData instanceof Directional) {
                         blockFace = ((Directional) blockData).getFacing();
                         if (input) {

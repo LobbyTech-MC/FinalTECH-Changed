@@ -49,7 +49,7 @@ public class ConsumableRemoteAccessorMenu extends AbstractClickerMenu {
 
                 int digit = digitalItem.getDigit();
 
-                BlockData blockData = block.getState().getBlockData();
+                BlockData blockData = block.getState(false).getBlockData();
                 if (blockData instanceof Directional) {
                     BlockFace blockFace = ((Directional) blockData).getFacing();
                     Block targetBlock = block;

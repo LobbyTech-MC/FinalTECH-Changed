@@ -80,7 +80,7 @@ public class ConfigurableTransporterMenu extends AbstractClickerMenu {
 
                 int digit = digitalItem.getDigit();
 
-                BlockData blockData = block.getState().getBlockData();
+                BlockData blockData = block.getState(false).getBlockData();
                 List<Block> blockList = new ArrayList<>();
                 if (blockData instanceof Directional) {
                     BlockFace blockFace = ((Directional) blockData).getFacing();

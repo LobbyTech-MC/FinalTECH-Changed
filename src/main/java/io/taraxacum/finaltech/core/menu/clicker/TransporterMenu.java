@@ -68,7 +68,7 @@ public class TransporterMenu extends AbstractClickerMenu {
 
     @Override
     protected void doFunction(@Nonnull BlockMenu blockMenu, @Nonnull Block block, @Nonnull Player player) {
-        BlockData blockData = block.getState().getBlockData();
+        BlockData blockData = block.getState(false).getBlockData();
         List<Block> blockList = new ArrayList<>();
         if (blockData instanceof Directional) {
             BlockFace blockFace = ((Directional) blockData).getFacing();

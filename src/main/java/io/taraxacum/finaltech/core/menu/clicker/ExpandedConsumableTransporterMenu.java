@@ -99,7 +99,7 @@ public class ExpandedConsumableTransporterMenu extends AbstractClickerMenu {
         if (digit != -1) {
             blockMenu.close();
 
-            BlockData blockData = block.getState().getBlockData();
+            BlockData blockData = block.getState(false).getBlockData();
             List<Block> blockList = new ArrayList<>();
             if (blockData instanceof Directional) {
                 BlockFace blockFace = ((Directional) blockData).getFacing();

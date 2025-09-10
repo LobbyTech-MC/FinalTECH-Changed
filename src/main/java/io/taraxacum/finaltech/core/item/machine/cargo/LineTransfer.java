@@ -95,7 +95,7 @@ public class LineTransfer extends AbstractCargo implements RecipeItem {
         boolean drawParticle = blockMenu.hasViewer() || RouteShow.VALUE_TRUE.equals(RouteShow.HELPER.getOrDefaultValue(config));
 
         if (primaryThread) {
-            BlockData blockData = block.getState().getBlockData();
+            BlockData blockData = block.getState(false).getBlockData();
             if (!(blockData instanceof Directional)) {
                 return;
             }
@@ -209,7 +209,7 @@ public class LineTransfer extends AbstractCargo implements RecipeItem {
             }
         } else {
             javaPlugin.getServer().getScheduler().runTask(javaPlugin, () -> {
-                BlockData blockData = block.getState().getBlockData();
+                BlockData blockData = block.getState(false).getBlockData();
                 if (!(blockData instanceof Directional)) {
                     return;
                 }
