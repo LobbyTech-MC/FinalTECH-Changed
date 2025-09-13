@@ -16,7 +16,7 @@
         </includes>
       </resource>
     </resources>
-    <finalName>${project.name} v${project.version}</finalName>
+    <finalName>[sf]${project.name} v${project.version}</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>

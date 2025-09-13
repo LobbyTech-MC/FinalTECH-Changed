@@ -26,6 +26,7 @@ import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.springframework.scheduling.annotation.Async;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
@@ -43,6 +44,7 @@ public class AdvancedLocationTransfer extends AbstractCargo implements RecipeIte
 
     @Nonnull
     @Override
+    @Async
     protected BlockPlaceHandler onBlockPlace() {
         return new BlockPlaceHandler(false) {
             @Override

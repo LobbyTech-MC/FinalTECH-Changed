@@ -35,6 +35,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
@@ -48,6 +50,7 @@ import java.util.Set;
  * @author Final_ROOT
  * @since 1.0
  */
+@EnableAsync
 public class PointTransfer extends AbstractCargo implements RecipeItem {
     private final double particleDistance = 0.25;
     private final int particleInterval = 2;
@@ -59,6 +62,7 @@ public class PointTransfer extends AbstractCargo implements RecipeItem {
 
     @Nonnull
     @Override
+    @Async
     protected BlockPlaceHandler onBlockPlace() {
         return new BlockPlaceHandler(false) {
             @Override
@@ -81,17 +85,20 @@ public class PointTransfer extends AbstractCargo implements RecipeItem {
 
     @Nonnull
     @Override
+    @Async
     protected BlockBreakHandler onBlockBreak() {
         return MachineUtil.simpleBlockBreakerHandler(this, PointTransferMenu.ITEM_MATCH);
     }
 
     @Nonnull
     @Override
+    @Async
     protected AbstractMachineMenu setMachineMenu() {
         return new PointTransferMenu(this);
     }
 
     @Override
+    @Async
     public void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
         BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
         Location location = block.getLocation();
@@ -207,6 +214,7 @@ public class PointTransfer extends AbstractCargo implements RecipeItem {
     }
 
     @Nonnull
+    @Async
     private Block searchBlock(@Nonnull Block begin, @Nonnull String searchMode, @Nonnull BlockFace blockFace, boolean input, boolean drawParticle) {
         List<Location> particleLocationList = new ArrayList<>();
         particleLocationList.add(LocationUtil.getCenterLocation(begin));
@@ -262,6 +270,7 @@ public class PointTransfer extends AbstractCargo implements RecipeItem {
     }
 
     @Override
+    @Async
     public void registerDefaultRecipes() {
         RecipeUtil.registerDescriptiveRecipe(FinalTechChanged.getLanguageManager(), this,
                 String.valueOf(this.range));

@@ -22,6 +22,8 @@ import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
@@ -29,6 +31,7 @@ import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.Set;
 
+@EnableAsync
 public class AutoItemDismantleTable extends AbstractMachine implements RecipeItem {
     private final Set<String> allowedRecipeType = new HashSet<>(ConfigUtil.getItemStringList(this, "allowed-recipe-type"));
     private final Set<String> notAllowedId = new HashSet<>(ConfigUtil.getItemStringList(this, "not-allowed-id"));
@@ -40,23 +43,27 @@ public class AutoItemDismantleTable extends AbstractMachine implements RecipeIte
 
     @Nonnull
     @Override
+    @Async
     protected BlockPlaceHandler onBlockPlace() {
         return MachineUtil.BLOCK_PLACE_HANDLER_PLACER_DENY;
     }
 
     @Nonnull
     @Override
+    @Async
     protected BlockBreakHandler onBlockBreak() {
         return MachineUtil.simpleBlockBreakerHandler(this);
     }
 
     @Nonnull
     @Override
+    @Async
     protected AbstractMachineMenu setMachineMenu() {
         return new AutoItemDismantleTableMenu(this);
     }
 
     @Override
+    @Async
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
         BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
         if (MachineUtil.isEmpty(blockMenu.toInventory(), this.getOutputSlot())) {
@@ -101,6 +108,7 @@ public class AutoItemDismantleTable extends AbstractMachine implements RecipeIte
     }
 
     @Override
+    @Async
     public void registerDefaultRecipes() {
         RecipeTypeRegistry.getInstance().reload();
 
@@ -114,6 +122,7 @@ public class AutoItemDismantleTable extends AbstractMachine implements RecipeIte
         }
     }
 
+    @Async
     private boolean calAllowed(@Nonnull SlimefunItem slimefunItem) {
         if (this.allowedId.contains(slimefunItem.getId())) {
             return true;

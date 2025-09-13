@@ -26,13 +26,16 @@ import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
- 
+
+@EnableAsync
 public class LocationTransfer extends AbstractCargo implements RecipeItem {
     private final double particleDistance = 0.25;
     private final int particleInterval = 2;
@@ -43,6 +46,7 @@ public class LocationTransfer extends AbstractCargo implements RecipeItem {
 
     @Nonnull
     @Override
+    @Async
     protected BlockPlaceHandler onBlockPlace() {
         return new BlockPlaceHandler(false) {
             @Override
@@ -58,17 +62,20 @@ public class LocationTransfer extends AbstractCargo implements RecipeItem {
 
     @Nonnull
     @Override
+    @Async
     protected BlockBreakHandler onBlockBreak() {
         return MachineUtil.simpleBlockBreakerHandler(this, LocationTransferMenu.LOCATION_RECORDER_SLOT);
     }
 
     @Nonnull
     @Override
+    @Async
     protected AbstractMachineMenu setMachineMenu() {
         return new LocationTransferMenu(this);
     }
 
     @Override
+    @Async
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
         BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
         Location location = block.getLocation();
@@ -137,6 +144,7 @@ public class LocationTransfer extends AbstractCargo implements RecipeItem {
     }
 
     @Override
+    @Async
     public void registerDefaultRecipes() {
         RecipeUtil.registerDescriptiveRecipe(FinalTechChanged.getLanguageManager(), this);
     }

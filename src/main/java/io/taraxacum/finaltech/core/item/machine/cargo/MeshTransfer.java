@@ -30,6 +30,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
@@ -41,6 +43,7 @@ import java.util.List;
  * @author Final_ROOT
  * @since 1.0
  */
+@EnableAsync
 public class MeshTransfer extends AbstractCargo implements RecipeItem {
     private final double particleDistance = 0.25;
     private final int particleInterval = 2;
@@ -51,6 +54,7 @@ public class MeshTransfer extends AbstractCargo implements RecipeItem {
 
     @Nonnull
     @Override
+    @Async
     protected BlockPlaceHandler onBlockPlace() {
         return new BlockPlaceHandler(false) {
             @Override
@@ -72,17 +76,20 @@ public class MeshTransfer extends AbstractCargo implements RecipeItem {
 
     @Nonnull
     @Override
+    @Async
     protected BlockBreakHandler onBlockBreak() {
         return MachineUtil.simpleBlockBreakerHandler(this, MeshTransferMenu.ITEM_MATCH);
     }
 
     @Nonnull
     @Override
+    @Async
     protected AbstractMachineMenu setMachineMenu() {
         return new MeshTransferMenu(this);
     }
 
     @Override
+    @Async
     public void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
         BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
         Location location = block.getLocation();
@@ -375,6 +382,7 @@ public class MeshTransfer extends AbstractCargo implements RecipeItem {
     }
 
     @Nonnull
+    @Async
     public Block searchBlock(@Nonnull Block sourceBlock, @Nonnull BlockFace blockFace, @Nonnull String searchMode, boolean drawParticle) {
         List<Location> particleLocationList = new ArrayList<>();
         particleLocationList.add(LocationUtil.getCenterLocation(sourceBlock));
@@ -407,6 +415,7 @@ public class MeshTransfer extends AbstractCargo implements RecipeItem {
     }
 
     @Override
+    @Async
     public void registerDefaultRecipes() {
         RecipeUtil.registerDescriptiveRecipe(FinalTechChanged.getLanguageManager(), this);
     }

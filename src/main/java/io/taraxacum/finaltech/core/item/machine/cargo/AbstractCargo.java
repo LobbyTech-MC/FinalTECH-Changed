@@ -8,6 +8,8 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.taraxacum.finaltech.core.item.machine.AbstractMachine;
 import io.taraxacum.finaltech.util.MachineUtil;
 import org.bukkit.inventory.ItemStack;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import javax.annotation.Nonnull;
 
@@ -15,6 +17,7 @@ import javax.annotation.Nonnull;
  * @author Final_ROOT
  * @since 1.0
  */
+@EnableAsync
 public abstract class AbstractCargo extends AbstractMachine {
     public AbstractCargo(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
@@ -22,12 +25,14 @@ public abstract class AbstractCargo extends AbstractMachine {
 
     @Nonnull
     @Override
+    @Async
     protected BlockPlaceHandler onBlockPlace() {
         return MachineUtil.BLOCK_PLACE_HANDLER_PLACER_DENY;
     }
 
     @Nonnull
     @Override
+    @Async
     protected BlockBreakHandler onBlockBreak() {
         return MachineUtil.simpleBlockBreakerHandler(this);
     }

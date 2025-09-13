@@ -15,6 +15,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
@@ -63,6 +65,7 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
  * @author Final_ROOT
  * @since 1.0
  */
+@EnableAsync
 public class AdvancedLineTransfer extends AbstractCargo implements RecipeItem {
     private final int particleInterval = 2;
 
@@ -72,6 +75,7 @@ public class AdvancedLineTransfer extends AbstractCargo implements RecipeItem {
 
     @Nonnull
     @Override
+    @Async
     protected BlockPlaceHandler onBlockPlace() {
         return new BlockPlaceHandler(false) {
             @Override
@@ -104,17 +108,20 @@ public class AdvancedLineTransfer extends AbstractCargo implements RecipeItem {
 
     @Nonnull
     @Override
+    @Async
     protected BlockBreakHandler onBlockBreak() {
         return MachineUtil.simpleBlockBreakerHandler(this, AdvancedLineTransferMenu.ITEM_MATCH);
     }
 
     @Nonnull
     @Override
+    @Async
     protected AbstractMachineMenu setMachineMenu() {
         return new AdvancedLineTransferMenu(this);
     }
 
     @Override
+    @Async
     protected void tick(@Nonnull Block block, @Nonnull SlimefunItem slimefunItem, @Nonnull Config config) {
         BlockMenu blockMenu = StorageCacheUtils.getMenu(block.getLocation());
         Location location = block.getLocation();
@@ -400,6 +407,7 @@ public class AdvancedLineTransfer extends AbstractCargo implements RecipeItem {
     }
 
     @Nonnull
+    @Async
     public List<Block> searchBlock(@Nonnull Block begin, @Nonnull BlockFace blockFace, @Nonnull String blockSearchMode) {
         List<Block> list = new ArrayList<>();
         Block block = begin.getRelative(blockFace);
@@ -430,6 +438,7 @@ public class AdvancedLineTransfer extends AbstractCargo implements RecipeItem {
     }
 
     @Override
+    @Async
     public void registerDefaultRecipes() {
         RecipeUtil.registerDescriptiveRecipe(FinalTechChanged.getLanguageManager(), this);
     }
