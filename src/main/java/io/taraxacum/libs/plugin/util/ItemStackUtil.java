@@ -131,6 +131,9 @@ public final class ItemStackUtil {
      * @return Whether two #{@link ItemMeta} is same.
      */
     public static boolean isItemMetaSame(@Nonnull ItemMeta itemMeta1, @Nonnull ItemMeta itemMeta2) {
+    	if (itemMeta1 == null || itemMeta2 == null) {
+    		return false;
+    	}
         if (itemMeta1.hasDisplayName() && itemMeta2.hasDisplayName()) {
             if (!itemMeta1.getDisplayName().equals(itemMeta2.getDisplayName())) {
                 return false;
