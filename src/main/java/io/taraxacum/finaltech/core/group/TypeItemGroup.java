@@ -25,6 +25,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import city.norain.slimefun4.VaultIntegration;
+
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -167,14 +169,17 @@ public class TypeItemGroup extends FlexItemGroup {
                         return false;
                     });
                 } else {
+                	String lockNeedInfo = VaultIntegration.isEnabled()
+                            ? String.format("%.2f", research.getCurrencyCost()) + " &r&e⛁"
+                            : research.getLevelCost() + " &e级经验";
                     ItemStack icon = ItemStackUtil.cloneItem(ChestMenuUtils.getNotResearchedItem());
                     ItemStackUtil.setLore(icon,
                             "§7" + research.getName(player),
                             "§4§l" + Slimefun.getLocalization().getMessage(player, "guide.locked"),
                             "",
-                            "§a> 点击解锁",
+                            "&a> 单击解锁",
                             "",
-                            "§7花费: §b" + research.getCost() + " 等级经验");
+                            "&e需要 &6&l" + lockNeedInfo);
                     chestMenu.addCustomItem(MAIN_CONTENT[i], icon);
                     chestMenu.addMenuClickHandler(MAIN_CONTENT[i], (p, slot, item, action) -> {
                         PlayerPreResearchEvent event = new PlayerPreResearchEvent(player, research, slimefunItem);

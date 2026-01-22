@@ -73,7 +73,8 @@
       <groupId>com.github.SlimefunGuguProject</groupId>
       <artifactId>Slimefun4</artifactId>
       <version>2025.1</version>
-      <scope>provided</scope>
+      <scope>system</scope>
+      <systemPath>C:\Users\11877\Documents\GitHub\FinalTECH-Changed\libs\Slimefun.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>com.github.SlimefunGuguProject</groupId>
