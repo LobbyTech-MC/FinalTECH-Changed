@@ -87,8 +87,8 @@ public class MainItemGroup extends FlexItemGroup {
 
     @Nonnull
     private ChestMenu generateMenu(@Nonnull Player player, @Nonnull PlayerProfile playerProfile, @Nonnull SlimefunGuideMode slimefunGuideMode) {
-    	CustomMenu chestMenu = new CustomMenu(TextUtil.colorRandomString(FinalTechChanged.getLanguageString(FinalTechChanged.class.getSimpleName()) + "-" + FinalTechChanged.getConfigManager().getOrDefault("unknown", "version")));
-
+    	//CustomMenu chestMenu = new CustomMenu(TextUtil.colorRandomString(FinalTechChanged.getLanguageString(FinalTechChanged.class.getSimpleName()) + "-" + FinalTechChanged.getConfigManager().getOrDefault("unknown", "version")));
+    	CustomMenu chestMenu = new CustomMenu(TextUtil.colorRandomString("乱序技艺"));
         chestMenu.setEmptySlotsClickable(false);
         chestMenu.addMenuOpeningHandler(pl -> pl.playSound(pl.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 1, 1));
 
